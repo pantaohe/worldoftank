@@ -41,7 +41,7 @@ public class ImgUtils {
         Rectangle rectangle = new Rectangle(dimension);
         // 捕获屏幕上的内容
         BufferedImage screenCapture = StartMain.robot.createScreenCapture(rectangle);
-        screenCapture = ImageIO.read(new File("D:\\t\\ks.png"));
+//        screenCapture = ImageIO.read(new File("D:\\t\\ks.png"));
         return screenCapture;
     }
 

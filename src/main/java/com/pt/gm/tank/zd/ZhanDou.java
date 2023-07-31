@@ -55,7 +55,7 @@ public class ZhanDou {
 
             System.out.println(fileContent);
         } catch (Exception e) {
-            logger.debug("不是在战斗中{}", e.getMessage());
+            logger.debug("不是在战斗中{}", e);
         }
     }
 

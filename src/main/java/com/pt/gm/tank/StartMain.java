@@ -49,6 +49,9 @@ public class StartMain {
 
         while (true) {
             startTank();
+
+//            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+//            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
             System.out.println();
             Thread.sleep(3000);
         }
@@ -87,18 +90,21 @@ public class StartMain {
                 if (StringUtils.isBlank(fileContent) || fileContent.contains("战斗中") || fileContent.contains("车组乘员不足")) continue;
 
 
-                robot.mouseMove(x + TANK_ADDR[2]/2, TANK_ADDR[1] + TANK_ADDR[3]/2);
+                robot.mouseMove(x + TANK_ADDR[2]/2 + 10, TANK_ADDR[1] + TANK_ADDR[3]/2 + 14);
                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                 logger.debug("选中：" + fileContent.replaceAll("\\s", "") + "坦克");
-
-                robot.mouseMove(IN_COMBAT[0] + IN_COMBAT[2]/2, IN_COMBAT[1] + IN_COMBAT[3]/3);
+                Thread.sleep(1000);
+                robot.mouseMove(IN_COMBAT[0] + IN_COMBAT[2]/2 + 10, IN_COMBAT[1] + IN_COMBAT[3]/3 + 15);
                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                Thread.sleep(50);
                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                 logger.debug("点击开始");
 
                 return 1;
             }
+        }else {
+            System.out.println(111111);
         }
 
 
