@@ -1,6 +1,9 @@
 package com.pt.gm.tank.zd;
 
 import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.map.MinMapLX;
+import com.pt.gm.tank.mouse.MouseUtils;
+import com.pt.gm.tank.po.ZuoBiao;
 import com.pt.gm.tank.util.ImgUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -10,10 +13,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author pantao
@@ -30,25 +30,23 @@ public class ZhanDouFun {
     public static final double D_MIN_TANK = D_MIN - 30;
     public static boolean IS_MIAOZHUN = false;
 
-    public static boolean jihui(BufferedImage screenshot) throws IOException, InterruptedException {
+    public static boolean jihui(BufferedImage screenshot) throws InterruptedException {
+
         BufferedImage subimage = screenshot.getSubimage(StartMain.TANK_CENTRE[0], StartMain.TANK_CENTRE[1] + 150, StartMain.TANK_CENTRE[2], StartMain.TANK_CENTRE[3]);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isBlank(fileContent)) return false;
-        if (fileContent.contains("坦克被该玩家击毁")){
+        if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水") || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁")){
 
             StartMain.robot.keyPress(KeyEvent.VK_ESCAPE);
             StartMain.robot.keyRelease(KeyEvent.VK_ESCAPE);
             Thread.sleep(500);
 
-            StartMain.robot.mouseMove(StartMain.SCRN_SIZE[0]/2, StartMain.SCRN_SIZE[1]/2 - 50);
-            StartMain.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            StartMain.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-
-            Thread.sleep(200);
-
-            StartMain.robot.mouseMove(StartMain.SCRN_SIZE[0]/2 - 50, StartMain.SCRN_SIZE[1]/2 + 50);
-            StartMain.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            StartMain.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+            MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 50 + (int)(Math.random() * 50));
+            Thread.sleep(800);
+            MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 63 + (int)(Math.random() * 32));
+            StartMain.LU_XIAN = null;
+            FangXiangKongZhi.xuyaoW = false;
+            logger.debug("坦克被击毁，退出战斗");
             return true;
         }
         return false;
@@ -88,14 +86,11 @@ public class ZhanDouFun {
 //                IS_MIAOZHUN = true;
                 //按住ctrl，鼠标移动到小地图敌方坦克中间，点击鼠标右键，松开ctrl
                 StartMain.robot.keyPress(KeyEvent.CTRL_DOWN_MASK);
-                StartMain.robot.mouseMove(StartMain.MAP_START[0] + (int)entry.getValue()[1], StartMain.SCRN_SIZE[1] + (int)entry.getValue()[0]);
-                StartMain.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-                StartMain.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+                MouseUtils.mouseDianJi(StartMain.MAP_START[0] + (int)entry.getValue()[1], StartMain.SCRN_SIZE[1] + (int)entry.getValue()[0], InputEvent.BUTTON3_DOWN_MASK);
                 StartMain.robot.keyRelease(KeyEvent.CTRL_DOWN_MASK);
 
                 Thread.sleep(7000);     //7秒后开火
-                StartMain.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-                StartMain.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                MouseUtils.mouseAnXia();
                 IS_MIAOZHUN = false;
                 return null;
             }
@@ -228,11 +223,12 @@ public class ZhanDouFun {
 //                }
 
 
-                double dd = Math.pow(i - 15.5, 2) + Math.pow(j - 15.5, 2);
+//                double dd = Math.pow(i - 15.5, 2) + Math.pow(j - 15.5, 2);
 
+                if (200<i1 && 200<i2 && 200<i3){
 //                if (54<i1&&i1<154 && 107<i2&&i2<207 && 28<i3&&i3<128){
 //                if (D_MIN < dd && dd < D_MAX){
-                if (dd < D_MIN && (87<i1&&i1<127 && 165<i2&&i2<205 && -1<i3&&i3<36)){//己方
+//                if (dd < D_MIN && (87<i1&&i1<127 && 165<i2&&i2<205 && -1<i3&&i3<36)){//己方
 
                 }else{
                     i1 = i2 = i3 = 0;
@@ -251,5 +247,140 @@ public class ZhanDouFun {
         while (i1.length() < 4) i1 = "0" + i1;
         return i1;
     }
-    
+
+    //找到自己的位置
+    public static int[] myAddr(BufferedImage minMap) {
+        int height = minMap.getHeight();
+        int width = minMap.getWidth();
+        int[] qi1 = StartMain.LU_XIAN.get(0);
+        int[] qi2 = StartMain.LU_XIAN.get(1);
+
+        boolean qi1x,qi2x;
+        List<Integer> myList = new ArrayList<>();
+        boolean flag = false;
+        for (int i = 0; i < height; i++) {
+            qi1x = -MinMapLX.QZB < (i - qi1[1]) && (i - qi1[1]) < MinMapLX.QZB;
+            qi2x = -MinMapLX.QZB < (i - qi2[1]) && (i - qi2[1]) < MinMapLX.QZB;
+            for (int j = 0; j < width; j++) {
+                if ((qi1x && -MinMapLX.QZB < (j-qi1[0]) && (j-qi1[0]) < MinMapLX.QZB) || (qi2x && -MinMapLX.QZB < (j-qi2[0]) && (j-qi2[0]) < MinMapLX.QZB)) continue;
+
+                int rgb = minMap.getRGB(j, i);
+                int i1 = rgb >> 16 & 0xff;
+                int i2 = rgb >> 8 & 0xff;
+                int i3 = rgb & 0xff;
+                if (200<i1 && 200<i2 && 200<i3){
+                    myList.add((j<<16) + i);
+
+                    int ys = i;                             int ye = i + 18 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : i + 18;
+                    int xs = j - 15 < 0 ? 0 : j - 15;       int xe = j + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : j + 16;
+                    for (int k = ye-1; k >= ys; k--) {      //右下角
+                        for (int l = xe-1; l >= xs; l--) {
+                            rgb = minMap.getRGB(l, k);
+                            i1 = rgb >> 16 & 0xff;
+                            i2 = rgb >> 8 & 0xff;
+                            i3 = rgb & 0xff;
+                            if (flag = 200<i1 && 200<i2 && 200<i3) {
+                                myList.add((l<<16) + k); break;
+                            }
+                        }
+                        if (flag) break;
+                    }
+                    for (int k = xe-1; k >= xs; k--) {    //右上角
+                        for (int l = ys; l < xe; l++) {
+                            rgb = minMap.getRGB(k, l);
+                            i1 = rgb >> 16 & 0xff;
+                            i2 = rgb >> 8 & 0xff;
+                            i3 = rgb & 0xff;
+                            if (flag = 200<i1 && 200<i2 && 200<i3){
+                                myList.add((k<<16) + l); break;
+                            }
+                        }
+                        if (flag) break;
+                    }
+                    for (int k = xs; k < xe; k++) {    //左下角
+                        for (int l = ye-1; l >= ys; l--) {
+                            rgb = minMap.getRGB(k, l);
+                            i1 = rgb >> 16 & 0xff;
+                            i2 = rgb >> 8 & 0xff;
+                            i3 = rgb & 0xff;
+                            if (flag = 200<i1 && 200<i2 && 200<i3) {
+                                myList.add((k<<16) + l); break;
+                            }
+                        }
+                        if (flag) break;
+                    }
+                    logger.debug("计算自己位置坐标：size={}", myList.size());
+                    if (myList.size() > 3) removeCF(myList);
+                    int y = 0,x = 0; List<int[]> li = new ArrayList<>();
+                    for (Integer mywz : myList) {
+                        int x1 = mywz >> 16 & 0xffff; int y1 = mywz & 0xffff;
+                        x += x1; y += y1;
+                        li.add(new int[]{x1, y1});
+                    }
+
+                    return new int[]{x/3, y/3, jiaodu(li)};
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private static void removeCF(List<Integer> mySet) {
+        ZuoBiao zb1,zb2;
+        for (int i = 0; i < 3; i++) {
+            zb1 = new ZuoBiao(mySet.get(i) >> 16 & 0xffff, mySet.get(i) & 0xffff);
+            for (int j = i + 1; j < 4; j++) {
+                zb2 = new ZuoBiao(mySet.get(j) >> 16 & 0xffff, mySet.get(j) & 0xffff);
+                if (zb1.equals(zb2)) {
+                    mySet.remove(j);
+                    return;
+                }
+            }
+        }
+    }
+
+    /**
+     * 根据三点计算行径角度
+     * @param li
+     * @return
+     */
+    public static int jiaodu(List<int[]> li) {
+        double d01 = Math.pow(li.get(0)[0] - li.get(1)[0], 2) + Math.pow(li.get(0)[1] - li.get(1)[1], 2);
+        double d02 = Math.pow(li.get(0)[0] - li.get(2)[0], 2) + Math.pow(li.get(0)[1] - li.get(2)[1], 2);
+        double d12 = Math.pow(li.get(1)[0] - li.get(2)[0], 2) + Math.pow(li.get(1)[1] - li.get(2)[1], 2);
+        int jiaodu = 0;
+        if (d01 < d02 && d01 < d12){
+            jiaodu = jiaodu(new double[]{(li.get(0)[0] + li.get(1)[0] + 0.0) / 2, (li.get(0)[1] + li.get(1)[1] + 0.0) / 2}, li.get(2));
+        }else
+        if (d02 < d01 && d02 < d12){
+            jiaodu = jiaodu(new double[]{(li.get(0)[0] + li.get(2)[0] + 0.0) / 2, (li.get(0)[1] + li.get(2)[1] + 0.0) / 2}, li.get(1));
+        }else
+        if (d12 < d01 && d12 < d02){
+            jiaodu = jiaodu(new double[]{(li.get(1)[0] + li.get(2)[0] + 0.0) / 2, (li.get(1)[1] + li.get(2)[1] + 0.0) / 2}, li.get(0));
+        }
+        return 360 - jiaodu;        //因为y轴数据是上面小下面大，所以需要翻转角度
+    }
+
+    public static int jiaodu(double[] doubles, int[] ints) {
+        double xc = ints[0] - doubles[0];
+        double yc = ints[1] - doubles[1];
+        return jiaodu(xc, yc);
+    }
+
+    public static int jiaodu(double xc, double yc) {
+        double degrees = Math.toDegrees(Math.atan(yc / xc));
+        if (xc < 0) degrees += 180;
+        else if (yc < 0) degrees += 360;
+
+        return (int) degrees;
+    }
+
+    public static double dd2(int[] zb1, int[] zb2){
+        return Math.pow(zb1[0] - zb2[0], 2) + Math.pow(zb1[1] - zb2[1], 2);
+    }
+
+    public static int jiaodu(int[] addrs, int[] ints) {
+        return jiaodu(new double[]{addrs[0], addrs[1]}, ints);
+    }
 }

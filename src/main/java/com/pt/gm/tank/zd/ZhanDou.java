@@ -9,10 +9,6 @@ import org.slf4j.LoggerFactory;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author pantao
@@ -24,6 +20,24 @@ import java.util.Map;
 public class ZhanDou {
 
     private static Logger logger = LoggerFactory.getLogger(ZhanDou.class);
+    static int MIN_MAP_W = StartMain.SCRN_SIZE[0] - StartMain.MAP_START[0];
+
+    public static boolean zhandouFX(BufferedImage screenshot) throws IOException {
+        //右上角时间
+        BufferedImage subimage = screenshot.getSubimage(1860, StartMain.SCRN_SIZE[2], 50, 30);
+        String fileContent = ImgUtils.getString(subimage);
+
+        logger.debug("界面内容{}", fileContent.replaceAll("\\s", ""));
+        //有时间表示战斗中
+        if (StringUtils.isNotBlank(fileContent) && fileContent.contains(":")){
+            logger.debug("进入交战中界面");
+            ZhanDou.zhandou(fileContent, screenshot);
+            logger.debug("交战界面分析完成");
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * 战斗界面
@@ -31,8 +45,7 @@ public class ZhanDou {
      * @param screenshot
      */
     public static void zhandou(String fileContent, BufferedImage screenshot) {
-        BufferedImage minMap;
-
+        BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
 
 
         String[] filecs = fileContent.trim().split(":");
@@ -40,24 +53,58 @@ public class ZhanDou {
             int m = Integer.parseInt(filecs[0]);
             int s = Integer.parseInt(filecs[1]);
 
-//            if (m == 0 && s < 31) return;     //倒计时，不需要操作
-
+            // 击毁
             if (ZhanDouFun.jihui(screenshot)) return;
 
-            minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], StartMain.SCRN_SIZE[0]-StartMain.MAP_START[0], StartMain.SCRN_SIZE[1]-StartMain.MAP_START[1]);
-            fileContent = ImgUtils.getString(minMap);
+            if ((m == 0 && s < 59) || (StartMain.TUPIAN_NEIRONG.contains("随机战"))){
+                logger.debug("预读阶段，无需处理");
+                return;     //倒计时，不需要操作
+            }
+
+            kaiche(minMap);
+
+            // 火炮小地图框
+//            int[] mouses = ZhanDouFun.mouseCenter(minMap);
+
+            //所有坦克坐标
+//            List<int[]> dfList = ZhanDouFun.dfTank(minMap);
 
 
-            int[] mouses = ZhanDouFun.mouseCenter(minMap);
-            List<int[]> dfList = ZhanDouFun.dfTank(minMap);
 
-
-
-            System.out.println(fileContent);
         } catch (Exception e) {
             logger.debug("不是在战斗中{}", e);
         }
     }
 
+    private static void kaiche(BufferedImage minMap) throws InterruptedException {
+        if (StartMain.LU_XIAN == null) {    //如果没有读取到地图，则直接两次r
+            logger.debug("没有读取到地图，则直接两次r");
+            StartMain.robot.keyPress(KeyEvent.VK_R);
+            StartMain.robot.keyRelease(KeyEvent.VK_R);
+            Thread.sleep(150);
+            StartMain.robot.keyPress(KeyEvent.VK_R);
+            StartMain.robot.keyRelease(KeyEvent.VK_R);
+            return;
+        }
+        int[] addrs = ZhanDouFun.myAddr(minMap);
+        if (addrs == null) FangXiangKongZhi.xuyaoW = true;
+        double lx0 = ZhanDouFun.dd2(StartMain.LU_XIAN.get(0), addrs);
+        double lx1 = ZhanDouFun.dd2(StartMain.LU_XIAN.get(1), addrs);
 
+        if (lx0 < lx1) {
+            for (int i = 2; i < StartMain.LU_XIAN.size(); i++) {
+                FangXiangKongZhi.kongzhi(addrs, i);
+            }
+        }else {
+            for (int i = StartMain.LU_XIAN.size() - 1; i >= 2; i--) {
+                FangXiangKongZhi.kongzhi(addrs, i);
+            }
+        }
+    }
+
+
+
+    public static void main(String[] args) {
+        System.out.println(-2 % 10);
+    }
 }
