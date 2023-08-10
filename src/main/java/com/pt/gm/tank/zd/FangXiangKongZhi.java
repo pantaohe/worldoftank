@@ -41,7 +41,8 @@ public class FangXiangKongZhi implements Runnable{
                 BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
                 myAddr = ZhanDouFun.myAddr(minMap);
                 if (myAddr == null){
-                    xuyaoW = false; xuyaoS = true;
+                    if (Math.random() < 0.5) {xuyaoW = false; xuyaoS = true;}
+                    else {xuyaoS = false; xuyaoW = true;}
                     Thread.sleep(100);
                 }
             }while (myAddr == null);
@@ -61,14 +62,14 @@ public class FangXiangKongZhi implements Runnable{
                 StartMain.robot.keyRelease(vkX);
             }
             ddt = dd;
-            if (dd > 1000) {
+            if (dd > 800) {
                 logger.debug("按下前进w");
                 xuyaoS = false; xuyaoW = true;
             }else if(dd > 200){
                 logger.debug("松开前进s/w,距离比较近手动操作");
                 xuyaoS = false; xuyaoW = false;     //距离比较近手动操作
                 StartMain.robot.keyPress(KeyEvent.VK_W);
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 StartMain.robot.keyRelease(KeyEvent.VK_W);
             }else {
                 xuyaoS = false; xuyaoW = false;
