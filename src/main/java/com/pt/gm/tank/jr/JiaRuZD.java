@@ -21,15 +21,15 @@ public class JiaRuZD {
     private static Logger logger = LoggerFactory.getLogger(JiaRuZD.class);
 
 
-    public static boolean jiarujiemian(BufferedImage screenshot) throws IOException, InterruptedException {
+    public static boolean jiarujiemian(BufferedImage screenshot) {
         BufferedImage subimage = screenshot.getSubimage(StartMain.IN_COMBAT[0], StartMain.IN_COMBAT[1], StartMain.IN_COMBAT[2], StartMain.IN_COMBAT[3]);
         String fileContent = ImgUtils.getString(subimage);
         logger.debug("加入战斗位置文字为：{}", fileContent);
 
-        if (StringUtils.isBlank(fileContent) && !fileContent.contains("加入战斗")) {
+        if (StringUtils.isBlank(fileContent) || !fileContent.contains("加入战斗")) {
             logger.error("加入战斗位置无文字，或不是加入战斗，结束");
         }else {
-            return JiaRuZD.jiaRu(screenshot);
+            return true;
         }
         return false;
     }

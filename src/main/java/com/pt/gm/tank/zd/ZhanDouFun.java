@@ -35,7 +35,8 @@ public class ZhanDouFun {
         BufferedImage subimage = screenshot.getSubimage(StartMain.TANK_CENTRE[0], StartMain.TANK_CENTRE[1] + 150, StartMain.TANK_CENTRE[2], StartMain.TANK_CENTRE[3]);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isBlank(fileContent)) return false;
-        if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水") || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁")){
+        if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水")
+                || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁") || fileContent.contains("着火了")){
 
             StartMain.robot.keyPress(KeyEvent.VK_ESCAPE);
             StartMain.robot.keyRelease(KeyEvent.VK_ESCAPE);
@@ -44,12 +45,17 @@ public class ZhanDouFun {
             MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 50 + (int)(Math.random() * 50));
             Thread.sleep(800);
             MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 63 + (int)(Math.random() * 32));
-            StartMain.LU_XIAN = null;
-            FangXiangKongZhi.xuyaoW = false;
-            logger.debug("坦克被击毁，退出战斗");
+            jieshuDY();
             return true;
         }
         return false;
+    }
+
+    public static void jieshuDY() {
+        StartMain.LU_XIAN = null;
+        FangXiangKongZhi.xuyaoW = false;
+        FangXiangKongZhi.xuyaoS = false;
+        logger.debug("坦克被击毁，退出战斗");
     }
 
     public static List<int[]> dfTank(BufferedImage subimage) throws InterruptedException {
@@ -268,11 +274,22 @@ public class ZhanDouFun {
                 int i1 = rgb >> 16 & 0xff;
                 int i2 = rgb >> 8 & 0xff;
                 int i3 = rgb & 0xff;
-                if (200<i1 && 200<i2 && 200<i3){
-                    myList.add((j<<16) + i);
+                if (250<i1 && 250<i2 && 250<i3){
 
-                    int ys = i;                             int ye = i + 18 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : i + 18;
+                    int ys = i - 15 < 0 ? 0 : i - 15;       int ye = i + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : i + 16;
                     int xs = j - 15 < 0 ? 0 : j - 15;       int xe = j + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : j + 16;
+                    for (int k = ys; k < ye; k++) {      //左上角
+                        for (int l = xs; l < xe; l++) {
+                            rgb = minMap.getRGB(l, k);
+                            i1 = rgb >> 16 & 0xff;
+                            i2 = rgb >> 8 & 0xff;
+                            i3 = rgb & 0xff;
+                            if (flag = 200<i1 && 200<i2 && 200<i3) {
+                                myList.add((l<<16) + k); break;
+                            }
+                        }
+                        if (flag) break;
+                    }
                     for (int k = ye-1; k >= ys; k--) {      //右下角
                         for (int l = xe-1; l >= xs; l--) {
                             rgb = minMap.getRGB(l, k);
@@ -309,8 +326,11 @@ public class ZhanDouFun {
                         }
                         if (flag) break;
                     }
-                    logger.debug("计算自己位置坐标：size={}", myList.size());
-                    if (myList.size() > 3) removeCF(myList);
+                    removeCF(myList);
+                    if (myList.size() != 3) {
+                        logger.debug("自己位置坐标计算失败:{}", myList.size());
+                        return null;
+                    }
                     int y = 0,x = 0; List<int[]> li = new ArrayList<>();
                     for (Integer mywz : myList) {
                         int x1 = mywz >> 16 & 0xffff; int y1 = mywz & 0xffff;
@@ -327,11 +347,15 @@ public class ZhanDouFun {
     }
 
     private static void removeCF(List<Integer> mySet) {
+        for (Integer integer : mySet) logger.debug("自己坐标：{}-{}", integer >> 16 & 0xffff, integer & 0xffff);
+
+        if (mySet.size() == 3) return;
         ZuoBiao zb1,zb2;
         for (int i = 0; i < 3; i++) {
             zb1 = new ZuoBiao(mySet.get(i) >> 16 & 0xffff, mySet.get(i) & 0xffff);
             for (int j = i + 1; j < 4; j++) {
                 zb2 = new ZuoBiao(mySet.get(j) >> 16 & 0xffff, mySet.get(j) & 0xffff);
+//                logger.debug("坐标{}：{},坐标{}：{}",i ,zb1.toString(), j, zb2.toString());
                 if (zb1.equals(zb2)) {
                     mySet.remove(j);
                     return;
@@ -359,7 +383,7 @@ public class ZhanDouFun {
         if (d12 < d01 && d12 < d02){
             jiaodu = jiaodu(new double[]{(li.get(1)[0] + li.get(2)[0] + 0.0) / 2, (li.get(1)[1] + li.get(2)[1] + 0.0) / 2}, li.get(0));
         }
-        return 360 - jiaodu;        //因为y轴数据是上面小下面大，所以需要翻转角度
+        return jiaodu;
     }
 
     public static int jiaodu(double[] doubles, int[] ints) {
@@ -373,7 +397,7 @@ public class ZhanDouFun {
         if (xc < 0) degrees += 180;
         else if (yc < 0) degrees += 360;
 
-        return (int) degrees;
+        return 360 - (int) degrees;     //因为y轴数据是上面小下面大，所以需要翻转角度
     }
 
     public static double dd2(int[] zb1, int[] zb2){

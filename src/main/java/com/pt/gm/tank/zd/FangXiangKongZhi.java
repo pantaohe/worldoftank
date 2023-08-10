@@ -1,6 +1,7 @@
 package com.pt.gm.tank.zd;
 
 import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.jr.JiaRuZD;
 import com.pt.gm.tank.util.ImgUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,48 +19,73 @@ import java.awt.image.BufferedImage;
 public class FangXiangKongZhi implements Runnable{
     private static Logger logger = LoggerFactory.getLogger(FangXiangKongZhi.class);
     public static boolean xuyaoW = false;
+    public static boolean xuyaoS = false;
 
     public static void kongzhi(int[] myAddr, int i) throws InterruptedException {
 
 
-        int[] mubiao = StartMain.LU_XIAN.get(i);
+        int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt = 0;
 
         while (true) {
             logger.debug("进入方向控制循环");
+
             int lxjd = ZhanDouFun.jiaodu(myAddr, mubiao);
             int jdc = (myAddr[2] - lxjd + 360) % 360;
-            int millis = (2 + (jdc % 180) / 3) * 100;
+            int zxjd = jdc > 180 ? (360 - jdc) : jdc;
+            int millis = zxjd * 15;   // jdc 360-jdc
 
             double dd = ZhanDouFun.dd2(myAddr, mubiao);
-            logger.debug("距离目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
-            if (dd > 16) {
+            logger.debug("目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
+            if (ddt == dd) {        //被房子等卡住了，随机向左或向右2秒
+                logger.debug("被房子等卡住了，随机向左或向右2秒");
+                int vkX = Math.random() < 0.5 ? KeyEvent.VK_D : KeyEvent.VK_A;
+                StartMain.robot.keyPress(vkX);
+                Thread.sleep(2000);
+                StartMain.robot.keyRelease(vkX);
+            }
+            ddt = dd;
+            if (dd > 1000) {
                 logger.debug("按下前进w");
-                xuyaoW = true;
+                xuyaoS = false; xuyaoW = true;
+            }else if(dd > 200){
+                logger.debug("松开前进s/w,距离比较近手动操作");
+                xuyaoS = false; xuyaoW = false;     //距离比较近手动操作
+                StartMain.robot.keyPress(KeyEvent.VK_W);
+                Thread.sleep(1000);
+                StartMain.robot.keyRelease(KeyEvent.VK_W);
             }else {
-                logger.debug("到达目标点，松开前进w");
-                xuyaoW = false;
+                xuyaoS = false; xuyaoW = false;
                 return;     //达到小目标退出
             }
 
             logger.debug("方向分别为自己{}度-目标{}度", myAddr[2], lxjd);
             if (0 < jdc && jdc < 180) { //向右转往
-                logger.debug("向右转{}ms", millis);
+                logger.debug("向右角度{}转{}ms", zxjd, millis);
                 StartMain.robot.keyPress(KeyEvent.VK_D);
                 Thread.sleep(millis);
                 StartMain.robot.keyRelease(KeyEvent.VK_D);
             } else {     //向左转往
-                logger.debug("向左转{}ms", millis);
+                logger.debug("向左角度{}转{}ms", zxjd, millis);
                 StartMain.robot.keyPress(KeyEvent.VK_A);
                 Thread.sleep(millis);
                 StartMain.robot.keyRelease(KeyEvent.VK_A);
             }
+            do {
+                Thread.sleep(100);
+                BufferedImage screenshot = ImgUtils.screenshot();
+                String neirong = ImgUtils.getString(screenshot);
+                if (neirong.contains("获得贴花") || JiaRuZD.jiarujiemian(screenshot)) {   //没有在咱都界面
+                    ZhanDouFun.jieshuDY();
+                    return;
+                }
+                if (ZhanDouFun.jihui(screenshot)) return;       //战车被毁退出
 
-//            Thread.sleep(200);
-            BufferedImage screenshot = ImgUtils.screenshot();
-            if (ZhanDouFun.jihui(screenshot)) return;       //战车被毁退出
-
-            BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
-            myAddr = ZhanDouFun.myAddr(minMap);
+                BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
+                myAddr = ZhanDouFun.myAddr(minMap);
+                if (myAddr == null){
+                    xuyaoW = false; xuyaoS = true;
+                }
+            }while (myAddr == null);
         }
 
     }
@@ -68,10 +94,36 @@ public class FangXiangKongZhi implements Runnable{
     @Override
     public void run() {
         boolean anxiaW = false;
+        boolean anxiaS = false;
         while (true){
-            if (!anxiaW == xuyaoW) {
-                if (xuyaoW) StartMain.robot.keyPress(KeyEvent.VK_W);
-                else StartMain.robot.keyRelease(KeyEvent.VK_W);
+            if (anxiaW != xuyaoW) {
+                if (xuyaoW){
+                    logger.debug("开始前进");
+                    StartMain.robot.keyRelease(KeyEvent.VK_S);
+                    anxiaS = false;
+
+                    StartMain.robot.keyPress(KeyEvent.VK_W);
+                    anxiaW = true;
+                }else{
+                    logger.debug("停止前进");
+                    StartMain.robot.keyRelease(KeyEvent.VK_W);
+                    anxiaW = false;
+                }
+            }
+
+            if (anxiaS != xuyaoS) {
+                if (xuyaoS){
+                    logger.debug("开始后退");
+                    StartMain.robot.keyRelease(KeyEvent.VK_W);
+                    anxiaW = false;
+
+                    StartMain.robot.keyPress(KeyEvent.VK_S);
+                    anxiaS = true;
+                }else {
+                    logger.debug("停止后退");
+                    StartMain.robot.keyRelease(KeyEvent.VK_S);
+                    anxiaS = false;
+                }
             }
 
             try {

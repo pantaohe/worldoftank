@@ -22,7 +22,7 @@ public class ZhanDou {
     private static Logger logger = LoggerFactory.getLogger(ZhanDou.class);
     static int MIN_MAP_W = StartMain.SCRN_SIZE[0] - StartMain.MAP_START[0];
 
-    public static boolean zhandouFX(BufferedImage screenshot) throws IOException {
+    public static boolean zhandouFX(BufferedImage screenshot) {
         //右上角时间
         BufferedImage subimage = screenshot.getSubimage(1860, StartMain.SCRN_SIZE[2], 50, 30);
         String fileContent = ImgUtils.getString(subimage);
@@ -30,10 +30,21 @@ public class ZhanDou {
         logger.debug("界面内容{}", fileContent.replaceAll("\\s", ""));
         //有时间表示战斗中
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains(":")){
-            logger.debug("进入交战中界面");
-            ZhanDou.zhandou(fileContent, screenshot);
-            logger.debug("交战界面分析完成");
-            return true;
+
+            String[] filecs = fileContent.trim().split(":");
+            try {
+                int m = Integer.parseInt(filecs[0]);
+                int s = Integer.parseInt(filecs[1]);
+                if ((m == 0 && s < 59) || (StartMain.TUPIAN_NEIRONG.contains("随机战"))) {
+                    logger.debug("预读阶段，无需处理");
+                    return false;     //倒计时，不需要操作
+                }
+
+                logger.debug("进入交战中界面");
+                return true;
+            } catch (Exception e) {
+                logger.debug("不是在战斗中{}", e);
+            }
         }
         return false;
     }
@@ -41,25 +52,15 @@ public class ZhanDou {
 
     /**
      * 战斗界面
-     * @param fileContent
      * @param screenshot
      */
-    public static void zhandou(String fileContent, BufferedImage screenshot) {
+    public static void zhandou(BufferedImage screenshot) {
         BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
 
 
-        String[] filecs = fileContent.trim().split(":");
         try {
-            int m = Integer.parseInt(filecs[0]);
-            int s = Integer.parseInt(filecs[1]);
-
             // 击毁
             if (ZhanDouFun.jihui(screenshot)) return;
-
-            if ((m == 0 && s < 59) || (StartMain.TUPIAN_NEIRONG.contains("随机战"))){
-                logger.debug("预读阶段，无需处理");
-                return;     //倒计时，不需要操作
-            }
 
             kaiche(minMap);
 
@@ -87,7 +88,10 @@ public class ZhanDou {
             return;
         }
         int[] addrs = ZhanDouFun.myAddr(minMap);
-        if (addrs == null) FangXiangKongZhi.xuyaoW = true;
+        if (addrs == null) {
+            FangXiangKongZhi.xuyaoW = true;
+            return;
+        }
         double lx0 = ZhanDouFun.dd2(StartMain.LU_XIAN.get(0), addrs);
         double lx1 = ZhanDouFun.dd2(StartMain.LU_XIAN.get(1), addrs);
 

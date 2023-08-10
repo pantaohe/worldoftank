@@ -28,7 +28,7 @@ public class StartMain {
     private static Logger logger = LoggerFactory.getLogger(StartMain.class);
 
     public static int[] SCRN_SIZE = {1920, 1017, 23, 40};       // 23 40 y轴上下边框分辨高 23 和40
-    public static int[] MAP_START = {1429, 549};     //小地图起点 带边框是407*407，不带边框是393*393
+    public static int[] MAP_START = {1429, 549};     //小地图起点 不带边框是491*491
     public static int[] IN_COMBAT = {880, 31, 155, 40};
     public static int[] TANK_ADDR = {120, 772, 175, 112};
     public static int[] TANK_CENTRE  = {760, 390, 400, 150};
@@ -72,13 +72,19 @@ public class StartMain {
             if (StartMain.LU_XIAN == null) logger.debug("地图加载失败");
             else logger.debug("地图加载成功");
         }
-        if (ImgUtils.notJarStart) StartMain.LU_XIAN = MinMapLX.HU_BIAN_DE_JUE_ZHU;
+        if (ImgUtils.notJarStart) StartMain.LU_XIAN = MinMapLX.LU_BIE_KE;
 
         // 是否战斗界面分析
-        if (ZhanDou.zhandouFX(screenshot)) return 1;
+        if (ZhanDou.zhandouFX(screenshot)) {
+            ZhanDou.zhandou(screenshot);
+            return 1;
+        }
 
         // 分析是否加入界面
-        if (JiaRuZD.jiarujiemian(screenshot)) return 2;
+        if (JiaRuZD.jiarujiemian(screenshot)) {
+            JiaRuZD.jiaRu(screenshot);
+            return 2;
+        }
         return 0;
     }
 

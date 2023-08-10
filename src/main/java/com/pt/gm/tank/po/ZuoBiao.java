@@ -47,4 +47,12 @@ public class ZuoBiao {
     public int hashCode() {
         return Objects.hash(getX()/3, getY()/3);
     }
+
+    @Override
+    public String toString() {
+        return "ZuoBiao{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

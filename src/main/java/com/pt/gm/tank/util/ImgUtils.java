@@ -27,7 +27,7 @@ public class ImgUtils {
         URL resource = ProjectPathUtils.class.getResource("/");
         if (resource == null) resource = ProjectPathUtils.class.getResource("");
         resourcePath = resource.getPath();
-        notJarStart = !resourcePath.contains("target/classes/");
+        notJarStart = resourcePath.contains("target/classes/");
     }
 
     public static String getString(BufferedImage subimage) {
@@ -58,10 +58,10 @@ public class ImgUtils {
 
         try {
             if (notJarStart) {
-                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691578039618.png"));
+                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691654510010.png"));
             }else{
-//                if (Math.random() < 0.1)
-//                    ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + System.currentTimeMillis() + ".png"));
+                if (Math.random() < 0.1)
+                    ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + System.currentTimeMillis() + ".png"));
             }
         } catch (IOException e) {
             e.printStackTrace();

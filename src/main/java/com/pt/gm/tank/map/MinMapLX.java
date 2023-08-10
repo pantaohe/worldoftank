@@ -31,10 +31,10 @@ public class MinMapLX {
             new int[]{340, 87}, new int[]{350, 291}, new int[]{396, 360}, new int[]{322, 412});
     public static List<int[]> LU_BIE_KE = Arrays.asList(new int[]{206, 82}, new int[]{196, 426},
             new int[]{291, 116}, new int[]{276, 349}, new int[]{242, 411});
-    public static List<int[]> JI_DI_BING_YUAN = Arrays.asList(new int[]{439, 100}, new int[]{78, 394},
-            new int[]{265, 421}, new int[]{341, 346}, new int[]{381, 184});
+    public static List<int[]> JI_DI_BING_YUAN = Arrays.asList(new int[]{78, 394}, new int[]{439, 100},
+            new int[]{182, 419}, new int[]{335, 362}, new int[]{337, 344}, new int[]{354, 209}, new int[]{419, 167});
     public static List<int[]> AN_SI_KE = Arrays.asList(new int[]{260, 40}, new int[]{260, 448},
-            new int[]{220, 64}, new int[]{206, 432});
+            new int[]{220, 64}, new int[]{219, 134}, new int[]{230, 378}, new int[]{200, 394}, new int[]{202, 424});
 //    public static List<int[]> MAN_HUANG_ZHI_DI = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
 //            new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
 
