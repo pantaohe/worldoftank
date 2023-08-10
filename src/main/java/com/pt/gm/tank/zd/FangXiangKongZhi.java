@@ -21,13 +21,30 @@ public class FangXiangKongZhi implements Runnable{
     public static boolean xuyaoW = false;
     public static boolean xuyaoS = false;
 
-    public static void kongzhi(int[] myAddr, int i) throws InterruptedException {
+    public static void kongzhi(int i) throws InterruptedException {
 
-
+        int[] myAddr;
         int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt = 0;
 
         while (true) {
             logger.debug("进入方向控制循环");
+
+            do {
+                BufferedImage screenshot = ImgUtils.screenshot();
+                String neirong = ImgUtils.getString(screenshot);
+                if (neirong.contains("获得贴花") || JiaRuZD.jiarujiemian(screenshot)) {   //没有在咱都界面
+                    ZhanDouFun.jieshuDY();
+                    return;
+                }
+                if (ZhanDouFun.jihui(screenshot)) return;       //战车被毁退出
+
+                BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
+                myAddr = ZhanDouFun.myAddr(minMap);
+                if (myAddr == null){
+                    xuyaoW = false; xuyaoS = true;
+                    Thread.sleep(100);
+                }
+            }while (myAddr == null);
 
             int lxjd = ZhanDouFun.jiaodu(myAddr, mubiao);
             int jdc = (myAddr[2] - lxjd + 360) % 360;
@@ -70,22 +87,6 @@ public class FangXiangKongZhi implements Runnable{
                 Thread.sleep(millis);
                 StartMain.robot.keyRelease(KeyEvent.VK_A);
             }
-            do {
-                Thread.sleep(100);
-                BufferedImage screenshot = ImgUtils.screenshot();
-                String neirong = ImgUtils.getString(screenshot);
-                if (neirong.contains("获得贴花") || JiaRuZD.jiarujiemian(screenshot)) {   //没有在咱都界面
-                    ZhanDouFun.jieshuDY();
-                    return;
-                }
-                if (ZhanDouFun.jihui(screenshot)) return;       //战车被毁退出
-
-                BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
-                myAddr = ZhanDouFun.myAddr(minMap);
-                if (myAddr == null){
-                    xuyaoW = false; xuyaoS = true;
-                }
-            }while (myAddr == null);
         }
 
     }

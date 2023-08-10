@@ -97,11 +97,11 @@ public class ZhanDou {
 
         if (lx0 < lx1) {
             for (int i = 2; i < StartMain.LU_XIAN.size(); i++) {
-                FangXiangKongZhi.kongzhi(addrs, i);
+                FangXiangKongZhi.kongzhi(i);
             }
         }else {
             for (int i = StartMain.LU_XIAN.size() - 1; i >= 2; i--) {
-                FangXiangKongZhi.kongzhi(addrs, i);
+                FangXiangKongZhi.kongzhi(i);
             }
         }
     }
