@@ -28,7 +28,7 @@ public class MinMapLX {
     public static List<int[]> HU_BIAN_DE_JUE_ZHU = Arrays.asList(new int[]{99, 42}, new int[]{352, 431},
             new int[]{211, 132}, new int[]{167, 277}, new int[]{258, 427});
     public static List<int[]> LA_SHI_WEI_LI = Arrays.asList(new int[]{140, 49}, new int[]{140, 440},
-            new int[]{340, 87}, new int[]{350, 291}, new int[]{396, 360}, new int[]{322, 412});
+            new int[]{294, 83}, new int[]{338, 143}, new int[]{355, 300}, new int[]{367, 335}, new int[]{310, 400});
     public static List<int[]> LU_BIE_KE = Arrays.asList(new int[]{206, 82}, new int[]{196, 426},
             new int[]{291, 116}, new int[]{276, 349}, new int[]{242, 411});
     public static List<int[]> JI_DI_BING_YUAN = Arrays.asList(new int[]{78, 394}, new int[]{439, 100},
