@@ -27,7 +27,7 @@ public class ImgUtils {
         URL resource = ProjectPathUtils.class.getResource("/");
         if (resource == null) resource = ProjectPathUtils.class.getResource("");
         resourcePath = resource.getPath();
-        notJarStart = resourcePath.contains("target/classes/");
+        notJarStart = resourcePath.contains("target/classes/");     //是否为测试环境
     }
 
     public static String getString(BufferedImage subimage) {

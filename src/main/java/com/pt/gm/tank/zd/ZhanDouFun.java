@@ -346,21 +346,47 @@ public class ZhanDouFun {
         return null;
     }
 
-    private static void removeCF(List<Integer> mySet) {
-        for (Integer integer : mySet) logger.debug("自己坐标：{}-{}", integer >> 16 & 0xffff, integer & 0xffff);
+//    public static void main(String[] args) {
+//        ArrayList<Integer> l = new ArrayList<>();
+//        l.add((367<<16) + 261);
+//        l.add((369<<16) + 273);
+//        l.add((369<<16) + 268);
+//        l.add((360<<16) + 272);
+//        removeCF(l);
+//    }
 
-        if (mySet.size() == 3) return;
+    private static void removeCF(List<Integer> myList) {
+//        自己坐标：354-213 367-266 367-261 368-261
+//        自己坐标：355-227 368-280 369-273 369-273
+//        自己坐标：363-222 368-277 369-268 369-267
+//        自己坐标：354-217 359-277 360-272 360-271              这种情况的坐标会计算失败
+        for (Integer integer : myList) logger.debug("自己坐标：{}-{}", integer >> 16 & 0xffff, integer & 0xffff);
+
+        if (myList.size() == 3) return;
         ZuoBiao zb1,zb2;
         for (int i = 0; i < 3; i++) {
-            zb1 = new ZuoBiao(mySet.get(i) >> 16 & 0xffff, mySet.get(i) & 0xffff);
+            zb1 = new ZuoBiao(myList.get(i) >> 16 & 0xffff, myList.get(i) & 0xffff);
             for (int j = i + 1; j < 4; j++) {
-                zb2 = new ZuoBiao(mySet.get(j) >> 16 & 0xffff, mySet.get(j) & 0xffff);
+                zb2 = new ZuoBiao(myList.get(j) >> 16 & 0xffff, myList.get(j) & 0xffff);
 //                logger.debug("坐标{}：{},坐标{}：{}",i ,zb1.toString(), j, zb2.toString());
                 if (zb1.equals(zb2)) {
-                    mySet.remove(j);
+                    myList.remove(j);
                     return;
                 }
             }
+        }
+        if (myList.size() == 4) {
+            int sum = (int) myList.stream().mapToInt((x) -> x).summaryStatistics().getSum();
+            int index = 0, xa = (sum >> 16 & 0xffff) / 4, ya = (sum & 0xffff)/4;
+            double mindd = 10000;
+            for (int i = 0; i < myList.size(); i++) {
+                double dd = Math.pow((myList.get(i) >> 16 & 0xffff) - xa, 2) + Math.pow((myList.get(i) & 0xffff) - ya, 2);
+                if (mindd > dd){
+                    index = i;
+                    mindd = dd;
+                }
+            }
+            myList.remove(index);
         }
     }
 
