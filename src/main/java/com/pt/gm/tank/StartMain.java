@@ -72,7 +72,7 @@ public class StartMain {
             if (StartMain.LU_XIAN == null) logger.debug("地图加载失败");
             else logger.debug("地图加载成功");
         }
-        if (ImgUtils.notJarStart) StartMain.LU_XIAN = MinMapLX.LU_BIE_KE;
+        if (ImgUtils.notJarStart) StartMain.LU_XIAN = MinMapLX.AN_SI_KE;
 
         // 是否战斗界面分析
         if (ZhanDou.zhandouFX(screenshot)) {

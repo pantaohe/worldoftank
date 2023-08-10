@@ -303,7 +303,7 @@ public class ZhanDouFun {
                         if (flag) break;
                     }
                     for (int k = xe-1; k >= xs; k--) {    //右上角
-                        for (int l = ys; l < xe; l++) {
+                        for (int l = ys; l < ye; l++) {
                             rgb = minMap.getRGB(k, l);
                             i1 = rgb >> 16 & 0xff;
                             i2 = rgb >> 8 & 0xff;

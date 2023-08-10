@@ -58,7 +58,7 @@ public class ImgUtils {
 
         try {
             if (notJarStart) {
-                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691654510010.png"));
+                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691656950752.png"));
             }else{
                 if (Math.random() < 0.1)
                     ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + System.currentTimeMillis() + ".png"));
