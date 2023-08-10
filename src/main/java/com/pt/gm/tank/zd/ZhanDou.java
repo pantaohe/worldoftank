@@ -62,7 +62,7 @@ public class ZhanDou {
             // 击毁
             if (ZhanDouFun.jihui(screenshot)) return;
 
-            kaiche(minMap);
+            if (StartMain.OPEN_GUA_JI) kaiche(minMap);
 
             // 火炮小地图框
 //            int[] mouses = ZhanDouFun.mouseCenter(minMap);
