@@ -360,7 +360,7 @@ public class ZhanDouFun {
 //        自己坐标：355-227 368-280 369-273 369-273
 //        自己坐标：363-222 368-277 369-268 369-267
 //        自己坐标：354-217 359-277 360-272 360-271              这种情况的坐标会计算失败
-        for (Integer integer : myList) logger.debug("自己坐标：{}-{}", integer >> 16 & 0xffff, integer & 0xffff);
+//        for (Integer integer : myList) logger.debug("自己坐标：{}-{}", integer >> 16 & 0xffff, integer & 0xffff);
 
         if (myList.size() == 3) return;
         ZuoBiao zb1,zb2;

@@ -43,7 +43,7 @@ public class ImgUtils {
         FileContentEntry fce = new FileContentEntry(System.currentTimeMillis() + ".jpg", fileBytes);
         FileReadUtils.fileRead(fce);
         String fileContent = fce.getFileContent();
-        return fileContent == null ? "" : fileContent;
+        return fileContent == null ? "" : fileContent.replaceAll("\\s", "");
     }
 
     /*截图*/
@@ -58,10 +58,10 @@ public class ImgUtils {
 
         try {
             if (notJarStart) {
-                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691721253420.png"));
+                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691731820979.png"));
             }else{
-//                if (Math.random() < 0.05)
-//                    ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + System.currentTimeMillis() + ".png"));
+                if (Math.random() < 0.05)
+                    ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + System.currentTimeMillis() + ".png"));
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -27,7 +27,7 @@ public class ZhanDou {
         BufferedImage subimage = screenshot.getSubimage(1860, StartMain.SCRN_SIZE[2], 50, 30);
         String fileContent = ImgUtils.getString(subimage);
 
-        logger.debug("界面内容{}", fileContent.replaceAll("\\s", ""));
+        logger.debug("界面内容{}", fileContent);
         //有时间表示战斗中
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains(":")){
 

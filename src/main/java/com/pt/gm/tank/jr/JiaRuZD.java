@@ -19,7 +19,9 @@ import java.io.IOException;
  */
 public class JiaRuZD {
     private static Logger logger = LoggerFactory.getLogger(JiaRuZD.class);
-
+    private static long timeT = System.currentTimeMillis();
+    private static String tankName;
+    public static String mapName = "";
 
     public static boolean jiarujiemian(BufferedImage screenshot) {
         BufferedImage subimage = screenshot.getSubimage(StartMain.IN_COMBAT[0], StartMain.IN_COMBAT[1], StartMain.IN_COMBAT[2], StartMain.IN_COMBAT[3]);
@@ -54,10 +56,13 @@ public class JiaRuZD {
             if (fileContent.contains("战斗中") || fileContent.contains("车组乘员不足")) continue;
 
             MouseUtils.mouseDianJi(x + (int)(Math.random() * StartMain.TANK_ADDR[2]), y + (int)(Math.random() * StartMain.TANK_ADDR[3]));
-            logger.debug("选中：" + fileContent.replaceAll("\\s", "") + "坦克，准备开始");
+            logger.debug("选中：" + fileContent + "坦克，准备开始");
             Thread.sleep(500);
             MouseUtils.mouseDianJi(StartMain.IN_COMBAT[0] + (int)(Math.random() * StartMain.IN_COMBAT[2]), StartMain.IN_COMBAT[1] + (int)(Math.random() * StartMain.IN_COMBAT[3]));
 
+            logger.debug("上一场战斗总耗时：{}，车辆：{}，地图：{}", (System.currentTimeMillis() - timeT) / 1000 + "s", tankName, mapName);
+            tankName = fileContent;
+            timeT = System.currentTimeMillis();
             return true;
         }
         return false;

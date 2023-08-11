@@ -1,6 +1,7 @@
 package com.pt.gm.tank.map;
 
 import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.jr.JiaRuZD;
 import com.pt.gm.tank.util.ImgUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -84,6 +85,7 @@ public class MinMapLX {
         }else{
             return false;
         }
+        JiaRuZD.mapName = fileContent;
         return true;
     }
 }

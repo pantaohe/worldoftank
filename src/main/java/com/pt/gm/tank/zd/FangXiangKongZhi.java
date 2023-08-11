@@ -60,12 +60,13 @@ public class FangXiangKongZhi implements Runnable{
                 StartMain.robot.keyPress(vkX);
                 Thread.sleep(2000);
                 StartMain.robot.keyRelease(vkX);
+                X();
             }
             ddt = dd;
             if (dd > 800) {
                 logger.debug("按下前进w");
                 xuyaoS = false; xuyaoW = true;
-            }else if(dd > 200){
+            }else if(dd > 150){
                 logger.debug("松开前进s/w,距离比较近手动操作");
                 xuyaoS = false; xuyaoW = false;     //距离比较近手动操作
                 StartMain.robot.keyPress(KeyEvent.VK_W);
@@ -98,6 +99,7 @@ public class FangXiangKongZhi implements Runnable{
      * 锁定车身
      */
     private static void X() {
+        logger.debug("锁定车身");
         StartMain.robot.keyPress(KeyEvent.VK_X);
         StartMain.robot.keyRelease(KeyEvent.VK_X);
     }
@@ -120,6 +122,7 @@ public class FangXiangKongZhi implements Runnable{
                     logger.debug("停止前进");
                     StartMain.robot.keyRelease(KeyEvent.VK_W);
                     anxiaW = false;
+                    X();
                 }
             }
 
@@ -135,6 +138,7 @@ public class FangXiangKongZhi implements Runnable{
                     logger.debug("停止后退");
                     StartMain.robot.keyRelease(KeyEvent.VK_S);
                     anxiaS = false;
+                    X();
                 }
             }
 
