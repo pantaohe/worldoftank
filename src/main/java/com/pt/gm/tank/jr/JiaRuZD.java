@@ -39,27 +39,24 @@ public class JiaRuZD {
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains("处罚")) MouseUtils.mouseDianJi(1090 + (int)(Math.random() * 90), 733 + (int)(Math.random() * 18));
         logger.debug("当前进入加入战斗界面");
-        int index = 0, x, y = StartMain.TANK_ADDR[1];
+        int index = 0, x, y;
         while(true) {
-            x = StartMain.TANK_ADDR[0] + StartMain.TANK_ADDR[2] * index++;
+            x = StartMain.TANK_ADDR[0] + StartMain.TANK_ADDR[2] * (index / 2);
+            y = StartMain.TANK_ADDR[1] + StartMain.TANK_ADDR[3] * (index++ % 2);
             subimage = screenshot.getSubimage(x, y, StartMain.TANK_ADDR[2], StartMain.TANK_ADDR[3]);
             fileContent = ImgUtils.getString(subimage);
 
+            logger.debug("第{}辆车：{}，当前坐标：{}-{}，（120, 772, 175, 112）", index - 1, fileContent, x, y);
             if (StringUtils.isBlank(fileContent) || fileContent.contains("购买")) {
-                logger.debug("准备换行，没进第二行则结束了");
-                if (y == StartMain.TANK_ADDR[1] + StartMain.TANK_ADDR[3]) break;
-                logger.debug("进入第二行");
-                index = 0;
-                y = StartMain.TANK_ADDR[1] + StartMain.TANK_ADDR[3];
-                continue;
+                logger.debug("没有选中车，请添加车辆到车库, 如已在排队则忽略");
+                break;
             }
             if (fileContent.contains("战斗中") || fileContent.contains("车组乘员不足")) continue;
 
             MouseUtils.mouseDianJi(x + (int)(Math.random() * StartMain.TANK_ADDR[2]), y + (int)(Math.random() * StartMain.TANK_ADDR[3]));
-            logger.debug("选中：" + fileContent.replaceAll("\\s", "") + "坦克");
+            logger.debug("选中：" + fileContent.replaceAll("\\s", "") + "坦克，准备开始");
             Thread.sleep(500);
             MouseUtils.mouseDianJi(StartMain.IN_COMBAT[0] + (int)(Math.random() * StartMain.IN_COMBAT[2]), StartMain.IN_COMBAT[1] + (int)(Math.random() * StartMain.IN_COMBAT[3]));
-            logger.debug("点击开始");
 
             return true;
         }

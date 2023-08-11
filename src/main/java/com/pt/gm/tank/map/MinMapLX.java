@@ -34,7 +34,7 @@ public class MinMapLX {
     public static List<int[]> JI_DI_BING_YUAN = Arrays.asList(new int[]{78, 394}, new int[]{439, 100},
             new int[]{182, 419}, new int[]{335, 362}, new int[]{337, 344}, new int[]{354, 209}, new int[]{419, 167});
     public static List<int[]> AN_SI_KE = Arrays.asList(new int[]{260, 40}, new int[]{260, 448},
-            new int[]{220, 64}, new int[]{219, 134}, new int[]{230, 378}, new int[]{200, 394}, new int[]{202, 424});
+            new int[]{220, 64}, new int[]{220, 99}, new int[]{229, 193}, new int[]{219, 384}, new int[]{199, 426});
 //    public static List<int[]> MAN_HUANG_ZHI_DI = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
 //            new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
 
