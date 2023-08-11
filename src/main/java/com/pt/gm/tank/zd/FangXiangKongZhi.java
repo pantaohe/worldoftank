@@ -71,6 +71,7 @@ public class FangXiangKongZhi implements Runnable{
                 StartMain.robot.keyPress(KeyEvent.VK_W);
                 Thread.sleep(2000);
                 StartMain.robot.keyRelease(KeyEvent.VK_W);
+                X();
             }else {
                 xuyaoS = false; xuyaoW = false;
                 return;     //达到小目标退出
@@ -88,8 +89,17 @@ public class FangXiangKongZhi implements Runnable{
                 Thread.sleep(millis);
                 StartMain.robot.keyRelease(KeyEvent.VK_A);
             }
+            X();
         }
 
+    }
+
+    /**
+     * 锁定车身
+     */
+    private static void X() {
+        StartMain.robot.keyPress(KeyEvent.VK_X);
+        StartMain.robot.keyRelease(KeyEvent.VK_X);
     }
 
 
