@@ -46,6 +46,8 @@ public class MinMapLX {
             new int[]{211, 147}, new int[]{330, 333});
     public static List<int[]> KAN_PA_NI_YA = Arrays.asList(new int[]{221, 95}, new int[]{242, 406},
             new int[]{264, 101}, new int[]{220, 375}, new int[]{167, 384});
+    public static List<int[]> PU_LUO_HUO = Arrays.asList(new int[]{182, 25}, new int[]{269, 463},
+            new int[]{56, 156}, new int[]{59, 330});
 //    public static List<int[]> MAN_HUANG_ZHI_DI = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
 //            new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
 
@@ -90,6 +92,8 @@ public class MinMapLX {
             StartMain.LU_XIAN = HUANG_MAN_ZHI_DI;
         }else if (fileContent.contains("坎帕尼亚")){
             StartMain.LU_XIAN = KAN_PA_NI_YA;
+        }else if (fileContent.contains("普罗霍洛夫卡")){
+            StartMain.LU_XIAN = PU_LUO_HUO;
         }else{
             return false;
         }
