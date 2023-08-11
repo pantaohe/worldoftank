@@ -23,6 +23,8 @@ import java.net.URL;
 public class ImgUtils {
     public static String resourcePath;
     public static boolean notJarStart;
+    static long timeT = System.currentTimeMillis();
+
     static {
         URL resource = ProjectPathUtils.class.getResource("/");
         if (resource == null) resource = ProjectPathUtils.class.getResource("");
@@ -58,10 +60,13 @@ public class ImgUtils {
 
         try {
             if (notJarStart) {
-                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691731820979.png"));
+                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691742778796.png"));
             }else{
-                if (Math.random() < 0.05)
-                    ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + System.currentTimeMillis() + ".png"));
+                long time = System.currentTimeMillis();
+                if (time - timeT > 60000) { //一分钟
+                    ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + time + ".png"));
+                    timeT = time;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -42,6 +42,10 @@ public class MinMapLX {
             new int[]{65, 106}, new int[]{108, 163}, new int[]{99, 203}, new int[]{222, 358}, new int[]{325, 354}, new int[]{377, 428});
     public static List<int[]> HUANG_MO_XIAO_ZHEN = Arrays.asList(new int[]{45, 176}, new int[]{427, 331},
             new int[]{153, 475}, new int[]{343, 417}, new int[]{369, 351});
+    public static List<int[]> HUANG_MAN_ZHI_DI = Arrays.asList(new int[]{200, 67}, new int[]{356, 412},
+            new int[]{211, 147}, new int[]{330, 333});
+    public static List<int[]> KAN_PA_NI_YA = Arrays.asList(new int[]{221, 95}, new int[]{242, 406},
+            new int[]{264, 101}, new int[]{220, 375}, new int[]{167, 384});
 //    public static List<int[]> MAN_HUANG_ZHI_DI = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
 //            new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
 
@@ -82,6 +86,10 @@ public class MinMapLX {
             StartMain.LU_XIAN = SHEN_LI_ZHI_MEN;
         }else if (fileContent.contains("荒漠小镇")){
             StartMain.LU_XIAN = HUANG_MO_XIAO_ZHEN;
+        }else if (fileContent.contains("荒蛮之地")){
+            StartMain.LU_XIAN = HUANG_MAN_ZHI_DI;
+        }else if (fileContent.contains("坎帕尼亚")){
+            StartMain.LU_XIAN = KAN_PA_NI_YA;
         }else{
             return false;
         }
