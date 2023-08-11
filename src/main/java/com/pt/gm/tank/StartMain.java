@@ -42,7 +42,17 @@ public class StartMain {
     // 创建一个Robot对象
     public static Robot robot = null;
 
+    public static boolean OPEN_GUA_JI = true;
+
     public static void main(String[] args) throws Exception {
+        try {
+            if (args != null && args.length > 0){
+                OPEN_GUA_JI = Boolean.parseBoolean(args[0]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         new Thread(new FangXiangKongZhi()).start();     //开车线程
 
         robot = new Robot();
