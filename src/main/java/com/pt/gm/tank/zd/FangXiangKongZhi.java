@@ -62,10 +62,10 @@ public class FangXiangKongZhi implements Runnable{
                 StartMain.robot.keyRelease(vkX);
                 X();
             }
-            ddt = dd;
             if (dd > 800) {
                 logger.debug("按下前进w");
                 xuyaoS = false; xuyaoW = true;
+                if (ddt == 0) Thread.sleep(200);        //前进控制的刷新率只有5hz
             }else if(dd > 150){
                 logger.debug("松开前进s/w,距离比较近手动操作");
                 xuyaoS = false; xuyaoW = false;     //距离比较近手动操作
@@ -77,7 +77,7 @@ public class FangXiangKongZhi implements Runnable{
                 xuyaoS = false; xuyaoW = false;
                 return;     //达到小目标退出
             }
-
+            ddt = dd;
             logger.debug("方向分别为自己{}度-目标{}度", myAddr[2], lxjd);
             if (0 < jdc && jdc < 180) { //向右转往
                 logger.debug("向右角度{}转{}ms", zxjd, millis);
@@ -143,7 +143,7 @@ public class FangXiangKongZhi implements Runnable{
             }
 
             try {
-                Thread.sleep(400);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
