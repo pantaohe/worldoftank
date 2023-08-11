@@ -60,8 +60,8 @@ public class ImgUtils {
             if (notJarStart) {
                 screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691721253420.png"));
             }else{
-                if (Math.random() < 0.05)
-                    ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + System.currentTimeMillis() + ".png"));
+//                if (Math.random() < 0.05)
+//                    ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + System.currentTimeMillis() + ".png"));
             }
         } catch (IOException e) {
             e.printStackTrace();
