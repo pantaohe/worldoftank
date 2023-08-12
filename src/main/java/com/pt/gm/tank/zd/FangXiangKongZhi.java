@@ -54,7 +54,7 @@ public class FangXiangKongZhi implements Runnable{
 
             double dd = ZhanDouFun.dd2(myAddr, mubiao);
             logger.debug("目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
-            if (ddt2 - dd < 10) {        //被房子等卡住了，随机向左或向右2秒
+            if (Math.abs(ddt2 - dd) < 10) {        //被房子等卡住了，随机向左或向右2秒
                 logger.debug("被房子等卡住了，随机向左或向右2.5秒");
                 int vkX = Math.random() < 0.5 ? KeyEvent.VK_D : KeyEvent.VK_A;
                 StartMain.robot.keyPress(vkX);
