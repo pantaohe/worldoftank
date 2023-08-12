@@ -39,7 +39,7 @@ public class MinMapLX {
     public static List<int[]> KA_LEI_LI_A = Arrays.asList(new int[]{439, 47}, new int[]{47, 440},
             new int[]{275, 155}, new int[]{189, 257}, new int[]{145, 303});
     public static List<int[]> SHEN_LI_ZHI_MEN = Arrays.asList(new int[]{59, 62}, new int[]{413, 440},
-            new int[]{57, 84}, new int[]{70, 119}, new int[]{94, 113}, new int[]{100, 178}, new int[]{148, 245}, new int[]{229, 355}, new int[]{308, 352}, new int[]{361, 401});
+            new int[]{57, 84}, new int[]{70, 119}, new int[]{94, 139}, new int[]{100, 178}, new int[]{148, 245}, new int[]{229, 355}, new int[]{308, 352}, new int[]{361, 401});
     public static List<int[]> HUANG_MO_XIAO_ZHEN = Arrays.asList(new int[]{45, 176}, new int[]{427, 331},
             new int[]{153, 475}, new int[]{355, 436}, new int[]{368, 344});
     public static List<int[]> HUANG_MAN_ZHI_DI = Arrays.asList(new int[]{200, 67}, new int[]{356, 412},

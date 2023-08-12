@@ -74,6 +74,7 @@ public class StartMain {
 
         //贴花界面
         if (!StringUtils.isBlank(TUPIAN_NEIRONG) && TUPIAN_NEIRONG.contains("获得")) MouseUtils.mouseDianJi(880 + (int)(Math.random() * 74), 741 + (int)(Math.random() * 29));
+        if (!StringUtils.isBlank(TUPIAN_NEIRONG) && TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int)(Math.random() * 74), 941 + (int)(Math.random() * 89));
 
 //        MinMapLX.getXingJingLuXian(screenshot);       //收集数据
         //分析加载地图
