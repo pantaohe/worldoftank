@@ -33,16 +33,17 @@ public class StartMain {
     public static int[] TANK_ADDR = {120, 772, 175, 112};
     public static int[] TANK_CENTRE  = {760, 390, 400, 150};
 
-    public final static int[] RGB_K = {104, 157, 78};
-    public final static int[] RGB_MAX = {154, 207, 128};
-    public final static int[] RGB_MIN = {54, 107, 28};
+    public static int[] RGB_K = {104, 157, 78};
+    public static int[] RGB_MAX = {154, 207, 128};
+    public static int[] RGB_MIN = {54, 107, 28};
 
     public static List<int[]> LU_XIAN;
     public static String TUPIAN_NEIRONG;
     // 创建一个Robot对象
     public static Robot robot = null;
 
-    public static boolean OPEN_GUA_JI = true;
+    public static boolean OPEN_GUA_JI = true;       //默认自动运行
+    public static String FEN_BIAN_LV = "";      //默认非全屏
 
     public static void main(String[] args) throws Exception {
         try {
@@ -52,9 +53,17 @@ public class StartMain {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try {
+            if (args != null && args.length > 1){
+                FEN_BIAN_LV = args[1];
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        parLoad();
 
         new Thread(new FangXiangKongZhi()).start();     //开车线程
-
         robot = new Robot();
         OcrEngine instance = RapidInstance.getInstance();
         instance.setDoAngle(false);
@@ -73,11 +82,11 @@ public class StartMain {
         TUPIAN_NEIRONG = ImgUtils.getString(screenshot);
 
         //贴花界面
-        if (!StringUtils.isBlank(TUPIAN_NEIRONG) && TUPIAN_NEIRONG.contains("获得")) MouseUtils.mouseDianJi(880 + (int)(Math.random() * 74), 741 + (int)(Math.random() * 29));
+        if (!StringUtils.isBlank(TUPIAN_NEIRONG) && (TUPIAN_NEIRONG.contains("获得") || TUPIAN_NEIRONG.contains("遵命"))) MouseUtils.mouseDianJi(880 + (int)(Math.random() * 74), 741 + (int)(Math.random() * 29));
         if (!StringUtils.isBlank(TUPIAN_NEIRONG) && TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int)(Math.random() * 74), 941 + (int)(Math.random() * 89));
 
 //        MinMapLX.getXingJingLuXian(screenshot);       //收集数据
-        //分析加载地图
+        //分析加载地图n
         if (StartMain.LU_XIAN == null && !StringUtils.isBlank(TUPIAN_NEIRONG) && TUPIAN_NEIRONG.contains("随机战")) {
             MinMapLX.getXingJingLuXian(screenshot);
             if (StartMain.LU_XIAN == null) logger.debug("地图加载失败");
@@ -100,4 +109,22 @@ public class StartMain {
     }
 
 
+    private static void parLoad(){
+        if (StringUtils.isBlank(FEN_BIAN_LV)) return;
+        switch (FEN_BIAN_LV){
+            case "1920*1080":{
+                SCRN_SIZE = new int[]{1920, 1080, 0, 0};       // 23 40 y轴上下边框分辨高 23 和40
+                MAP_START = new int[]{1429, 589};     //小地图起点 不带边框是491*491
+                IN_COMBAT = new int[]{880, 0, 155, 40};
+                TANK_ADDR = new int[]{120, 818, 175, 112};
+                TANK_CENTRE  = new int[]{760, 390, 400, 150};
+
+                RGB_K = new int[]{104, 157, 78};
+                RGB_MAX = new int[]{154, 207, 128};
+                RGB_MIN = new int[]{54, 107, 28};
+            }
+        }
+
+
+    }
 }
