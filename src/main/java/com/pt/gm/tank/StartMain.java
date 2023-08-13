@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
@@ -82,9 +83,15 @@ public class StartMain {
         TUPIAN_NEIRONG = ImgUtils.getString(screenshot);
 
         //贴花界面
-        if (!StringUtils.isBlank(TUPIAN_NEIRONG) && (TUPIAN_NEIRONG.contains("获得") || TUPIAN_NEIRONG.contains("遵命"))) MouseUtils.mouseDianJi(880 + (int)(Math.random() * 74), 741 + (int)(Math.random() * 29));
-        if (!StringUtils.isBlank(TUPIAN_NEIRONG) && TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int)(Math.random() * 74), 941 + (int)(Math.random() * 89));
-
+        if (!StringUtils.isBlank(TUPIAN_NEIRONG)) {
+            if (TUPIAN_NEIRONG.contains("获得") || TUPIAN_NEIRONG.contains("遵命")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 741 + (int) (Math.random() * 29));
+            if (TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 941 + (int) (Math.random() * 89));
+            if (TUPIAN_NEIRONG.contains("服务器连接已经断开")) {
+                MouseUtils.mouseDianJi(1049 + (int) (Math.random() * 90), 576 + (int) (Math.random() * 18));
+                robot.keyPress(KeyEvent.VK_ENTER);
+                robot.keyRelease(KeyEvent.VK_ENTER);
+            }
+        }
 //        MinMapLX.getXingJingLuXian(screenshot);       //收集数据
         //分析加载地图n
         if (StartMain.LU_XIAN == null && !StringUtils.isBlank(TUPIAN_NEIRONG) && TUPIAN_NEIRONG.contains("随机战")) {

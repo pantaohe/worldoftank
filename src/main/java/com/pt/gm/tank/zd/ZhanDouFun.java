@@ -264,85 +264,96 @@ public class ZhanDouFun {
         boolean qi1x,qi2x;
         List<Integer> myList = new ArrayList<>();
         boolean flag = false;
-        for (int i = 0; i < height; i++) {
-            qi1x = -MinMapLX.QZB < (i - qi1[1]) && (i - qi1[1]) < MinMapLX.QZB;
-            qi2x = -MinMapLX.QZB < (i - qi2[1]) && (i - qi2[1]) < MinMapLX.QZB;
-            for (int j = 0; j < width; j++) {
-                if ((qi1x && -MinMapLX.QZB < (j-qi1[0]) && (j-qi1[0]) < MinMapLX.QZB) || (qi2x && -MinMapLX.QZB < (j-qi2[0]) && (j-qi2[0]) < MinMapLX.QZB)) continue;
+        for (int tj = 0; tj < 3; tj++) {
+            for (int i = 0; i < height; i++) {
+                qi1x = -MinMapLX.QZB < (i - qi1[1]) && (i - qi1[1]) < MinMapLX.QZB;
+                qi2x = -MinMapLX.QZB < (i - qi2[1]) && (i - qi2[1]) < MinMapLX.QZB;
+                for (int j = 0; j < width; j++) {
+                    if (tj == 0)  if ((qi1x && -MinMapLX.QZB < (j - qi1[0]) && (j - qi1[0]) < MinMapLX.QZB) || (qi2x && -MinMapLX.QZB < (j - qi2[0]) && (j - qi2[0]) < MinMapLX.QZB)) continue;
+                    else if (tj == 1) if (qi2x && -MinMapLX.QZB < (j - qi2[0]) && (j - qi2[0]) < MinMapLX.QZB) continue;
+                    else if (tj == 2) if (qi1x && -MinMapLX.QZB < (j - qi1[0]) && (j - qi1[0]) < MinMapLX.QZB) continue;
+                    int rgb = minMap.getRGB(j, i);
+                    int i1 = rgb >> 16 & 0xff;
+                    int i2 = rgb >> 8 & 0xff;
+                    int i3 = rgb & 0xff;
+                    if (250 < i1 && 250 < i2 && 250 < i3) {
 
-                int rgb = minMap.getRGB(j, i);
-                int i1 = rgb >> 16 & 0xff;
-                int i2 = rgb >> 8 & 0xff;
-                int i3 = rgb & 0xff;
-                if (250<i1 && 250<i2 && 250<i3){
+                        int ys = i - 15 < 0 ? 0 : i - 15;
+                        int ye = i + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : i + 16;
+                        int xs = j - 15 < 0 ? 0 : j - 15;
+                        int xe = j + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : j + 16;
+                        for (int k = ys; k < ye; k++) {      //左上角
+                            for (int l = xs; l < xe; l++) {
+                                rgb = minMap.getRGB(l, k);
+                                i1 = rgb >> 16 & 0xff;
+                                i2 = rgb >> 8 & 0xff;
+                                i3 = rgb & 0xff;
+                                if (flag = 200 < i1 && 200 < i2 && 200 < i3) {
+                                    myList.add((l << 16) + k);
+                                    break;
+                                }
+                            }
+                            if (flag) break;
+                        }
+                        for (int k = ye - 1; k >= ys; k--) {      //右下角
+                            for (int l = xe - 1; l >= xs; l--) {
+                                rgb = minMap.getRGB(l, k);
+                                i1 = rgb >> 16 & 0xff;
+                                i2 = rgb >> 8 & 0xff;
+                                i3 = rgb & 0xff;
+                                if (flag = 200 < i1 && 200 < i2 && 200 < i3) {
+                                    myList.add((l << 16) + k);
+                                    break;
+                                }
+                            }
+                            if (flag) break;
+                        }
+                        for (int k = xe - 1; k >= xs; k--) {    //右上角
+                            for (int l = ys; l < ye; l++) {
+                                rgb = minMap.getRGB(k, l);
+                                i1 = rgb >> 16 & 0xff;
+                                i2 = rgb >> 8 & 0xff;
+                                i3 = rgb & 0xff;
+                                if (flag = 200 < i1 && 200 < i2 && 200 < i3) {
+                                    myList.add((k << 16) + l);
+                                    break;
+                                }
+                            }
+                            if (flag) break;
+                        }
+                        for (int k = xs; k < xe; k++) {    //左下角
+                            for (int l = ye - 1; l >= ys; l--) {
+                                rgb = minMap.getRGB(k, l);
+                                i1 = rgb >> 16 & 0xff;
+                                i2 = rgb >> 8 & 0xff;
+                                i3 = rgb & 0xff;
+                                if (flag = 200 < i1 && 200 < i2 && 200 < i3) {
+                                    myList.add((k << 16) + l);
+                                    break;
+                                }
+                            }
+                            if (flag) break;
+                        }
+                        removeCF(myList);
+                        if (myList.size() != 3) {
+                            logger.debug("自己位置坐标计算失败:{}", myList.size());
+                            return null;
+                        }
+                        int y = 0, x = 0;
+                        List<int[]> li = new ArrayList<>();
+                        for (Integer mywz : myList) {
+                            int x1 = mywz >> 16 & 0xffff;
+                            int y1 = mywz & 0xffff;
+                            x += x1;
+                            y += y1;
+                            li.add(new int[]{x1, y1});
+                        }
 
-                    int ys = i - 15 < 0 ? 0 : i - 15;       int ye = i + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : i + 16;
-                    int xs = j - 15 < 0 ? 0 : j - 15;       int xe = j + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : j + 16;
-                    for (int k = ys; k < ye; k++) {      //左上角
-                        for (int l = xs; l < xe; l++) {
-                            rgb = minMap.getRGB(l, k);
-                            i1 = rgb >> 16 & 0xff;
-                            i2 = rgb >> 8 & 0xff;
-                            i3 = rgb & 0xff;
-                            if (flag = 200<i1 && 200<i2 && 200<i3) {
-                                myList.add((l<<16) + k); break;
-                            }
-                        }
-                        if (flag) break;
+                        return new int[]{x / 3, y / 3, jiaodu(li)};
                     }
-                    for (int k = ye-1; k >= ys; k--) {      //右下角
-                        for (int l = xe-1; l >= xs; l--) {
-                            rgb = minMap.getRGB(l, k);
-                            i1 = rgb >> 16 & 0xff;
-                            i2 = rgb >> 8 & 0xff;
-                            i3 = rgb & 0xff;
-                            if (flag = 200<i1 && 200<i2 && 200<i3) {
-                                myList.add((l<<16) + k); break;
-                            }
-                        }
-                        if (flag) break;
-                    }
-                    for (int k = xe-1; k >= xs; k--) {    //右上角
-                        for (int l = ys; l < ye; l++) {
-                            rgb = minMap.getRGB(k, l);
-                            i1 = rgb >> 16 & 0xff;
-                            i2 = rgb >> 8 & 0xff;
-                            i3 = rgb & 0xff;
-                            if (flag = 200<i1 && 200<i2 && 200<i3){
-                                myList.add((k<<16) + l); break;
-                            }
-                        }
-                        if (flag) break;
-                    }
-                    for (int k = xs; k < xe; k++) {    //左下角
-                        for (int l = ye-1; l >= ys; l--) {
-                            rgb = minMap.getRGB(k, l);
-                            i1 = rgb >> 16 & 0xff;
-                            i2 = rgb >> 8 & 0xff;
-                            i3 = rgb & 0xff;
-                            if (flag = 200<i1 && 200<i2 && 200<i3) {
-                                myList.add((k<<16) + l); break;
-                            }
-                        }
-                        if (flag) break;
-                    }
-                    removeCF(myList);
-                    if (myList.size() != 3) {
-                        logger.debug("自己位置坐标计算失败:{}", myList.size());
-                        return null;
-                    }
-                    int y = 0,x = 0; List<int[]> li = new ArrayList<>();
-                    for (Integer mywz : myList) {
-                        int x1 = mywz >> 16 & 0xffff; int y1 = mywz & 0xffff;
-                        x += x1; y += y1;
-                        li.add(new int[]{x1, y1});
-                    }
-
-                    return new int[]{x/3, y/3, jiaodu(li)};
                 }
             }
         }
-
         return null;
     }
 

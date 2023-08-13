@@ -27,7 +27,7 @@ public class MinMapLX {
     public static List<int[]> AI_LI_HA_LUO_FU = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
             new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
     public static List<int[]> HU_BIAN_DE_JUE_ZHU = Arrays.asList(new int[]{99, 42}, new int[]{352, 431},
-            new int[]{211, 132}, new int[]{167, 277}, new int[]{258, 427});
+            new int[]{156, 114}, new int[]{104, 200}, new int[]{100, 333}, new int[]{215, 347}, new int[]{239, 432});
     public static List<int[]> LA_SHI_WEI_LI = Arrays.asList(new int[]{140, 49}, new int[]{140, 440},
             new int[]{251, 54}, new int[]{338, 143}, new int[]{355, 300}, new int[]{367, 335}, new int[]{310, 400}, new int[]{213, 439});
     public static List<int[]> LU_BIE_KE = Arrays.asList(new int[]{206, 82}, new int[]{196, 426},
@@ -50,6 +50,8 @@ public class MinMapLX {
             new int[]{56, 156}, new int[]{59, 330});
     public static List<int[]> MA_LI_NUO_FU_KA = Arrays.asList(new int[]{61, 191}, new int[]{281, 436},
             new int[]{66, 247}, new int[]{223, 405});
+    public static List<int[]> MU_NI_HEI = Arrays.asList(new int[]{295, 46}, new int[]{176, 405},
+            new int[]{255, 205}, new int[]{180, 376});
 //    public static List<int[]> MAN_HUANG_ZHI_DI = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
 //            new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
 
@@ -98,6 +100,8 @@ public class MinMapLX {
             StartMain.LU_XIAN = PU_LUO_HUO;
         }else if (fileContent.contains("马利诺夫卡")){
             StartMain.LU_XIAN = MA_LI_NUO_FU_KA;
+        }else if (fileContent.contains("慕尼黑")){
+            StartMain.LU_XIAN = MU_NI_HEI;
         }else{
             return false;
         }
