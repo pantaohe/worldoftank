@@ -63,7 +63,7 @@ public class ImgUtils {
 
         try {
             if (notJarStart) {
-                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691742778796.png"));
+                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691977965536.png"));
             }else{
                 long time = System.currentTimeMillis();
                 if (time - timeT > 60000) { //一分钟

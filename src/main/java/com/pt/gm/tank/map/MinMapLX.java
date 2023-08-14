@@ -52,6 +52,8 @@ public class MinMapLX {
             new int[]{66, 247}, new int[]{223, 405});
     public static List<int[]> MU_NI_HEI = Arrays.asList(new int[]{295, 46}, new int[]{176, 405},
             new int[]{255, 205}, new int[]{180, 376});
+    public static List<int[]> BU_LA_GE = Arrays.asList(new int[]{210, 45}, new int[]{209, 446},
+            new int[]{282, 80}, new int[]{302, 160}, new int[]{303, 361}, new int[]{287, 430});
 //    public static List<int[]> MAN_HUANG_ZHI_DI = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
 //            new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
 
@@ -102,6 +104,8 @@ public class MinMapLX {
             StartMain.LU_XIAN = MA_LI_NUO_FU_KA;
         }else if (fileContent.contains("慕尼黑")){
             StartMain.LU_XIAN = MU_NI_HEI;
+        }else if (fileContent.contains("布拉格")){
+            StartMain.LU_XIAN = BU_LA_GE;
         }else{
             return false;
         }
