@@ -1,4 +1,4 @@
 /.idea/
 *.jpg
 /target/
-*.log
+/logs/
