@@ -55,17 +55,29 @@ public class FangXiangKongZhi implements Runnable{
             double dd = ZhanDouFun.dd2(myAddr, mubiao);
             logger.debug("目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
             if (Math.abs(ddt2 - dd) < 10) {        //被房子等卡住了，随机向左或向右2秒
-                logger.debug("被房子等卡住了，随机向左或向右2.5秒");
+                logger.debug("被房子等卡住了，随机向左或向右3秒");
                 int vkX = Math.random() < 0.5 ? KeyEvent.VK_D : KeyEvent.VK_A;
                 StartMain.robot.keyPress(vkX);
-                Thread.sleep(2500);
+                Thread.sleep(3000);
                 StartMain.robot.keyRelease(vkX);
-                X();
+            }else {
+                logger.debug("方向分别为自己{}度-目标{}度", myAddr[2], lxjd);
+                if (0 < jdc && jdc < 180) { //向右转往
+                    logger.debug("向右角度{}转{}ms", zxjd, millis);
+                    StartMain.robot.keyPress(KeyEvent.VK_D);
+                    Thread.sleep(millis);
+                    StartMain.robot.keyRelease(KeyEvent.VK_D);
+                } else {     //向左转往
+                    logger.debug("向左角度{}转{}ms", zxjd, millis);
+                    StartMain.robot.keyPress(KeyEvent.VK_A);
+                    Thread.sleep(millis);
+                    StartMain.robot.keyRelease(KeyEvent.VK_A);
+                }
             }
+            X();
             if (dd > 800) {
                 logger.debug("按下前进w");
                 xuyaoS = false; xuyaoW = true;
-                if (ddt1 == 0) Thread.sleep(200);        //前进控制的刷新率只有5hz
             }else if(dd > 150){
                 logger.debug("松开前进s/w,距离比较近手动操作");
                 xuyaoS = false; xuyaoW = false;     //距离比较近手动操作
@@ -78,19 +90,7 @@ public class FangXiangKongZhi implements Runnable{
                 return;     //达到小目标退出
             }
             ddt2 = ddt1; ddt1 = dd;
-            logger.debug("方向分别为自己{}度-目标{}度", myAddr[2], lxjd);
-            if (0 < jdc && jdc < 180) { //向右转往
-                logger.debug("向右角度{}转{}ms", zxjd, millis);
-                StartMain.robot.keyPress(KeyEvent.VK_D);
-                Thread.sleep(millis);
-                StartMain.robot.keyRelease(KeyEvent.VK_D);
-            } else {     //向左转往
-                logger.debug("向左角度{}转{}ms", zxjd, millis);
-                StartMain.robot.keyPress(KeyEvent.VK_A);
-                Thread.sleep(millis);
-                StartMain.robot.keyRelease(KeyEvent.VK_A);
-            }
-            X();
+
         }
 
     }

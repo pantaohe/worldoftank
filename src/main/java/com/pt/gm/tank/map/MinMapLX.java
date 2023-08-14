@@ -54,25 +54,51 @@ public class MinMapLX {
             new int[]{255, 205}, new int[]{180, 376});
     public static List<int[]> BU_LA_GE = Arrays.asList(new int[]{210, 45}, new int[]{209, 446},
             new int[]{282, 80}, new int[]{302, 160}, new int[]{303, 361}, new int[]{287, 430});
-//    public static List<int[]> MAN_HUANG_ZHI_DI = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
-//            new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
+    public static List<int[]> WU_MONG_XIONG_SHAN = Arrays.asList(new int[]{89, 97}, new int[]{391, 393},
+            new int[]{153, 179}, new int[]{145, 287}, new int[]{264, 355}, new int[]{335, 294});
+    public static List<int[]> WEI_SI_TE_FEI_ER_DE = Arrays.asList(new int[]{97, 411}, new int[]{410, 97},
+            new int[]{273, 340}, new int[]{323, 277});
+    public static List<int[]> MU_LEI_WAN_KA = Arrays.asList(new int[]{217, 40}, new int[]{217, 423},
+            new int[]{331, 123}, new int[]{363, 252});
+    public static List<int[]> HAI_AN_ZHENG_BA = Arrays.asList(new int[]{121, 32}, new int[]{110, 458},
+            new int[]{48, 169}, new int[]{53, 353});
+    public static List<int[]> JI_JING_HAI_AN = Arrays.asList(new int[]{349, 83}, new int[]{182, 394},
+            new int[]{230, 102}, new int[]{178, 202}, new int[]{153, 253});
+    public static List<int[]> WEN_HUA_ZHI_DU = Arrays.asList(new int[]{80, 286}, new int[]{401, 275},
+            new int[]{61, 242}, new int[]{99, 413}, new int[]{410, 418});
+    public static List<int[]> MU_LI_WAN = Arrays.asList(new int[]{365, 100}, new int[]{109, 374},
+            new int[]{264, 125}, new int[]{124, 275});
+    public static List<int[]> QI_GE_FEI_FANG_XIAN = Arrays.asList(new int[]{383, 31}, new int[]{369, 460},
+            new int[]{132, 88}, new int[]{54, 242}, new int[]{192, 367});
+    public static List<int[]> AI_LEI_SI_BAO = Arrays.asList(new int[]{196, 45}, new int[]{294, 446},
+            new int[]{131, 81}, new int[]{146, 456}, new int[]{365, 22}, new int[]{372, 415});
+    public static List<int[]> KA_QIU_SHA = Arrays.asList(new int[]{200, 158}, new int[]{296, 347},
+            new int[]{127, 222}, new int[]{139, 315}, new int[]{183, 341});
+    public static List<int[]> XIAO_ZHENG_ZHEN_DOU_ZHAN = Arrays.asList(new int[]{244, 50}, new int[]{254, 434},
+            new int[]{241, 114}, new int[]{288, 182}, new int[]{289, 307}, new int[]{257, 386});
+    public static List<int[]> LA_TE_SI_TE_FU = Arrays.asList(new int[]{244, 43}, new int[]{242, 453},
+            new int[]{210, 174}, new int[]{202, 252});
+    public static List<int[]> BI_FENG_GANG = Arrays.asList(new int[]{64, 168}, new int[]{409, 169},
+            new int[]{54, 220}, new int[]{122, 226}, new int[]{146, 269}, new int[]{353, 266});
+    public static List<int[]> A_LA_MAN_JI_CHANG = Arrays.asList(new int[]{85, 330}, new int[]{421, 320},
+            new int[]{26, 251}, new int[]{210, 266}, new int[]{279, 274}, new int[]{418, 230}, new int[]{477, 260});
+    public static List<int[]> GANG_TIE_BI_LEI = Arrays.asList(new int[]{78, 54}, new int[]{438, 429},
+            new int[]{31, 224}, new int[]{24, 449}, new int[]{242, 429}, new int[]{367, 465});
+    public static List<int[]> QIAN_SHAO = Arrays.asList(new int[]{358, 108}, new int[]{98, 330},
+            new int[]{245, 124}, new int[]{182, 181}, new int[]{123, 237});
+    public static List<int[]> MEI_YING_XIAO_ZHENG = Arrays.asList(new int[]{244, 72}, new int[]{244, 416},
+            new int[]{397, 108}, new int[]{406, 360});
+    public static List<int[]> BEI_OU_HAI_WAN = Arrays.asList(new int[]{52, 182}, new int[]{440, 265},
+            new int[]{92, 108}, new int[]{186, 128}, new int[]{285, 172}, new int[]{304, 229});
+    public static List<int[]> FEI_SHE_ER_WAN = Arrays.asList(new int[]{202, 49}, new int[]{235, 438},
+            new int[]{28, 218}, new int[]{8, 319});
+    public static List<int[]> LANG_MAN_ZHI_CHENG = Arrays.asList(new int[]{32, 258}, new int[]{453, 256},
+            new int[]{99, 142}, new int[]{383, 138});
+    public static List<int[]> LI_FU_AO_KE_SI = Arrays.asList(new int[]{391, 67}, new int[]{69, 405},
+            new int[]{202, 148}, new int[]{116, 227});
+//    public static List<int[]> SI_DU_JI_ANG_QI = Arrays.asList(new int[]{358, 108}, new int[]{98, 330},
+//            new int[]{245, 124}, new int[]{182, 181}, new int[]{123, 237});
 
-
-
-    public static void getXingJingLuXian(BufferedImage screenshot) throws IOException, InterruptedException {
-        BufferedImage subimage = screenshot.getSubimage(460, 250, 456, 80);
-        String fileContent = ImgUtils.getString(subimage);
-
-        if (!luXian(fileContent)){
-            StartMain.robot.keyPress(KeyEvent.VK_N);
-            Thread.sleep(100);
-            screenshot = ImgUtils.screenshot();
-            StartMain.robot.keyRelease(KeyEvent.VK_N);
-            subimage = screenshot.getSubimage(600, 40, 312, 100);
-            fileContent = ImgUtils.getString(subimage);
-            luXian("N-" + fileContent);
-        }
-    }
 
     private static boolean luXian(String fileContent) {
         logger.debug("读取的地图名：" + fileContent);
@@ -106,10 +132,73 @@ public class MinMapLX {
             StartMain.LU_XIAN = MU_NI_HEI;
         }else if (fileContent.contains("布拉格")){
             StartMain.LU_XIAN = BU_LA_GE;
+        }else if (fileContent.contains("乌蒙雄山")){
+            StartMain.LU_XIAN = WU_MONG_XIONG_SHAN;
+        }else if (fileContent.contains("韦斯特菲尔德")){
+            StartMain.LU_XIAN = WEI_SI_TE_FEI_ER_DE;
+        }else if (fileContent.contains("穆勒万卡")){
+            StartMain.LU_XIAN = MU_LEI_WAN_KA;
+        }else if (fileContent.contains("海岸争霸")){
+            StartMain.LU_XIAN = HAI_AN_ZHENG_BA;
+        }else if (fileContent.contains("寂静海岸")){
+            StartMain.LU_XIAN = JI_JING_HAI_AN;
+        }else if (fileContent.contains("文化之都")){
+            StartMain.LU_XIAN = WEN_HUA_ZHI_DU;
+        }else if (fileContent.contains("牡蛎湾")){
+            StartMain.LU_XIAN = MU_LI_WAN;
+        }else if (fileContent.contains("齐格菲防线")){
+            StartMain.LU_XIAN = QI_GE_FEI_FANG_XIAN;
+        }else if (fileContent.contains("埃勒斯堡")){
+            StartMain.LU_XIAN = AI_LEI_SI_BAO;
+        }else if (fileContent.contains("喀秋莎")){
+            StartMain.LU_XIAN = KA_QIU_SHA;
+        }else if (fileContent.contains("小镇争夺战")){
+            StartMain.LU_XIAN = XIAO_ZHENG_ZHEN_DOU_ZHAN;
+        }else if (fileContent.contains("斯特拉特福")){
+            StartMain.LU_XIAN = LA_TE_SI_TE_FU;
+        }else if (fileContent.contains("避风港")){
+            StartMain.LU_XIAN = BI_FENG_GANG;
+        }else if (fileContent.contains("阿拉曼机场")){
+            StartMain.LU_XIAN = A_LA_MAN_JI_CHANG;
+        }else if (fileContent.contains("钢铁壁垒")){
+            StartMain.LU_XIAN = GANG_TIE_BI_LEI;
+        }else if (fileContent.contains("前哨")){
+            StartMain.LU_XIAN = QIAN_SHAO;
+        }else if (fileContent.contains("魅影小镇")){
+            StartMain.LU_XIAN = MEI_YING_XIAO_ZHENG;
+        }else if (fileContent.contains("北欧峡湾")){
+            StartMain.LU_XIAN = BEI_OU_HAI_WAN;
+        }else if (fileContent.contains("费舍尔湾")){
+            StartMain.LU_XIAN = FEI_SHE_ER_WAN;
+        }else if (fileContent.contains("浪漫之城")){
+            StartMain.LU_XIAN = LANG_MAN_ZHI_CHENG;
+        }else if (fileContent.contains("里夫奥克斯")){
+            StartMain.LU_XIAN = LI_FU_AO_KE_SI;
+//        }else if (fileContent.contains("斯杜季昂奇")){     //斯杜季昂奇、可以直接RR        //锡默尔斯多夫(ban掉)
+//            StartMain.LU_XIAN = SI_DU_JI_ANG_QI;
         }else{
             return false;
         }
         JiaRuZD.mapName = fileContent;
         return true;
+    }
+
+
+
+
+
+    public static void getXingJingLuXian(BufferedImage screenshot) throws IOException, InterruptedException {
+        BufferedImage subimage = screenshot.getSubimage(460, 250, 456, 80);
+        String fileContent = ImgUtils.getString(subimage);
+
+        if (!luXian(fileContent)){
+            StartMain.robot.keyPress(KeyEvent.VK_N);
+            Thread.sleep(100);
+            screenshot = ImgUtils.screenshot();
+            StartMain.robot.keyRelease(KeyEvent.VK_N);
+            subimage = screenshot.getSubimage(600, 40, 312, 100);
+            fileContent = ImgUtils.getString(subimage);
+            luXian("N-" + fileContent);
+        }
     }
 }
