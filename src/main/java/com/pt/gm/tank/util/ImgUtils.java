@@ -33,16 +33,19 @@ public class ImgUtils {
     }
 
     public static String getString(BufferedImage subimage) {
+        return getString(subimage, "jpg");
+    }
+    public static String getString(BufferedImage subimage, String type) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            ImageIO.write(subimage, "jpg", baos);
+            ImageIO.write(subimage, type, baos);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         byte[] fileBytes = baos.toByteArray();
 
-        FileContentEntry fce = new FileContentEntry(System.currentTimeMillis() + ".jpg", fileBytes);
+        FileContentEntry fce = new FileContentEntry(System.currentTimeMillis() + "." + type, fileBytes);
         FileReadUtils.fileRead(fce);
         String fileContent = fce.getFileContent();
         return fileContent == null ? "" : fileContent.replaceAll("\\s", "");

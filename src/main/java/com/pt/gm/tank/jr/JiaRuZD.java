@@ -45,15 +45,16 @@ public class JiaRuZD {
         while(true) {
             x = StartMain.TANK_ADDR[0] + StartMain.TANK_ADDR[2] * (index / 2);
             y = StartMain.TANK_ADDR[1] + StartMain.TANK_ADDR[3] * (index++ % 2);
-            subimage = screenshot.getSubimage(x, y, StartMain.TANK_ADDR[2], StartMain.TANK_ADDR[3]);
+            subimage = screenshot.getSubimage(x, y, StartMain.TANK_ADDR[2] + 0, StartMain.TANK_ADDR[3] + 0);
             fileContent = ImgUtils.getString(subimage);
+//            if (StringUtils.isBlank(fileContent)) fileContent = ImgUtils.getString(subimage, "png");
 
             logger.debug("第{}辆车：{}，当前坐标：{}-{}，（120, 772, 175, 112）", index - 1, fileContent, x, y);
             if (StringUtils.isBlank(fileContent) || fileContent.contains("购买")) {
                 logger.debug("没有选中车，请添加车辆到车库, 如已在排队则忽略");
                 break;
             }
-            if (fileContent.contains("战斗中") || fileContent.contains("车组乘员不足")) continue;
+            if (fileContent.contains("战斗中") || fileContent.contains("战头中") || fileContent.contains("车组乘员不足")) continue;
 
             MouseUtils.mouseDianJi(x + (int)(Math.random() * StartMain.TANK_ADDR[2]), y + (int)(Math.random() * StartMain.TANK_ADDR[3]));
             logger.debug("选中：" + fileContent + "坦克，准备开始");
