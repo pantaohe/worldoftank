@@ -1,6 +1,7 @@
-package com.pt.gm.tank.zd;
+package com.pt.gm.tank.zhandou;
 
 import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.kongzhi.FangXiangKongZhi;
 import com.pt.gm.tank.map.MinMapLX;
 import com.pt.gm.tank.mouse.MouseUtils;
 import com.pt.gm.tank.po.ZuoBiao;
@@ -12,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -43,7 +43,7 @@ public class ZhanDouFun {
             Thread.sleep(500);
 
             MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 50 + (int)(Math.random() * 50));
-            Thread.sleep(800);
+            Thread.sleep(1800);
             MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 63 + (int)(Math.random() * 32));
             jieshuDY();
             return true;

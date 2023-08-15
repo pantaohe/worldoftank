@@ -91,9 +91,9 @@ public class MinMapLX {
     public static List<int[]> BEI_OU_HAI_WAN = Arrays.asList(new int[]{52, 182}, new int[]{440, 265},
             new int[]{92, 108}, new int[]{186, 128}, new int[]{285, 172}, new int[]{304, 229});
     public static List<int[]> FEI_SHE_ER_WAN = Arrays.asList(new int[]{202, 49}, new int[]{235, 438},
-            new int[]{28, 218}, new int[]{8, 319});
+            new int[]{42, 119}, new int[]{28, 218}, new int[]{8, 319});
     public static List<int[]> LANG_MAN_ZHI_CHENG = Arrays.asList(new int[]{32, 258}, new int[]{453, 256},
-            new int[]{99, 142}, new int[]{383, 138});
+            new int[]{94, 212}, new int[]{91, 139}, new int[]{383, 138}, new int[]{403, 212});
     public static List<int[]> LI_FU_AO_KE_SI = Arrays.asList(new int[]{391, 67}, new int[]{69, 405},
             new int[]{202, 148}, new int[]{116, 227});
 //    public static List<int[]> SI_DU_JI_ANG_QI = Arrays.asList(new int[]{358, 108}, new int[]{98, 330},
@@ -193,7 +193,7 @@ public class MinMapLX {
 
         if (!luXian(fileContent)){
             StartMain.robot.keyPress(KeyEvent.VK_N);
-            Thread.sleep(100);
+            Thread.sleep(1000);
             screenshot = ImgUtils.screenshot();
             StartMain.robot.keyRelease(KeyEvent.VK_N);
             subimage = screenshot.getSubimage(600, 40, 312, 100);

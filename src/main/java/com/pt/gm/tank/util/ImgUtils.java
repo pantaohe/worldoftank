@@ -24,12 +24,16 @@ public class ImgUtils {
     public static String resourcePath;
     public static boolean notJarStart;
     static long timeT = System.currentTimeMillis();
+    static String path = "C:\\Games\\World_of_Tanks_CN\\cx\\photo\\";
 
     static {
         URL resource = ProjectPathUtils.class.getResource("/");
         if (resource == null) resource = ProjectPathUtils.class.getResource("");
         resourcePath = resource.getPath();
         notJarStart = resourcePath.contains("target/classes/");     //是否为测试环境
+
+        File file = new File(path);
+        if (!file.exists()) file.mkdirs();
     }
 
     public static String getString(BufferedImage subimage) {
@@ -63,11 +67,11 @@ public class ImgUtils {
 
         try {
             if (notJarStart) {
-                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1691977965536.png"));
-            }else{
+                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1692005422947.png"));
+            }else if (StartMain.OPEN_GUA_JI){
                 long time = System.currentTimeMillis();
                 if (time - timeT > 60000) { //一分钟
-                    ImageIO.write(screenCapture, "png", new File("D:\\tank\\photo\\" + time + ".png"));
+                    ImageIO.write(screenCapture, "png", new File(path + time + ".png"));
                     timeT = time;
                 }
             }

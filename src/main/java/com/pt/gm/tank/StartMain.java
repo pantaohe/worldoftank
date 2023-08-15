@@ -3,11 +3,12 @@ package com.pt.gm.tank;
 import com.benjaminwan.ocrlibrary.OcrEngine;
 import com.benjaminwan.ocrlibrary.RapidInstance;
 import com.pt.gm.tank.jr.JiaRuZD;
+import com.pt.gm.tank.kongzhi.ADRun;
+import com.pt.gm.tank.kongzhi.WSRun;
 import com.pt.gm.tank.map.MinMapLX;
 import com.pt.gm.tank.mouse.MouseUtils;
 import com.pt.gm.tank.util.ImgUtils;
-import com.pt.gm.tank.zd.FangXiangKongZhi;
-import com.pt.gm.tank.zd.ZhanDou;
+import com.pt.gm.tank.zhandou.ZhanDou;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +65,9 @@ public class StartMain {
 
         parLoad();
 
-        new Thread(new FangXiangKongZhi()).start();     //开车线程
+        new Thread(new WSRun()).start();     //开车线程（前后）
+        new Thread(new ADRun()).start();     //开车线程（左右）
+
         robot = new Robot();
         OcrEngine instance = RapidInstance.getInstance();
         instance.setDoAngle(false);

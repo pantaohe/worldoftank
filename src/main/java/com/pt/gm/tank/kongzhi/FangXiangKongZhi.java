@@ -1,8 +1,10 @@
-package com.pt.gm.tank.zd;
+package com.pt.gm.tank.kongzhi;
 
 import com.pt.gm.tank.StartMain;
 import com.pt.gm.tank.jr.JiaRuZD;
 import com.pt.gm.tank.util.ImgUtils;
+import com.pt.gm.tank.zhandou.ZhanDou;
+import com.pt.gm.tank.zhandou.ZhanDouFun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,8 +18,9 @@ import java.awt.image.BufferedImage;
  * @description
  * @create 2023-08-09 15:51
  */
-public class FangXiangKongZhi implements Runnable{
+public class FangXiangKongZhi{
     private static Logger logger = LoggerFactory.getLogger(FangXiangKongZhi.class);
+
     public static boolean xuyaoW = false;
     public static boolean xuyaoS = false;
 
@@ -25,7 +28,7 @@ public class FangXiangKongZhi implements Runnable{
 
         int[] myAddr;
         int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0;
-
+        int vkX;
         while (true) {
             logger.debug("进入方向控制循环");
 
@@ -56,24 +59,20 @@ public class FangXiangKongZhi implements Runnable{
             logger.debug("目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
             if (Math.abs(ddt2 - dd) < 10) {        //被房子等卡住了，随机向左或向右2秒
                 logger.debug("被房子等卡住了，随机向左或向右3秒");
-                int vkX = Math.random() < 0.5 ? KeyEvent.VK_D : KeyEvent.VK_A;
-                StartMain.robot.keyPress(vkX);
-                Thread.sleep(3000);
-                StartMain.robot.keyRelease(vkX);
+                vkX = Math.random() < 0.5 ? KeyEvent.VK_D : KeyEvent.VK_A;
+                millis = 3000;
             }else {
                 logger.debug("方向分别为自己{}度-目标{}度", myAddr[2], lxjd);
                 if (0 < jdc && jdc < 180) { //向右转往
                     logger.debug("向右角度{}转{}ms", zxjd, millis);
-                    StartMain.robot.keyPress(KeyEvent.VK_D);
-                    Thread.sleep(millis);
-                    StartMain.robot.keyRelease(KeyEvent.VK_D);
+                    vkX = KeyEvent.VK_D;
                 } else {     //向左转往
                     logger.debug("向左角度{}转{}ms", zxjd, millis);
-                    StartMain.robot.keyPress(KeyEvent.VK_A);
-                    Thread.sleep(millis);
-                    StartMain.robot.keyRelease(KeyEvent.VK_A);
+                    vkX = KeyEvent.VK_A;
                 }
             }
+            ADRun.AD.set(vkX);
+            ADRun.T.set(millis);
             X();
             if (dd > 800) {
                 logger.debug("按下前进w");
@@ -98,55 +97,10 @@ public class FangXiangKongZhi implements Runnable{
     /**
      * 锁定车身
      */
-    private static void X() {
+    public static void X() {
         logger.debug("锁定车身");
         StartMain.robot.keyPress(KeyEvent.VK_X);
         StartMain.robot.keyRelease(KeyEvent.VK_X);
     }
 
-
-    @Override
-    public void run() {
-        boolean anxiaW = false;
-        boolean anxiaS = false;
-        while (true){
-            if (anxiaW != xuyaoW) {
-                if (xuyaoW){
-                    logger.debug("开始前进");
-                    StartMain.robot.keyRelease(KeyEvent.VK_S);
-                    anxiaS = false;
-
-                    StartMain.robot.keyPress(KeyEvent.VK_W);
-                    anxiaW = true;
-                }else{
-                    logger.debug("停止前进");
-                    StartMain.robot.keyRelease(KeyEvent.VK_W);
-                    anxiaW = false;
-                    X();
-                }
-            }
-
-            if (anxiaS != xuyaoS) {
-                if (xuyaoS){
-                    logger.debug("开始后退");
-                    StartMain.robot.keyRelease(KeyEvent.VK_W);
-                    anxiaW = false;
-
-                    StartMain.robot.keyPress(KeyEvent.VK_S);
-                    anxiaS = true;
-                }else {
-                    logger.debug("停止后退");
-                    StartMain.robot.keyRelease(KeyEvent.VK_S);
-                    anxiaS = false;
-                    X();
-                }
-            }
-
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

@@ -30,7 +30,7 @@ public class MouseUtils {
 
     public static void mouseAnXia(int mask) throws InterruptedException {
         StartMain.robot.mousePress(mask);     //InputEvent.BUTTON1_DOWN_MASK
-        Thread.sleep(50);
+        Thread.sleep(160);
         StartMain.robot.mouseRelease(mask);
     }
 

@@ -1,6 +1,7 @@
-package com.pt.gm.tank.zd;
+package com.pt.gm.tank.zhandou;
 
 import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.kongzhi.FangXiangKongZhi;
 import com.pt.gm.tank.util.ImgUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -8,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
  * @author pantao
@@ -20,7 +20,7 @@ import java.io.IOException;
 public class ZhanDou {
 
     private static Logger logger = LoggerFactory.getLogger(ZhanDou.class);
-    static int MIN_MAP_W = StartMain.SCRN_SIZE[0] - StartMain.MAP_START[0];
+    public static int MIN_MAP_W = StartMain.SCRN_SIZE[0] - StartMain.MAP_START[0];
 
     public static boolean zhandouFX(BufferedImage screenshot) {
         //右上角时间
@@ -99,10 +99,12 @@ public class ZhanDou {
             for (int i = 2; i < StartMain.LU_XIAN.size(); i++) {
                 FangXiangKongZhi.kongzhi(i);
             }
+            FangXiangKongZhi.kongzhi(1);
         }else {
             for (int i = StartMain.LU_XIAN.size() - 1; i >= 2; i--) {
                 FangXiangKongZhi.kongzhi(i);
             }
+            FangXiangKongZhi.kongzhi(0);
         }
     }
 

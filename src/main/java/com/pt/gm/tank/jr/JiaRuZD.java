@@ -23,6 +23,8 @@ public class JiaRuZD {
     private static String tankName;
     public static String mapName = "";
 
+    private static int jiaruIndex;
+
     public static boolean jiarujiemian(BufferedImage screenshot) {
         BufferedImage subimage = screenshot.getSubimage(StartMain.IN_COMBAT[0], StartMain.IN_COMBAT[1], StartMain.IN_COMBAT[2], StartMain.IN_COMBAT[3]);
         String fileContent = ImgUtils.getString(subimage);
@@ -52,13 +54,18 @@ public class JiaRuZD {
             logger.debug("第{}辆车：{}，当前坐标：{}-{}，（120, 772, 175, 112）", index - 1, fileContent, x, y);
             if (StringUtils.isBlank(fileContent) || fileContent.contains("购买")) {
                 logger.debug("没有选中车，请添加车辆到车库, 如已在排队则忽略");
-                break;
+                if (jiaruIndex++ < 10) break;       //如果多次在加入界面识别不出来车辆，则自动选中第一辆加入
             }
             if (fileContent.contains("战斗中") || fileContent.contains("战头中") || fileContent.contains("车组乘员不足")) continue;
 
-            MouseUtils.mouseDianJi(x + (int)(Math.random() * StartMain.TANK_ADDR[2]), y + (int)(Math.random() * StartMain.TANK_ADDR[3]));
-            logger.debug("选中：" + fileContent + "坦克，准备开始");
-            Thread.sleep(500);
+
+            if (jiaruIndex <= 10) {
+                MouseUtils.mouseDianJi(x + (int) (Math.random() * StartMain.TANK_ADDR[2]), y + (int) (Math.random() * StartMain.TANK_ADDR[3]));
+                logger.debug("选中：" + fileContent + "坦克，准备开始");
+            }else logger.debug("多次在加入界面识别不出来车辆，点一次加入战斗");
+
+            jiaruIndex = 0;
+            Thread.sleep(1500);
             MouseUtils.mouseDianJi(StartMain.IN_COMBAT[0] + (int)(Math.random() * StartMain.IN_COMBAT[2]), StartMain.IN_COMBAT[1] + (int)(Math.random() * StartMain.IN_COMBAT[3]));
 
             logger.debug("上一场战斗总耗时：{}，车辆：{}，地图：{}", (System.currentTimeMillis() - timeT) / 1000 + "s", tankName, mapName);
