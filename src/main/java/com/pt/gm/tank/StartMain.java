@@ -90,6 +90,7 @@ public class StartMain {
             if (TUPIAN_NEIRONG.contains("获得") || TUPIAN_NEIRONG.contains("遵命")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 741 + (int) (Math.random() * 29));
             if (TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 941 + (int) (Math.random() * 89));
             if (TUPIAN_NEIRONG.contains("服务器连接已经断开")) {
+                logger.debug("点击取消，重连服务器");
                 MouseUtils.mouseDianJi(1049 + (int) (Math.random() * 90), 576 + (int) (Math.random() * 18));
                 robot.keyPress(KeyEvent.VK_ENTER);
                 robot.keyRelease(KeyEvent.VK_ENTER);

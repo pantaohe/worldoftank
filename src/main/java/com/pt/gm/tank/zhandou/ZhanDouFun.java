@@ -36,7 +36,8 @@ public class ZhanDouFun {
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isBlank(fileContent)) return false;
         if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水")
-                || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁") || fileContent.contains("着火了")){
+                || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁") || fileContent.contains("着火了")
+                || StartMain.TUPIAN_NEIRONG.contains("离开战斗")){
 
             StartMain.robot.keyPress(KeyEvent.VK_ESCAPE);
             StartMain.robot.keyRelease(KeyEvent.VK_ESCAPE);
@@ -276,7 +277,7 @@ public class ZhanDouFun {
                     int i1 = rgb >> 16 & 0xff;
                     int i2 = rgb >> 8 & 0xff;
                     int i3 = rgb & 0xff;
-                    if (250 < i1 && 250 < i2 && 250 < i3) {
+                    if (252 < i1 && 252 < i2 && 252 < i3) {
 
                         int ys = i - 15 < 0 ? 0 : i - 15;
                         int ye = i + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : i + 16;
@@ -397,7 +398,7 @@ public class ZhanDouFun {
                     mindd = dd;
                 }
             }
-            myList.remove(index);
+            if (mindd < 60) myList.remove(index);
         }
     }
 

@@ -23,7 +23,7 @@ import java.util.List;
 public class MinMapLX {
     private static Logger logger = LoggerFactory.getLogger(MinMapLX.class);
     public static final int QZB = 15;
-    //旗子圈为 40 * 40 （半径20）      旗子 23 * 23（半径16左右）      自己 15 * 15（半径15）
+    //旗子圈为 40 * 40 （半径20）      旗子 23 * 23（半径16左右）      自己 15 * 15（半径8）
     public static List<int[]> AI_LI_HA_LUO_FU = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
             new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
     public static List<int[]> HU_BIAN_DE_JUE_ZHU = Arrays.asList(new int[]{99, 42}, new int[]{352, 431},
@@ -85,7 +85,7 @@ public class MinMapLX {
     public static List<int[]> GANG_TIE_BI_LEI = Arrays.asList(new int[]{78, 54}, new int[]{438, 429},
             new int[]{31, 224}, new int[]{24, 449}, new int[]{242, 429}, new int[]{367, 465});
     public static List<int[]> QIAN_SHAO = Arrays.asList(new int[]{358, 108}, new int[]{98, 330},
-            new int[]{245, 124}, new int[]{182, 181}, new int[]{123, 237});
+            new int[]{245, 124}, new int[]{210, 210}, new int[]{123, 237});
     public static List<int[]> MEI_YING_XIAO_ZHENG = Arrays.asList(new int[]{244, 72}, new int[]{244, 416},
             new int[]{397, 108}, new int[]{406, 360});
     public static List<int[]> BEI_OU_HAI_WAN = Arrays.asList(new int[]{52, 182}, new int[]{440, 265},

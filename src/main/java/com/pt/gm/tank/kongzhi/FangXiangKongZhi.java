@@ -27,18 +27,19 @@ public class FangXiangKongZhi{
     public static void kongzhi(int i) throws InterruptedException {
 
         int[] myAddr;
-        int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0;
-        int vkX;
+        int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0, dd;
+        int vkX, feiZhanDou = 0;
         while (true) {
             logger.debug("进入方向控制循环");
 
             do {
                 BufferedImage screenshot = ImgUtils.screenshot();
-                String neirong = ImgUtils.getString(screenshot);
-                if (neirong.contains("获得贴花") || JiaRuZD.jiarujiemian(screenshot)) {   //没有在咱都界面
-                    ZhanDouFun.jieshuDY();
-                    return;
-                }
+                if (!ZhanDou.zhandouFX(screenshot) ) {   //没有在咱都界面
+                    if ( feiZhanDou++ > 15) {
+                        ZhanDouFun.jieshuDY();
+                        return;
+                    }
+                }else feiZhanDou = 0;
                 if (ZhanDouFun.jihui(screenshot)) return;       //战车被毁退出
 
                 BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
@@ -50,14 +51,20 @@ public class FangXiangKongZhi{
                 }
             }while (myAddr == null);
 
+            dd = ZhanDouFun.dd2(myAddr, mubiao);
+            logger.debug("目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
+            if (dd < 180) {
+                xuyaoS = false; xuyaoW = false;
+                return;     //达到小目标退出
+            }
+
             int lxjd = ZhanDouFun.jiaodu(myAddr, mubiao);
             int jdc = (myAddr[2] - lxjd + 360) % 360;
             int zxjd = jdc > 180 ? (360 - jdc) : jdc;
             int millis = zxjd * 15;   // jdc 360-jdc
 
-            double dd = ZhanDouFun.dd2(myAddr, mubiao);
-            logger.debug("目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
-            if (Math.abs(ddt2 - dd) < 10) {        //被房子等卡住了，随机向左或向右2秒
+
+            if ((Math.abs(ddt2 -ddt1) + Math.abs(ddt1-dd)) < 10) {        //被房子等卡住了，随机向左或向右2秒
                 logger.debug("被房子等卡住了，随机向左或向右3秒");
                 vkX = Math.random() < 0.5 ? KeyEvent.VK_D : KeyEvent.VK_A;
                 millis = 3000;
@@ -74,22 +81,19 @@ public class FangXiangKongZhi{
             ADRun.AD.set(vkX);
             ADRun.T.set(millis);
             X();
-            if (dd > 800) {
+            if (dd > 1000) {
                 logger.debug("按下前进w");
                 xuyaoS = false; xuyaoW = true;
-            }else if(dd > 150){
+                Thread.sleep(2000);
+            }else {
                 logger.debug("松开前进s/w,距离比较近手动操作");
                 xuyaoS = false; xuyaoW = false;     //距离比较近手动操作
                 StartMain.robot.keyPress(KeyEvent.VK_W);
-                Thread.sleep(2000);
+                Thread.sleep(2200);
                 StartMain.robot.keyRelease(KeyEvent.VK_W);
                 X();
-            }else {
-                xuyaoS = false; xuyaoW = false;
-                return;     //达到小目标退出
             }
             ddt2 = ddt1; ddt1 = dd;
-
         }
 
     }

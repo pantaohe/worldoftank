@@ -27,7 +27,7 @@ public class ZhanDou {
         BufferedImage subimage = screenshot.getSubimage(1860, StartMain.SCRN_SIZE[2], 50, 30);
         String fileContent = ImgUtils.getString(subimage);
 
-        logger.debug("界面内容{}", fileContent);
+        logger.debug("战斗界面时间处内容{}", fileContent);
         //有时间表示战斗中
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains(":")){
 
@@ -43,7 +43,7 @@ public class ZhanDou {
                 logger.debug("进入交战中界面");
                 return true;
             } catch (Exception e) {
-                logger.debug("不是在战斗中{}", e);
+                logger.debug("右上角的时间解析错误", e);
             }
         }
         return false;
