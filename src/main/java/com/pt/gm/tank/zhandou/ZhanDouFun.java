@@ -277,7 +277,7 @@ public class ZhanDouFun {
                     int i1 = rgb >> 16 & 0xff;
                     int i2 = rgb >> 8 & 0xff;
                     int i3 = rgb & 0xff;
-                    if (252 < i1 && 252 < i2 && 252 < i3) {
+                    if (253 < i1 && 253 < i2 && 253 < i3) {
 
                         int ys = i - 15 < 0 ? 0 : i - 15;
                         int ye = i + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : i + 16;
@@ -337,8 +337,10 @@ public class ZhanDouFun {
                         }
                         removeCF(myList);
                         if (myList.size() != 3) {
-                            logger.debug("自己位置坐标计算失败:{}", myList.size());
-                            return null;
+                            flag = true;
+                            myList.clear();
+                            logger.debug("自己位置坐标计算失败:{}-{}", myList.size(), tj);
+                            break;
                         }
                         int y = 0, x = 0;
                         List<int[]> li = new ArrayList<>();
@@ -353,6 +355,7 @@ public class ZhanDouFun {
                         return new int[]{x / 3, y / 3, jiaodu(li)};
                     }
                 }
+                if (flag) {flag = false; break;}
             }
         }
         return null;
@@ -390,15 +393,17 @@ public class ZhanDouFun {
         if (myList.size() == 4) {
             int sum = (int) myList.stream().mapToInt((x) -> x).summaryStatistics().getSum();
             int index = 0, xa = (sum >> 16 & 0xffff) / 4, ya = (sum & 0xffff)/4;
-            double mindd = 10000;
+            double mindd = 10000, maxdd = 0;
             for (int i = 0; i < myList.size(); i++) {
                 double dd = Math.pow((myList.get(i) >> 16 & 0xffff) - xa, 2) + Math.pow((myList.get(i) & 0xffff) - ya, 2);
                 if (mindd > dd){
                     index = i;
                     mindd = dd;
                 }
+                if (dd > maxdd) maxdd = dd;
             }
-            if (mindd < 60) myList.remove(index);
+            logger.debug("自己图标轮廓到自己中心点最大距离{}", maxdd);
+            if (mindd < 60 && 30 < maxdd && maxdd < 100) myList.remove(index);
         }
     }
 
