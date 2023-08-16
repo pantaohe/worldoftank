@@ -53,7 +53,7 @@ public class FangXiangKongZhi{
 
             dd = ZhanDouFun.dd2(myAddr, mubiao);
             logger.debug("目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
-            if (ddt1 != 0 && Math.abs(dd - ddt1) > 10000) continue;     //如果单次变动太大，说明是错误的。
+            if (ddt1 != 0 && (dd - ddt1 > 10000 || ddt1 - dd > 35000)) continue;     //如果单次变动太大，说明是错误的。
 
             if (dd < 180) {
                 xuyaoS = false; xuyaoW = false;
