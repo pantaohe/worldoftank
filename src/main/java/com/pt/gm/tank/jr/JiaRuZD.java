@@ -52,7 +52,7 @@ public class JiaRuZD {
 //            if (StringUtils.isBlank(fileContent)) fileContent = ImgUtils.getString(subimage, "png");
 
             logger.debug("第{}辆车：{}，当前坐标：{}-{}，（120, 772, 175, 112）", index - 1, fileContent, x, y);
-            if (StringUtils.isBlank(fileContent) || fileContent.contains("购买")) {
+            if (fileContent.contains("购买")) {
                 logger.debug("没有选中车，请添加车辆到车库, 如已在排队则忽略");
                 if (jiaruIndex++ < 10) break;       //如果多次在加入界面识别不出来车辆，则自动选中第一辆加入
             }
@@ -61,7 +61,7 @@ public class JiaRuZD {
 
             if (jiaruIndex <= 10) {
                 MouseUtils.mouseDianJi(x + (int) (Math.random() * StartMain.TANK_ADDR[2]), y + (int) (Math.random() * StartMain.TANK_ADDR[3]));
-                logger.debug("选中：" + fileContent + "坦克，准备开始");
+                logger.debug("选中：{}坦克，准备开始", StringUtils.isBlank(fileContent) ? "主力车XX" : fileContent);
             }else logger.debug("多次在加入界面识别不出来车辆，点一次加入战斗");
 
             jiaruIndex = 0;
