@@ -37,19 +37,24 @@ public class ZhanDouFun {
         if (StringUtils.isBlank(fileContent)) return false;
         if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水")
                 || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁") || fileContent.contains("着火了")
-                || StartMain.TUPIAN_NEIRONG.contains("离开战斗")){
+                ){
 
             StartMain.robot.keyPress(KeyEvent.VK_ESCAPE);
             StartMain.robot.keyRelease(KeyEvent.VK_ESCAPE);
             Thread.sleep(500);
 
-            MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 50 + (int)(Math.random() * 50));
-            Thread.sleep(1800);
-            MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 63 + (int)(Math.random() * 32));
-            jieshuDY();
-            return true;
+            return jihui();
         }
         return false;
+    }
+
+    public static boolean jihui() throws InterruptedException {
+
+        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 50 + (int)(Math.random() * 50));
+        Thread.sleep(1800);
+        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 63 + (int)(Math.random() * 32));
+        jieshuDY();
+        return true;
     }
 
     public static void jieshuDY() {

@@ -23,6 +23,7 @@ public class FangXiangKongZhi{
 
     public static boolean xuyaoW = false;
     public static boolean xuyaoS = false;
+    public static boolean isfx = false;
 
     public static void kongzhi(int i) throws InterruptedException {
 
@@ -45,8 +46,9 @@ public class FangXiangKongZhi{
                 BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
                 myAddr = ZhanDouFun.myAddr(minMap);
                 if (myAddr == null){
-                    if (Math.random() < 0.5) {xuyaoW = false; xuyaoS = true;}
-                    else {xuyaoS = false; xuyaoW = true;}
+//                    if (Math.random() < 0.5) {xuyaoW = false; xuyaoS = true;}
+//                    else {xuyaoS = false; xuyaoW = true;}
+                    xuyaoW = false; xuyaoS = true;
                     Thread.sleep(100);
                 }
             }while (myAddr == null);
@@ -66,7 +68,7 @@ public class FangXiangKongZhi{
             int millis = zxjd * 15;   // jdc 360-jdc
 
 
-            if ((Math.abs(ddt2 -ddt1) + Math.abs(ddt1-dd)) < 10) {        //被房子等卡住了，随机向左或向右2秒
+            if ((Math.abs(ddt2 -ddt1) + Math.abs(ddt1-dd)) < 10 && !isfx) {        //被房子等卡住了，随机向左或向右2秒
                 logger.debug("被房子等卡住了，随机向左或向右3秒");
                 vkX = Math.random() < 0.5 ? KeyEvent.VK_D : KeyEvent.VK_A;
                 millis = 3000;
@@ -84,8 +86,13 @@ public class FangXiangKongZhi{
             ADRun.T.set(millis);
             X();
             if (dd > 1000) {
-                logger.debug("按下前进w");
-                xuyaoS = false; xuyaoW = true;
+                if (zxjd > 90){     //转向角度大于90，停止前进
+                    logger.debug("方向不对，停下前进w");
+                    xuyaoS = false; xuyaoW = false; isfx = true;
+                }else {
+                    logger.debug("按下前进w");
+                    xuyaoS = false; xuyaoW = true; isfx = false;
+                }
                 Thread.sleep(2000);
             }else {
                 logger.debug("松开前进s/w,距离比较近手动操作");

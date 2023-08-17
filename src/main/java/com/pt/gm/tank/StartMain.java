@@ -9,6 +9,7 @@ import com.pt.gm.tank.map.MinMapLX;
 import com.pt.gm.tank.mouse.MouseUtils;
 import com.pt.gm.tank.util.ImgUtils;
 import com.pt.gm.tank.zhandou.ZhanDou;
+import com.pt.gm.tank.zhandou.ZhanDouFun;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,6 +96,8 @@ public class StartMain {
                 robot.keyPress(KeyEvent.VK_ENTER);
                 robot.keyRelease(KeyEvent.VK_ENTER);
             }
+            if (TUPIAN_NEIRONG.contains("离开战斗")) ZhanDouFun.jihui();
+
         }
 //        MinMapLX.getXingJingLuXian(screenshot);       //收集数据
         //分析加载地图n
