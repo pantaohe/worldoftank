@@ -48,7 +48,8 @@ public class FangXiangKongZhi{
                 if (myAddr == null){
 //                    if (Math.random() < 0.5) {xuyaoW = false; xuyaoS = true;}
 //                    else {xuyaoS = false; xuyaoW = true;}
-                    xuyaoW = false; xuyaoS = true;
+                    logger.debug("未能正确获取自己坐标，前进");
+                    xuyaoW = true; xuyaoS = false;
                     Thread.sleep(100);
                 }
             }while (myAddr == null);
@@ -84,7 +85,6 @@ public class FangXiangKongZhi{
             }
             ADRun.AD.set(vkX);
             ADRun.T.set(millis);
-            X();
             if (dd > 1000) {
                 if (zxjd > 90){     //转向角度大于90，停止前进
                     logger.debug("方向不对，停下前进w");
@@ -100,20 +100,11 @@ public class FangXiangKongZhi{
                 StartMain.robot.keyPress(KeyEvent.VK_W);
                 Thread.sleep(2200);
                 StartMain.robot.keyRelease(KeyEvent.VK_W);
-                X();
             }
             ddt2 = ddt1; ddt1 = dd;
         }
 
     }
 
-    /**
-     * 锁定车身
-     */
-    public static void X() {
-        logger.debug("锁定车身");
-        StartMain.robot.keyPress(KeyEvent.VK_X);
-        StartMain.robot.keyRelease(KeyEvent.VK_X);
-    }
 
 }

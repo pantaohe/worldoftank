@@ -34,7 +34,6 @@ public class StartMain {
     public static int[] MAP_START = {1429, 549};     //小地图起点 不带边框是491*491
     public static int[] IN_COMBAT = {880, 31, 155, 40};
     public static int[] TANK_ADDR = {120, 772, 175, 112};
-    public static int[] TANK_CENTRE  = {760, 390, 400, 150};
 
     public static int[] RGB_K = {104, 157, 78};
     public static int[] RGB_MAX = {154, 207, 128};
@@ -88,9 +87,9 @@ public class StartMain {
 
         //贴花界面
         if (!StringUtils.isBlank(TUPIAN_NEIRONG)) {
-            if (TUPIAN_NEIRONG.contains("获得") || TUPIAN_NEIRONG.contains("遵命")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 741 + (int) (Math.random() * 29));
+            if (TUPIAN_NEIRONG.contains("获得贴花") || TUPIAN_NEIRONG.contains("遵命")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 741 + (int) (Math.random() * 29));
             if (TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 941 + (int) (Math.random() * 89));
-            if (TUPIAN_NEIRONG.contains("服务器连接已经断开")) {
+            if (TUPIAN_NEIRONG.contains("服务器连接已经断开") || TUPIAN_NEIRONG.contains("健康游戏忠告抵制不良游戏")) {
                 logger.debug("点击取消，重连服务器");
                 MouseUtils.mouseDianJi(1049 + (int) (Math.random() * 90), 576 + (int) (Math.random() * 18));
                 robot.keyPress(KeyEvent.VK_ENTER);
@@ -130,12 +129,8 @@ public class StartMain {
                 SCRN_SIZE = new int[]{1920, 1080, 0, 0};       // 23 40 y轴上下边框分辨高 23 和40
                 MAP_START = new int[]{1429, 589};     //小地图起点 不带边框是491*491
                 IN_COMBAT = new int[]{880, 0, 155, 40};
-                TANK_ADDR = new int[]{120, 818, 175, 112};
-                TANK_CENTRE  = new int[]{760, 390, 400, 150};
+                TANK_ADDR = new int[]{120, 818, 171, 112};
 
-                RGB_K = new int[]{104, 157, 78};
-                RGB_MAX = new int[]{154, 207, 128};
-                RGB_MIN = new int[]{54, 107, 28};
             }
         }
 

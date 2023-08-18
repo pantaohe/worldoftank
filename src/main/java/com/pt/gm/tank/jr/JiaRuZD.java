@@ -28,26 +28,20 @@ public class JiaRuZD {
     public static boolean jiarujiemian(BufferedImage screenshot) {
         BufferedImage subimage = screenshot.getSubimage(StartMain.IN_COMBAT[0], StartMain.IN_COMBAT[1], StartMain.IN_COMBAT[2], StartMain.IN_COMBAT[3]);
         String fileContent = ImgUtils.getString(subimage);
-        logger.debug("加入战斗位置文字为：{}", fileContent);
 
-        if (StringUtils.isBlank(fileContent) || !fileContent.contains("加入战斗")) {
-            logger.error("加入战斗位置无文字，或不是加入战斗，结束");
-        }else {
-            return true;
-        }
-        return false;
+        return StringUtils.isNotBlank(fileContent) && fileContent.contains("加入战斗");
     }
 
     public static boolean jiaRu(BufferedImage screenshot) throws IOException, InterruptedException {
         BufferedImage subimage = screenshot.getSubimage(733, 300, 450, 460);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains("处罚")) MouseUtils.mouseDianJi(1090 + (int)(Math.random() * 90), 733 + (int)(Math.random() * 18));
-        logger.debug("当前进入加入战斗界面");
+        logger.debug("当前是加入战斗界面");
         int index = 0, x, y;
         while(true) {
             x = StartMain.TANK_ADDR[0] + StartMain.TANK_ADDR[2] * (index / 2);
             y = StartMain.TANK_ADDR[1] + StartMain.TANK_ADDR[3] * (index++ % 2);
-            subimage = screenshot.getSubimage(x, y, StartMain.TANK_ADDR[2] + 0, StartMain.TANK_ADDR[3] + 0);
+            subimage = screenshot.getSubimage(x, y, StartMain.TANK_ADDR[2] + 20, StartMain.TANK_ADDR[3] + 20);
             fileContent = ImgUtils.getString(subimage);
 //            if (StringUtils.isBlank(fileContent)) fileContent = ImgUtils.getString(subimage, "png");
 
@@ -68,9 +62,12 @@ public class JiaRuZD {
             Thread.sleep(1500);
             MouseUtils.mouseDianJi(StartMain.IN_COMBAT[0] + (int)(Math.random() * StartMain.IN_COMBAT[2]), StartMain.IN_COMBAT[1] + (int)(Math.random() * StartMain.IN_COMBAT[3]));
 
-            logger.debug("上一场战斗总耗时：{}，车辆：{}，地图：{}", (System.currentTimeMillis() - timeT) / 1000 + "s", tankName, mapName);
-            tankName = fileContent;
-            timeT = System.currentTimeMillis();
+            long l = System.currentTimeMillis() - timeT;
+            if (l > 60000) {
+                logger.debug("上一场战斗总耗时：{}，车辆：{}，地图：{}", l / 1000 + "s", tankName, mapName);
+                timeT = System.currentTimeMillis();
+            }
+            if (StringUtils.isNotBlank(fileContent)) tankName = fileContent;
             return true;
         }
         return false;

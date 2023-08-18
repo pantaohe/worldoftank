@@ -27,7 +27,7 @@ public class ZhanDou {
         BufferedImage subimage = screenshot.getSubimage(1860, StartMain.SCRN_SIZE[2], 50, 30);
         String fileContent = ImgUtils.getString(subimage);
 
-        logger.debug("战斗界面时间处内容{}", fileContent);
+        String tishi = ""; boolean flag =false;
         //有时间表示战斗中
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains(":")){
 
@@ -36,17 +36,19 @@ public class ZhanDou {
                 int m = Integer.parseInt(filecs[0]);
                 int s = Integer.parseInt(filecs[1]);
                 if ((m == 0 && s < 59) || (StartMain.TUPIAN_NEIRONG.contains("随机战"))) {
-                    logger.debug("预读阶段，无需处理");
-                    return false;     //倒计时，不需要操作
+                    tishi = "预读阶段或最后一分钟，无需处理";
+                    flag =  false;     //倒计时，不需要操作
+                }else {
+                    tishi = "在交战中界面中";
+                    flag = true;
                 }
-
-                logger.debug("进入交战中界面");
-                return true;
             } catch (Exception e) {
-                logger.debug("右上角的时间解析错误", e);
+                tishi = "右上角的时间解析错误";
+                logger.error(tishi, e);
             }
         }
-        return false;
+        logger.debug("战斗界面时间处内容{}，解析结果{}", fileContent, tishi);
+        return flag;
     }
 
 

@@ -24,8 +24,6 @@ public class ImgUtils {
     public static String resourcePath;
     public static boolean notJarStart;
     static long timeT = System.currentTimeMillis();
-//    static String path = "C:\\Games\\World_of_Tanks_CN\\cx\\photo\\";
-    static String path = "D:\\tank\\photo\\";
 
     static {
         URL resource = ProjectPathUtils.class.getResource("/");
@@ -33,7 +31,7 @@ public class ImgUtils {
         resourcePath = resource.getPath();
         notJarStart = resourcePath.contains("target/classes/");     //是否为测试环境
 
-        File file = new File(path);
+        File file = new File("photo\\");
         if (!file.exists()) file.mkdirs();
     }
 
@@ -69,13 +67,14 @@ public class ImgUtils {
         try {
             if (notJarStart) {
 //                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1692152886051.png"));
-                screenCapture = ImageIO.read(new File("\\\\192.168.0.165\\cx\\photo\\1692253840611.png"));
+//                screenCapture = ImageIO.read(new File("\\\\192.168.0.165\\cx\\photo\\1692322802624.png"));
+                screenCapture = ImageIO.read(new File("D:\\tank\\photo\\1692228458083.png"));
             }else if (StartMain.OPEN_GUA_JI){
-//                long time = System.currentTimeMillis();
-//                if (time - timeT > 60000) { //一分钟
-//                    ImageIO.write(screenCapture, "png", new File(path + time + ".png"));
-//                    timeT = time;
-//                }
+                long time = System.currentTimeMillis();
+                if (time - timeT > 1800000) { //三十分钟
+                    ImageIO.write(screenCapture, "png", new File("photo\\" + time + ".png"));
+                    timeT = time;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

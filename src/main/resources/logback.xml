@@ -2,7 +2,7 @@
 <configuration debug="false" scan="false">
 
 	<!-- Log file path 123123-->
-	<property name="log.path" value="../logs" />
+	<property name="log.path" value="./logs" />
 	
 	<!-- Console log output 12132-->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">

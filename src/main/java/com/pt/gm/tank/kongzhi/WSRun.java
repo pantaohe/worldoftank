@@ -35,7 +35,6 @@ public class WSRun  implements Runnable{
                     logger.debug("停止前进");
                     StartMain.robot.keyRelease(KeyEvent.VK_W);
                     anxiaW = false;
-                    FangXiangKongZhi.X();
                 }
             }
 
@@ -51,7 +50,6 @@ public class WSRun  implements Runnable{
                     logger.debug("停止后退");
                     StartMain.robot.keyRelease(KeyEvent.VK_S);
                     anxiaS = false;
-                    FangXiangKongZhi.X();
                 }
             }
 

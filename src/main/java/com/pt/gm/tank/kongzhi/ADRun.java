@@ -1,6 +1,8 @@
 package com.pt.gm.tank.kongzhi;
 
 import com.pt.gm.tank.StartMain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.event.KeyEvent;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @create 2023-08-15 10:56
  */
 public class ADRun  implements Runnable{
-
+    private static Logger logger = LoggerFactory.getLogger(Runnable.class);
     public static final int X = 0;
 
     public static AtomicInteger AD = new AtomicInteger(X);
@@ -28,7 +30,8 @@ public class ADRun  implements Runnable{
                     StartMain.robot.keyPress(AD.get());
                     Thread.sleep(T.get());
                     StartMain.robot.keyRelease(AD.get());
-
+                    logger.debug("方向{}，时间{}", AD.get(), T.get());
+                    X();
                     AD.set(X);
                     T.set(X);
                 }
@@ -39,4 +42,12 @@ public class ADRun  implements Runnable{
         }
     }
 
+    /**
+     * 锁定车身
+     */
+    public static void X() {
+        logger.debug("锁定车身");
+        StartMain.robot.keyPress(KeyEvent.VK_X);
+        StartMain.robot.keyRelease(KeyEvent.VK_X);
+    }
 }

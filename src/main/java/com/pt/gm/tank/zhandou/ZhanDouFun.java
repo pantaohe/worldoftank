@@ -32,7 +32,7 @@ public class ZhanDouFun {
 
     public static boolean jihui(BufferedImage screenshot) throws InterruptedException {
 
-        BufferedImage subimage = screenshot.getSubimage(StartMain.TANK_CENTRE[0], StartMain.TANK_CENTRE[1] + 150, StartMain.TANK_CENTRE[2], StartMain.TANK_CENTRE[3]);
+        BufferedImage subimage = screenshot.getSubimage(760, 540, 400, 150);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isBlank(fileContent)) return false;
         if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水")
@@ -50,9 +50,9 @@ public class ZhanDouFun {
 
     public static boolean jihui() throws InterruptedException {
 
-        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 50 + (int)(Math.random() * 50));
+        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 73 + StartMain.SCRN_SIZE[2] + (int)(Math.random() * 50));
         Thread.sleep(1800);
-        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 63 + (int)(Math.random() * 32));
+        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 40 + StartMain.SCRN_SIZE[2] + (int)(Math.random() * 32));
         jieshuDY();
         return true;
     }
@@ -61,7 +61,7 @@ public class ZhanDouFun {
         StartMain.LU_XIAN = null;
         FangXiangKongZhi.xuyaoW = false;
         FangXiangKongZhi.xuyaoS = false;
-        logger.debug("坦克被击毁，退出战斗");
+        logger.debug("战车被毁，全体撤离");
     }
 
     public static List<int[]> dfTank(BufferedImage subimage) throws InterruptedException {
