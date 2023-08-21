@@ -96,6 +96,12 @@ public class MinMapLX {
             new int[]{94, 212}, new int[]{91, 139}, new int[]{383, 138}, new int[]{403, 212});
     public static List<int[]> LI_FU_AO_KE_SI = Arrays.asList(new int[]{391, 67}, new int[]{69, 405},
             new int[]{202, 148}, new int[]{116, 227});
+    public static List<int[]> BING_CHUAN_ZHI_DI = Arrays.asList(new int[]{418, 123}, new int[]{107, 434},
+            new int[]{360, 160}, new int[]{210, 225}, new int[]{147, 335});
+    public static List<int[]> ZHOU_JI_GONG_LU = Arrays.asList(new int[]{340, 71}, new int[]{76, 404},
+            new int[]{154, 204}, new int[]{386, 256});
+    public static List<int[]> LUO_MAN_DI = Arrays.asList(new int[]{269, 49}, new int[]{267, 439},
+            new int[]{280, 141}, new int[]{328, 250}, new int[]{289, 356});
 //    public static List<int[]> SI_DU_JI_ANG_QI = Arrays.asList(new int[]{358, 108}, new int[]{98, 330},
 //            new int[]{245, 124}, new int[]{182, 181}, new int[]{123, 237});
 
@@ -115,6 +121,8 @@ public class MinMapLX {
         }else if (fileContent.contains("安斯克")){
             StartMain.LU_XIAN = AN_SI_KE;
         }else if (fileContent.contains("卡累利阿")){
+            StartMain.LU_XIAN = KA_LEI_LI_A;
+        }else if (fileContent.contains("卡果利阿")){
             StartMain.LU_XIAN = KA_LEI_LI_A;
         }else if (fileContent.contains("胜利之门")){
             StartMain.LU_XIAN = SHEN_LI_ZHI_MEN;
@@ -174,6 +182,12 @@ public class MinMapLX {
             StartMain.LU_XIAN = LANG_MAN_ZHI_CHENG;
         }else if (fileContent.contains("里夫奥克斯")){
             StartMain.LU_XIAN = LI_FU_AO_KE_SI;
+        }else if (fileContent.contains("冰川之地")){
+            StartMain.LU_XIAN = BING_CHUAN_ZHI_DI;
+        }else if (fileContent.contains("州际公路")){
+            StartMain.LU_XIAN = ZHOU_JI_GONG_LU;
+        }else if (fileContent.contains("诺曼底")){
+            StartMain.LU_XIAN = LUO_MAN_DI;
 //        }else if (fileContent.contains("斯杜季昂奇")){     //斯杜季昂奇、可以直接RR        //锡默尔斯多夫(ban掉)
 //            StartMain.LU_XIAN = SI_DU_JI_ANG_QI;
         }else{
