@@ -68,10 +68,10 @@ public class ImgUtils {
             if (notJarStart) {
 //                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1692152886051.png"));
 //                screenCapture = ImageIO.read(new File("\\\\192.168.0.165\\cx\\photo\\1692322802624.png"));
-                screenCapture = ImageIO.read(new File("D:\\tank\\photo\\1692228458083.png"));
+                screenCapture = ImageIO.read(new File("D:\\work\\java\\idea\\workspace\\worldoftank\\target\\photo\\\\1692487969297.png"));
             }else if (StartMain.OPEN_GUA_JI){
                 long time = System.currentTimeMillis();
-                if (time - timeT > 1800000) { //三十分钟
+                if (time - timeT > 600000) { //三十分钟
                     ImageIO.write(screenCapture, "png", new File("photo\\" + time + ".png"));
                     timeT = time;
                 }

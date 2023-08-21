@@ -25,12 +25,14 @@ public class ADRun  implements Runnable{
     public void run() {
         while (true) {
             try {
-                if (AD.get() != X && T.get() != X) {
+                int ad = AD.get();
+                int time = T.get();
+                if (ad != X && time != X) {
 
-                    StartMain.robot.keyPress(AD.get());
-                    Thread.sleep(T.get());
-                    StartMain.robot.keyRelease(AD.get());
-                    logger.debug("方向{}，时间{}", AD.get(), T.get());
+                    StartMain.robot.keyPress(ad);
+                    Thread.sleep(time);
+                    StartMain.robot.keyRelease(ad);
+                    logger.debug("方向{}，时间{}", ad, time);
                     X();
                     AD.set(X);
                     T.set(X);
@@ -45,9 +47,10 @@ public class ADRun  implements Runnable{
     /**
      * 锁定车身
      */
-    public static void X() {
+    public static void X() throws InterruptedException {
         logger.debug("锁定车身");
         StartMain.robot.keyPress(KeyEvent.VK_X);
+        Thread.sleep(20);
         StartMain.robot.keyRelease(KeyEvent.VK_X);
     }
 }

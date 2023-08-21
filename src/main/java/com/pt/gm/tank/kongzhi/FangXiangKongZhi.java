@@ -31,6 +31,7 @@ public class FangXiangKongZhi{
         int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0, dd;
         int vkX, feiZhanDou = 0;
         while (true) {
+            System.out.println();
             logger.debug("进入方向控制循环");
 
             do {
@@ -56,8 +57,10 @@ public class FangXiangKongZhi{
 
             dd = ZhanDouFun.dd2(myAddr, mubiao);
             logger.debug("目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
-            if (ddt1 != 0 && (dd - ddt1 > 10000 || ddt1 - dd > 35000)) continue;     //如果单次变动太大，说明是错误的。
-
+            if (ddt1 != 0 && (dd - ddt1 > 10000 || ddt1 - dd > 35000)) {
+                logger.debug("当前坐标点跨度太大，抛弃此次位置");
+                continue;     //如果单次变动太大，说明是错误的。
+            }
             if (dd < 180) {
                 xuyaoS = false; xuyaoW = false;
                 return;     //达到小目标退出
@@ -66,7 +69,7 @@ public class FangXiangKongZhi{
             int lxjd = ZhanDouFun.jiaodu(myAddr, mubiao);
             int jdc = (myAddr[2] - lxjd + 360) % 360;
             int zxjd = jdc > 180 ? (360 - jdc) : jdc;
-            int millis = zxjd * 15;   // jdc 360-jdc
+            int millis = zxjd * 12;   // jdc 360-jdc
 
 
             if ((Math.abs(ddt2 -ddt1) + Math.abs(ddt1-dd)) < 10 && !isfx) {        //被房子等卡住了，随机向左或向右2秒
@@ -93,12 +96,12 @@ public class FangXiangKongZhi{
                     logger.debug("按下前进w");
                     xuyaoS = false; xuyaoW = true; isfx = false;
                 }
-                Thread.sleep(2000);
+                Thread.sleep(2500);
             }else {
                 logger.debug("松开前进s/w,距离比较近手动操作");
                 xuyaoS = false; xuyaoW = false;     //距离比较近手动操作
                 StartMain.robot.keyPress(KeyEvent.VK_W);
-                Thread.sleep(2200);
+                Thread.sleep(2500);
                 StartMain.robot.keyRelease(KeyEvent.VK_W);
             }
             ddt2 = ddt1; ddt1 = dd;

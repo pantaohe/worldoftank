@@ -17,6 +17,8 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,6 +48,7 @@ public class StartMain {
 
     public static boolean OPEN_GUA_JI = true;       //默认自动运行
     public static String FEN_BIAN_LV = "";      //默认非全屏
+    public static List<Integer> CHE_XU = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));      //车序
 
     public static void main(String[] args) throws Exception {
         try {
@@ -58,6 +61,19 @@ public class StartMain {
         try {
             if (args != null && args.length > 1){
                 FEN_BIAN_LV = args[1];
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            if (args != null && args.length > 2){
+                String[] chexus = args[2].split("");
+                Integer.parseInt(chexus[0]);
+                CHE_XU.clear();
+                for (int i = 0; i < chexus.length; i++) {
+                    CHE_XU.add(Integer.parseInt(chexus[i]));
+                    if (i > 9) break;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,7 +92,7 @@ public class StartMain {
             startTank();
 
             System.out.println();
-            Thread.sleep(3000);
+            Thread.sleep(500);
         }
     }
 
@@ -87,7 +103,10 @@ public class StartMain {
 
         //贴花界面
         if (!StringUtils.isBlank(TUPIAN_NEIRONG)) {
-            if (TUPIAN_NEIRONG.contains("获得贴花") || TUPIAN_NEIRONG.contains("遵命")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 741 + (int) (Math.random() * 29));
+            if (TUPIAN_NEIRONG.contains("前往个性化")) {
+                MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 741 + (int) (Math.random() * 29));     //1920*1017
+                MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 894 + (int) (Math.random() * 29));     //1920*1080
+            }
             if (TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 941 + (int) (Math.random() * 89));
             if (TUPIAN_NEIRONG.contains("服务器连接已经断开") || TUPIAN_NEIRONG.contains("健康游戏忠告抵制不良游戏")) {
                 logger.debug("点击取消，重连服务器");

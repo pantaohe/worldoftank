@@ -32,34 +32,29 @@ public class JiaRuZD {
         return StringUtils.isNotBlank(fileContent) && fileContent.contains("加入战斗");
     }
 
-    public static boolean jiaRu(BufferedImage screenshot) throws IOException, InterruptedException {
+    public static boolean jiaRu(BufferedImage screenshot) throws InterruptedException {
+        if (StartMain.TUPIAN_NEIRONG.contains("正在更新车库")) return false;
         BufferedImage subimage = screenshot.getSubimage(733, 300, 450, 460);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains("处罚")) MouseUtils.mouseDianJi(1090 + (int)(Math.random() * 90), 733 + (int)(Math.random() * 18));
         logger.debug("当前是加入战斗界面");
-        int index = 0, x, y;
-        while(true) {
-            x = StartMain.TANK_ADDR[0] + StartMain.TANK_ADDR[2] * (index / 2);
-            y = StartMain.TANK_ADDR[1] + StartMain.TANK_ADDR[3] * (index++ % 2);
-            subimage = screenshot.getSubimage(x, y, StartMain.TANK_ADDR[2] + 20, StartMain.TANK_ADDR[3] + 20);
+        int x, y, i;
+        for (int j = 0; j < StartMain.CHE_XU.size(); j++) {
+            i = StartMain.CHE_XU.get(j) - 1;
+            x = StartMain.TANK_ADDR[0] + StartMain.TANK_ADDR[2] * (i / 2);
+            y = StartMain.TANK_ADDR[1] + StartMain.TANK_ADDR[3] * (i % 2);
+            subimage = screenshot.getSubimage(x, y, StartMain.TANK_ADDR[2], StartMain.TANK_ADDR[3]);
             fileContent = ImgUtils.getString(subimage);
-//            if (StringUtils.isBlank(fileContent)) fileContent = ImgUtils.getString(subimage, "png");
 
-            logger.debug("第{}辆车：{}，当前坐标：{}-{}，（120, 772, 175, 112）", index - 1, fileContent, x, y);
+            logger.debug("第{}辆车：{}，当前坐标：{}-{}，（120, 772, 175, 112）", i, fileContent, x, y);
             if (fileContent.contains("购买")) {
                 logger.debug("没有选中车，请添加车辆到车库, 如已在排队则忽略");
-                if (jiaruIndex++ < 10) break;       //如果多次在加入界面识别不出来车辆，则自动选中第一辆加入
+                break;       //如果多次在加入界面识别不出来车辆，则自动选中第一辆加入
             }
             if (fileContent.contains("战斗中") || fileContent.contains("战头中") || fileContent.contains("车组乘员不足")) continue;
 
-
-            if (jiaruIndex <= 10) {
-                MouseUtils.mouseDianJi(x + (int) (Math.random() * StartMain.TANK_ADDR[2]), y + (int) (Math.random() * StartMain.TANK_ADDR[3]));
-                logger.debug("选中：{}坦克，准备开始", StringUtils.isBlank(fileContent) ? "主力车XX" : fileContent);
-            }else logger.debug("多次在加入界面识别不出来车辆，点一次加入战斗");
-
-            jiaruIndex = 0;
-            Thread.sleep(1500);
+            MouseUtils.mouseDianJi(x + (int) (Math.random() * StartMain.TANK_ADDR[2]), y + (int) (Math.random() * StartMain.TANK_ADDR[3]));
+            Thread.sleep(400);
             MouseUtils.mouseDianJi(StartMain.IN_COMBAT[0] + (int)(Math.random() * StartMain.IN_COMBAT[2]), StartMain.IN_COMBAT[1] + (int)(Math.random() * StartMain.IN_COMBAT[3]));
 
             long l = System.currentTimeMillis() - timeT;
@@ -68,9 +63,8 @@ public class JiaRuZD {
                 timeT = System.currentTimeMillis();
             }
             if (StringUtils.isNotBlank(fileContent)) tankName = fileContent;
-            return true;
         }
-        return false;
+        return true;
     }
 
 }

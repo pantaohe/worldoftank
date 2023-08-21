@@ -29,6 +29,7 @@ public class ZhanDouFun {
     public static final double D_MIN = Math.pow(13.5, 2) - 1;
     public static final double D_MIN_TANK = D_MIN - 30;
     public static boolean IS_MIAOZHUN = false;
+    public static final int RGB_MASK = 220;
 
     public static boolean jihui(BufferedImage screenshot) throws InterruptedException {
 
@@ -270,7 +271,7 @@ public class ZhanDouFun {
         boolean qi1x,qi2x;
         List<Integer> myList = new ArrayList<>();
         boolean flag = false;
-        for (int tj = 0; tj < 3; tj++) {
+        for (int tj = 0; tj < 1; tj++) {            //对自己在旗子内的解析暂时放弃
             for (int i = 0; i < height; i++) {
                 qi1x = -MinMapLX.QZB < (i - qi1[1]) && (i - qi1[1]) < MinMapLX.QZB;
                 qi2x = -MinMapLX.QZB < (i - qi2[1]) && (i - qi2[1]) < MinMapLX.QZB;
@@ -288,13 +289,14 @@ public class ZhanDouFun {
                         int ye = i + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : i + 16;
                         int xs = j - 15 < 0 ? 0 : j - 15;
                         int xe = j + 16 > ZhanDou.MIN_MAP_W ? ZhanDou.MIN_MAP_W : j + 16;
+
                         for (int k = ys; k < ye; k++) {      //左上角
                             for (int l = xs; l < xe; l++) {
                                 rgb = minMap.getRGB(l, k);
                                 i1 = rgb >> 16 & 0xff;
                                 i2 = rgb >> 8 & 0xff;
                                 i3 = rgb & 0xff;
-                                if (flag = 200 < i1 && 200 < i2 && 200 < i3) {
+                                if (flag = RGB_MASK < i1 && RGB_MASK < i2 && RGB_MASK < i3) {
                                     myList.add((l << 16) + k);
                                     break;
                                 }
@@ -307,7 +309,7 @@ public class ZhanDouFun {
                                 i1 = rgb >> 16 & 0xff;
                                 i2 = rgb >> 8 & 0xff;
                                 i3 = rgb & 0xff;
-                                if (flag = 200 < i1 && 200 < i2 && 200 < i3) {
+                                if (flag = RGB_MASK < i1 && RGB_MASK < i2 && RGB_MASK < i3) {
                                     myList.add((l << 16) + k);
                                     break;
                                 }
@@ -320,7 +322,7 @@ public class ZhanDouFun {
                                 i1 = rgb >> 16 & 0xff;
                                 i2 = rgb >> 8 & 0xff;
                                 i3 = rgb & 0xff;
-                                if (flag = 200 < i1 && 200 < i2 && 200 < i3) {
+                                if (flag = RGB_MASK < i1 && RGB_MASK < i2 && RGB_MASK < i3) {
                                     myList.add((k << 16) + l);
                                     break;
                                 }
@@ -333,7 +335,7 @@ public class ZhanDouFun {
                                 i1 = rgb >> 16 & 0xff;
                                 i2 = rgb >> 8 & 0xff;
                                 i3 = rgb & 0xff;
-                                if (flag = 200 < i1 && 200 < i2 && 200 < i3) {
+                                if (flag = RGB_MASK < i1 && RGB_MASK < i2 && RGB_MASK < i3) {
                                     myList.add((k << 16) + l);
                                     break;
                                 }
@@ -343,8 +345,9 @@ public class ZhanDouFun {
                         removeCF(myList);
                         if (myList.size() != 3) {
                             flag = true;
+                            logger.debug("自己位置坐标计算失败,size:{}-index:{}", myList.size(), tj);
+                            for (Integer integer : myList) logger.debug("自己坐标：{}-{}", integer >> 16 & 0xffff, integer & 0xffff);
                             myList.clear();
-                            logger.debug("自己位置坐标计算失败:{}-{}", myList.size(), tj);
                             break;
                         }
                         int y = 0, x = 0;

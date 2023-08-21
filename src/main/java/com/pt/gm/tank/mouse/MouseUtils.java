@@ -36,6 +36,6 @@ public class MouseUtils {
 
     public static void mouseRand() throws InterruptedException {
         StartMain.robot.mouseMove((int)(Math.random() * 1920), 30 + (int)(Math.random() * 1000));
-        Thread.sleep(500);
+        Thread.sleep(200);
     }
 }

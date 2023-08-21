@@ -36,18 +36,18 @@ public class ZhanDou {
                 int m = Integer.parseInt(filecs[0]);
                 int s = Integer.parseInt(filecs[1]);
                 if ((m == 0 && s < 59) || (StartMain.TUPIAN_NEIRONG.contains("随机战"))) {
-                    tishi = "预读阶段或最后一分钟，无需处理";
+                    tishi = "预读无需处理";
                     flag =  false;     //倒计时，不需要操作
                 }else {
-                    tishi = "在交战中界面中";
+                    tishi = "交战界面";
                     flag = true;
                 }
             } catch (Exception e) {
-                tishi = "右上角的时间解析错误";
+                tishi = "时间格式错误";
                 logger.error(tishi, e);
             }
         }
-        logger.debug("战斗界面时间处内容{}，解析结果{}", fileContent, tishi);
+        logger.debug("右上角时间处:{}，结果:{}", fileContent, tishi);
         return flag;
     }
 
