@@ -31,8 +31,7 @@ public class FangXiangKongZhi{
         int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0, dd;
         int vkX, feiZhanDou = 0;
         while (true) {
-            System.out.println();
-            logger.debug("进入方向控制循环");
+            logger.debug("进入方向控制循环：\n");
 
             do {
                 BufferedImage screenshot = ImgUtils.screenshot();
@@ -89,7 +88,7 @@ public class FangXiangKongZhi{
             ADRun.AD.set(vkX);
             ADRun.T.set(millis);
             if (dd > 1000) {
-                if (zxjd > 90){     //转向角度大于90，停止前进
+                if (zxjd > 60){     //转向角度大于90，停止前进
                     logger.debug("方向不对，停下前进w");
                     xuyaoS = false; xuyaoW = false; isfx = true;
                 }else {

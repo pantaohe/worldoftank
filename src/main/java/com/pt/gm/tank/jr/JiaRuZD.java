@@ -54,7 +54,7 @@ public class JiaRuZD {
             if (fileContent.contains("战斗中") || fileContent.contains("战头中") || fileContent.contains("车组乘员不足")) continue;
 
             MouseUtils.mouseDianJi(x + (int) (Math.random() * StartMain.TANK_ADDR[2]), y + (int) (Math.random() * StartMain.TANK_ADDR[3]));
-            Thread.sleep(400);
+            Thread.sleep(1000);
             MouseUtils.mouseDianJi(StartMain.IN_COMBAT[0] + (int)(Math.random() * StartMain.IN_COMBAT[2]), StartMain.IN_COMBAT[1] + (int)(Math.random() * StartMain.IN_COMBAT[3]));
 
             long l = System.currentTimeMillis() - timeT;

@@ -50,7 +50,7 @@ public class ADRun  implements Runnable{
     public static void X() throws InterruptedException {
         logger.debug("锁定车身");
         StartMain.robot.keyPress(KeyEvent.VK_X);
-        Thread.sleep(20);
+        Thread.sleep(50);
         StartMain.robot.keyRelease(KeyEvent.VK_X);
     }
 }
