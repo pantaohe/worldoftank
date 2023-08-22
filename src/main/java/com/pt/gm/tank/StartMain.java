@@ -37,6 +37,8 @@ public class StartMain {
     public static int[] IN_COMBAT = {880, 31, 155, 40};
     public static int[] TANK_ADDR = {120, 772, 175, 112};
 
+    public static int TIEHUA_HIGH = 741;
+
     public static int[] RGB_K = {104, 157, 78};
     public static int[] RGB_MAX = {154, 207, 128};
     public static int[] RGB_MIN = {54, 107, 28};
@@ -103,9 +105,8 @@ public class StartMain {
 
         //贴花界面
         if (!StringUtils.isBlank(TUPIAN_NEIRONG)) {
-            if (TUPIAN_NEIRONG.contains("前往个性化")) {
-                MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 741 + (int) (Math.random() * 29));     //1920*1017
-                MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 894 + (int) (Math.random() * 29));     //1920*1080
+            if (TUPIAN_NEIRONG.contains("贴花")) {
+                MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), TIEHUA_HIGH + (int) (Math.random() * 29));
             }
             if (TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 941 + (int) (Math.random() * 89));
             if (TUPIAN_NEIRONG.contains("服务器连接已经断开") || TUPIAN_NEIRONG.contains("健康游戏忠告抵制不良游戏")) {
@@ -141,7 +142,7 @@ public class StartMain {
     }
 
 
-    private static void parLoad(){
+    public static void parLoad(){
         if (StringUtils.isBlank(FEN_BIAN_LV)) return;
         switch (FEN_BIAN_LV){
             case "1920*1080":{
@@ -150,6 +151,7 @@ public class StartMain {
                 IN_COMBAT = new int[]{880, 0, 155, 40};
                 TANK_ADDR = new int[]{120, 818, 171, 112};
 
+                TIEHUA_HIGH = 895;
             }
         }
 
