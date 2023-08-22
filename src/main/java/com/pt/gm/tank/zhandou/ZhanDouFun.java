@@ -38,7 +38,7 @@ public class ZhanDouFun {
         if (StringUtils.isBlank(fileContent)) return false;
         if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水")
                 || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁") || fileContent.contains("着火了")
-                ){
+                || fileContent.contains("成员因")){
 
             StartMain.robot.keyPress(KeyEvent.VK_ESCAPE);
             StartMain.robot.keyRelease(KeyEvent.VK_ESCAPE);
@@ -238,8 +238,9 @@ public class ZhanDouFun {
 
 //                double dd = Math.pow(i - 15.5, 2) + Math.pow(j - 15.5, 2);
 
-                if (200<i1 && 200<i2 && 200<i3){
+//                if (200<i1 && 200<i2 && 200<i3){
 //                if (54<i1&&i1<154 && 107<i2&&i2<207 && 28<i3&&i3<128){
+                if (140<i1&&i1<250 && 70<i2&&i2<170 && 10<i3&&i3<110){      //斜线
 //                if (D_MIN < dd && dd < D_MAX){
 //                if (dd < D_MIN && (87<i1&&i1<127 && 165<i2&&i2<205 && -1<i3&&i3<36)){//己方
 
