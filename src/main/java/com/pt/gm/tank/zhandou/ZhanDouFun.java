@@ -41,6 +41,7 @@ public class ZhanDouFun {
                 || fileContent.contains("成员因")){
 
             StartMain.robot.keyPress(KeyEvent.VK_ESCAPE);
+            Thread.sleep(50);
             StartMain.robot.keyRelease(KeyEvent.VK_ESCAPE);
             Thread.sleep(500);
 

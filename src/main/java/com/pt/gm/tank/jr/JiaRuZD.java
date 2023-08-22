@@ -58,7 +58,7 @@ public class JiaRuZD {
             MouseUtils.mouseDianJi(StartMain.IN_COMBAT[0] + (int)(Math.random() * StartMain.IN_COMBAT[2]), StartMain.IN_COMBAT[1] + (int)(Math.random() * StartMain.IN_COMBAT[3]));
 
             long l = System.currentTimeMillis() - timeT;
-            if (l > 60000) {
+            if (l > 100000) {
                 logger.debug("上一场战斗总耗时：{}，车辆：{}，地图：{}", l / 1000 + "s", tankName, mapName);
                 timeT = System.currentTimeMillis();
             }
