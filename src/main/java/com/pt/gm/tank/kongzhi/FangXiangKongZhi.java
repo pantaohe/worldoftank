@@ -29,11 +29,12 @@ public class FangXiangKongZhi{
 
         int[] myAddr;
         int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0, dd;
-        int vkX, feiZhanDou = 0;
+        int vkX, feiZhanDou = 0;long l = 0;BufferedImage minMap;
         while (true) {
             logger.debug("进入方向控制循环：\n");
 
             do {
+                l = System.currentTimeMillis();
                 BufferedImage screenshot = ImgUtils.screenshot();
                 if (!ZhanDou.zhandouFX(screenshot) ) {   //没有在咱都界面
                     if ( feiZhanDou++ > 15) {
@@ -43,8 +44,9 @@ public class FangXiangKongZhi{
                 }else feiZhanDou = 0;
                 if (ZhanDouFun.jihui(screenshot)) return;       //战车被毁退出
 
-                BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
+                minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
                 myAddr = ZhanDouFun.myAddr(minMap);
+                logger.debug("截图到计算出自己位置耗时：{}ms", System.currentTimeMillis() - l);
                 if (myAddr == null){
 //                    if (Math.random() < 0.5) {xuyaoW = false; xuyaoS = true;}
 //                    else {xuyaoS = false; xuyaoW = true;}
@@ -60,6 +62,12 @@ public class FangXiangKongZhi{
                 logger.debug("当前坐标点跨度太大，抛弃此次位置");
                 continue;     //如果单次变动太大，说明是错误的。
             }
+
+            //鼠标控制
+//            Thread paotat = new Thread(new PaoTaKongZhi(minMap, myAddr));
+//            paotat.setName("paotaThread");
+//            paotat.start();
+
             if (dd < 180) {
                 xuyaoS = false; xuyaoW = false;
                 return;     //达到小目标退出

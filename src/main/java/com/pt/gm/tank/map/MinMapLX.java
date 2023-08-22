@@ -102,8 +102,8 @@ public class MinMapLX {
             new int[]{154, 204}, new int[]{386, 256});
     public static List<int[]> LUO_MAN_DI = Arrays.asList(new int[]{269, 49}, new int[]{267, 439},
             new int[]{280, 141}, new int[]{328, 250}, new int[]{289, 356});
-//    public static List<int[]> SI_DU_JI_ANG_QI = Arrays.asList(new int[]{358, 108}, new int[]{98, 330},
-//            new int[]{245, 124}, new int[]{182, 181}, new int[]{123, 237});
+    public static List<int[]> SI_DU_JI_ANG_QI = Arrays.asList(new int[]{358, 108}, new int[]{98, 330},
+            new int[]{245, 124}, new int[]{182, 181}, new int[]{123, 237});
 
 
     private static boolean luXian(String fileContent) {
@@ -188,8 +188,8 @@ public class MinMapLX {
             StartMain.LU_XIAN = ZHOU_JI_GONG_LU;
         }else if (fileContent.contains("诺曼底")){
             StartMain.LU_XIAN = LUO_MAN_DI;
-//        }else if (fileContent.contains("斯杜季昂奇")){     //斯杜季昂奇、可以直接RR        //锡默尔斯多夫(ban掉)
-//            StartMain.LU_XIAN = SI_DU_JI_ANG_QI;
+        }else if (fileContent.contains("斯杜季昂奇")){     //斯杜季昂奇、可以直接RR        //锡默尔斯多夫(ban掉)
+            StartMain.LU_XIAN = SI_DU_JI_ANG_QI;
         }else{
             return false;
         }
