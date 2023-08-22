@@ -23,7 +23,7 @@ import java.net.URL;
 public class ImgUtils {
     public static String resourcePath;
     public static boolean notJarStart;
-    static long timeT = System.currentTimeMillis();
+    static long timeT = 0;
 
     static {
         URL resource = ProjectPathUtils.class.getResource("/");
