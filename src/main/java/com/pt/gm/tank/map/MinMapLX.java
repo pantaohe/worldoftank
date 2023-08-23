@@ -3,6 +3,8 @@ package com.pt.gm.tank.map;
 import com.pt.gm.tank.StartMain;
 import com.pt.gm.tank.jr.JiaRuZD;
 import com.pt.gm.tank.util.ImgUtils;
+import com.pt.gm.tank.zhandou.ZhanDou;
+import com.pt.gm.tank.zhandou.ZhanDouFun;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +25,7 @@ import java.util.List;
 public class MinMapLX {
     private static Logger logger = LoggerFactory.getLogger(MinMapLX.class);
     public static final int QZB = 15;
-    //旗子圈为 40 * 40 （半径20）      旗子 23 * 23（半径16左右）      自己 15 * 15（半径8）
+    //旗子圈为 40 * 40 （半径20）      旗子 23 * 23（半径16左右）      自己 15 * 15（半径8）      坦克圈 38 * 38 （半径19） 坦克图标半径12
     public static List<int[]> AI_LI_HA_LUO_FU = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
             new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
     public static List<int[]> HU_BIAN_DE_JUE_ZHU = Arrays.asList(new int[]{99, 42}, new int[]{352, 431},
@@ -201,18 +203,48 @@ public class MinMapLX {
 
 
 
-    public static void getXingJingLuXian(BufferedImage screenshot) throws IOException, InterruptedException {
-        BufferedImage subimage = screenshot.getSubimage(460, 250, 456, 80);
-        String fileContent = ImgUtils.getString(subimage);
+    public static void getXingJingLuXian(BufferedImage screenshot) throws InterruptedException {
 
-        if (!luXian(fileContent)){
-            StartMain.robot.keyPress(KeyEvent.VK_N);
-            Thread.sleep(1000);
-            screenshot = ImgUtils.screenshot();
-            StartMain.robot.keyRelease(KeyEvent.VK_N);
-            subimage = screenshot.getSubimage(600, 40, 312, 100);
-            fileContent = ImgUtils.getString(subimage);
-            luXian("N-" + fileContent);
+        StartMain.robot.keyPress(KeyEvent.VK_N);
+        Thread.sleep(1000);
+        BufferedImage nImage = ImgUtils.screenshot();
+        StartMain.robot.keyRelease(KeyEvent.VK_N);
+        BufferedImage subimage = nImage.getSubimage(600, 40, 312, 100);
+        String fileContent = ImgUtils.getString(subimage);
+        luXian("N-" + fileContent);
+
+//        StartMain.LU_XIAN = MU_LI_WAN;
+        if (StartMain.LU_XIAN == null) {
+            logger.debug("地图加载失败");
+        } else {
+            Thread.sleep(300);
+            BufferedImage minMap;
+            for (int i = 0; i < 8; i++) {
+                screenshot = ImgUtils.screenshot();
+                minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, ZhanDou.MIN_MAP_W);
+                if (getBsCount(minMap)) break;
+                if (i < 6) {
+                    StartMain.robot.keyPress(KeyEvent.VK_EQUALS);
+                    StartMain.robot.keyRelease(KeyEvent.VK_EQUALS);
+                }else {
+                    StartMain.robot.keyPress(KeyEvent.VK_MINUS);     //减法
+                    StartMain.robot.keyRelease(KeyEvent.VK_MINUS);
+                }
+                Thread.sleep(200);
+            }
+            logger.debug("地图加载成功:{}", fileContent);
         }
+    }
+
+    private static boolean getBsCount(BufferedImage minMap) {
+        int bsCount = 0;
+        for (int i = -12; i <= 12; i++) {
+            for (int j = -12; j <= 12; j++) {
+                if (ZhanDouFun.getBS(StartMain.LU_XIAN.get(0)[0]+i, StartMain.LU_XIAN.get(0)[1]+j, minMap)) bsCount++;
+                if (ZhanDouFun.getBS(StartMain.LU_XIAN.get(1)[0]+i, StartMain.LU_XIAN.get(1)[1]+j, minMap)) bsCount++;
+            }
+        }
+        logger.debug("白点个数：{}", bsCount);
+        return bsCount > 50;
     }
 }

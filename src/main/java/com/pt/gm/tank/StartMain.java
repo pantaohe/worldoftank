@@ -60,6 +60,7 @@ public class StartMain {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        logger.debug("是否自动挂机：{}", OPEN_GUA_JI);
         try {
             if (args != null && args.length > 1){
                 FEN_BIAN_LV = args[1];
@@ -67,6 +68,7 @@ public class StartMain {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        logger.debug("屏幕分辨率：{}", FEN_BIAN_LV);
         try {
             if (args != null && args.length > 2){
                 String[] chexus = args[2].split("");
@@ -80,6 +82,7 @@ public class StartMain {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        logger.debug("出车顺序：{}", CHE_XU);
 
         parLoad();
 
@@ -108,7 +111,7 @@ public class StartMain {
             if (TUPIAN_NEIRONG.contains("贴花")) {
                 MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), TIEHUA_HIGH + (int) (Math.random() * 29));
             }
-            if (TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 941 + (int) (Math.random() * 89));
+//            if (TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 941 + (int) (Math.random() * 89));
             if (TUPIAN_NEIRONG.contains("服务器连接已经断开") || TUPIAN_NEIRONG.contains("健康游戏忠告抵制不良游戏")) {
                 logger.debug("点击取消，重连服务器");
                 MouseUtils.mouseDianJi(1049 + (int) (Math.random() * 90), 576 + (int) (Math.random() * 18));
@@ -116,19 +119,22 @@ public class StartMain {
                 robot.keyRelease(KeyEvent.VK_ENTER);
             }
             if (TUPIAN_NEIRONG.contains("离开战斗")) ZhanDouFun.jihui();
+            if (TUPIAN_NEIRONG.contains("确认购买")) {
+                robot.keyPress(KeyEvent.VK_ESCAPE);
+                robot.keyRelease(KeyEvent.VK_ESCAPE);
+            }
 
         }
 //        MinMapLX.getXingJingLuXian(screenshot);       //收集数据
         //分析加载地图n
-        if (StartMain.LU_XIAN == null && !StringUtils.isBlank(TUPIAN_NEIRONG) && TUPIAN_NEIRONG.contains("随机战")) {
-            MinMapLX.getXingJingLuXian(screenshot);
-            if (StartMain.LU_XIAN == null) logger.debug("地图加载失败");
-            else logger.debug("地图加载成功");
-        }
-        if (ImgUtils.notJarStart) StartMain.LU_XIAN = MinMapLX.AN_SI_KE;
+//        if (ImgUtils.notJarStart) StartMain.LU_XIAN = MinMapLX.AN_SI_KE;
 
         // 是否战斗界面分析
-        if (ZhanDou.zhandouFX(screenshot)) {
+        int zdStatus = ZhanDou.zhandouFX(screenshot);
+        if (StartMain.LU_XIAN == null && zdStatus > 0){
+            MinMapLX.getXingJingLuXian(screenshot);
+        }
+        if (zdStatus == 2) {
             ZhanDou.zhandou(screenshot);
             return 1;
         }
