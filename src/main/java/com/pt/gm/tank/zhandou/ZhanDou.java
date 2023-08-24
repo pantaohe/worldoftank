@@ -2,6 +2,8 @@ package com.pt.gm.tank.zhandou;
 
 import com.pt.gm.tank.StartMain;
 import com.pt.gm.tank.kongzhi.FangXiangKongZhi;
+import com.pt.gm.tank.kongzhi.PaoTaKongZhi;
+import com.pt.gm.tank.map.MinMapLX;
 import com.pt.gm.tank.util.ImgUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -22,12 +24,12 @@ public class ZhanDou {
     private static Logger logger = LoggerFactory.getLogger(ZhanDou.class);
     public static int MIN_MAP_W = StartMain.SCRN_SIZE[0] - StartMain.MAP_START[0];
 
-    public static boolean zhandouFX(BufferedImage screenshot) {
+    public static int zhandouFX(BufferedImage screenshot) {
         //右上角时间
         BufferedImage subimage = screenshot.getSubimage(1860, StartMain.SCRN_SIZE[2], 50, 30);
         String fileContent = ImgUtils.getString(subimage);
 
-        String tishi = ""; boolean flag =false;
+        String tishi = ""; int flag = 0;
         //有时间表示战斗中
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains(":")){
 
@@ -37,10 +39,10 @@ public class ZhanDou {
                 int s = Integer.parseInt(filecs[1]);
                 if ((m == 0 && s < 59) || (StartMain.TUPIAN_NEIRONG.contains("随机战"))) {
                     tishi = "预读无需处理";
-                    flag =  false;     //倒计时，不需要操作
+                    flag =  1;     //倒计时，不需要操作
                 }else {
                     tishi = "交战界面";
-                    flag = true;
+                    flag = 2;
                 }
             } catch (Exception e) {
                 tishi = "时间格式错误";
@@ -57,7 +59,7 @@ public class ZhanDou {
      * @param screenshot
      */
     public static void zhandou(BufferedImage screenshot) {
-        BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
+        BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], MIN_MAP_W, MIN_MAP_W);
 
 
         try {
@@ -90,6 +92,13 @@ public class ZhanDou {
             return;
         }
         int[] addrs = ZhanDouFun.myAddr(minMap);
+        logger.debug("进入开车界面");
+//        StartMain.LU_XIAN = MinMapLX.SI_DU_JI_ANG_QI;
+        //鼠标控制
+//        Thread paotat = new Thread(new PaoTaKongZhi(minMap, addrs));
+//        paotat.setName("paotaThread");
+//        paotat.start();
+
         if (addrs == null) {
             FangXiangKongZhi.xuyaoW = true;
             return;

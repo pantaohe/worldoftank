@@ -108,9 +108,13 @@ public class StartMain {
 
         //贴花界面
         if (!StringUtils.isBlank(TUPIAN_NEIRONG)) {
-            if (TUPIAN_NEIRONG.contains("贴花")) {
-                MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), TIEHUA_HIGH + (int) (Math.random() * 29));
-            }
+
+            //右上角关闭
+            if (TUPIAN_NEIRONG.contains("战斗通行证") || TUPIAN_NEIRONG.contains("贴花")) MouseUtils.mouseDianJi(1821 + (int) (Math.random() * 45), 52 + (int) (Math.random() * 9));
+
+//            if (TUPIAN_NEIRONG.contains("贴花")) {
+//                MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), TIEHUA_HIGH + (int) (Math.random() * 29));
+//            }
 //            if (TUPIAN_NEIRONG.contains("活动期间")) MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), 941 + (int) (Math.random() * 89));
             if (TUPIAN_NEIRONG.contains("服务器连接已经断开") || TUPIAN_NEIRONG.contains("健康游戏忠告抵制不良游戏")) {
                 logger.debug("点击取消，重连服务器");

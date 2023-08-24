@@ -33,7 +33,7 @@ public class JiaRuZD {
     }
 
     public static boolean jiaRu(BufferedImage screenshot) throws InterruptedException {
-        if (StartMain.TUPIAN_NEIRONG.contains("正在更新车库")) return false;
+        if (StartMain.TUPIAN_NEIRONG.contains("正在更新车库") || StartMain.TUPIAN_NEIRONG.contains("在线等待玩家")) return false;
         BufferedImage subimage = screenshot.getSubimage(733, 300, 450, 460);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains("处罚")) MouseUtils.mouseDianJi(1090 + (int)(Math.random() * 90), 733 + (int)(Math.random() * 18));

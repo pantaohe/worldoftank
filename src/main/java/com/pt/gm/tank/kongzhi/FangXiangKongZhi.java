@@ -36,7 +36,7 @@ public class FangXiangKongZhi{
             do {
                 l = System.currentTimeMillis();
                 BufferedImage screenshot = ImgUtils.screenshot();
-                if (!ZhanDou.zhandouFX(screenshot) ) {   //没有在咱都界面
+                if (ZhanDou.zhandouFX(screenshot) != 2) {   //没有在咱都界面
                     if ( feiZhanDou++ > 15) {
                         ZhanDouFun.jieshuDY();
                         return;
@@ -63,20 +63,17 @@ public class FangXiangKongZhi{
                 continue;     //如果单次变动太大，说明是错误的。
             }
 
-            //鼠标控制
-//            Thread paotat = new Thread(new PaoTaKongZhi(minMap, myAddr));
-//            paotat.setName("paotaThread");
-//            paotat.start();
+
 
             if (dd < 180) {
                 xuyaoS = false; xuyaoW = false;
                 return;     //达到小目标退出
             }
 
-            int lxjd = ZhanDouFun.jiaodu(myAddr, mubiao);
-            int jdc = (myAddr[2] - lxjd + 360) % 360;
+            int mbjd = ZhanDouFun.jiaodu(myAddr, mubiao);       //目标角度
+            int jdc = (myAddr[2] - mbjd + 360) % 360;       //自己向右旋转的度数
             int zxjd = jdc > 180 ? (360 - jdc) : jdc;
-            int millis = zxjd * 12;   // jdc 360-jdc
+            int millis = zxjd * 20; millis = millis > 2200 ? 2200 : millis;   // jdc 360-jdc
 
 
             if ((Math.abs(ddt2 -ddt1) + Math.abs(ddt1-dd)) < 10 && !isfx) {        //被房子等卡住了，随机向左或向右2秒
@@ -84,7 +81,7 @@ public class FangXiangKongZhi{
                 vkX = Math.random() < 0.5 ? KeyEvent.VK_D : KeyEvent.VK_A;
                 millis = 3000;
             }else {
-                logger.debug("方向分别为自己{}度-目标{}度", myAddr[2], lxjd);
+                logger.debug("方向分别为自己{}度-目标{}度", myAddr[2], mbjd);
                 if (0 < jdc && jdc < 180) { //向右转往
                     logger.debug("向右角度{}转{}ms", zxjd, millis);
                     vkX = KeyEvent.VK_D;
@@ -95,11 +92,12 @@ public class FangXiangKongZhi{
             }
             ADRun.AD.set(vkX);
             ADRun.T.set(millis);
-            if (dd > 1000) {
-                if (millis == 3000) {
-                    logger.debug("前进卡住了，开始后退");
-                    xuyaoW = false; xuyaoS = true;
-                }else if (zxjd > 60){     //转向角度大于90，停止前进
+            if (millis == 3000) {       //时间太长
+                logger.debug("前进卡住了，开始后退");
+                xuyaoW = false; xuyaoS = true;
+                Thread.sleep(2200);     //下一次的方向控制无效，
+            }else if (dd > 1000) {
+                if (zxjd > 60){     //转向角度大于90，停止前进
                     logger.debug("方向不对，停下前进w");
                     xuyaoS = false; xuyaoW = false; isfx = true;
                 }else {
