@@ -61,7 +61,7 @@ public class MinMapLX {
     public static List<int[]> WEI_SI_TE_FEI_ER_DE = Arrays.asList(new int[]{97, 411}, new int[]{410, 97},
             new int[]{273, 340}, new int[]{323, 277});
     public static List<int[]> MU_LEI_WAN_KA = Arrays.asList(new int[]{217, 40}, new int[]{217, 443},
-            new int[]{331, 123}, new int[]{363, 252});
+            new int[]{331, 123}, new int[]{363, 352});
     public static List<int[]> HAI_AN_ZHENG_BA = Arrays.asList(new int[]{121, 32}, new int[]{110, 458},
             new int[]{48, 169}, new int[]{53, 353});
     public static List<int[]> JI_JING_HAI_AN = Arrays.asList(new int[]{349, 83}, new int[]{182, 394},
