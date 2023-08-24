@@ -60,7 +60,7 @@ public class MinMapLX {
             new int[]{153, 179}, new int[]{145, 287}, new int[]{264, 355}, new int[]{335, 294});
     public static List<int[]> WEI_SI_TE_FEI_ER_DE = Arrays.asList(new int[]{97, 411}, new int[]{410, 97},
             new int[]{273, 340}, new int[]{323, 277});
-    public static List<int[]> MU_LEI_WAN_KA = Arrays.asList(new int[]{217, 40}, new int[]{217, 423},
+    public static List<int[]> MU_LEI_WAN_KA = Arrays.asList(new int[]{217, 40}, new int[]{217, 443},
             new int[]{331, 123}, new int[]{363, 252});
     public static List<int[]> HAI_AN_ZHENG_BA = Arrays.asList(new int[]{121, 32}, new int[]{110, 458},
             new int[]{48, 169}, new int[]{53, 353});
@@ -98,14 +98,14 @@ public class MinMapLX {
             new int[]{94, 212}, new int[]{91, 139}, new int[]{383, 138}, new int[]{403, 212});
     public static List<int[]> LI_FU_AO_KE_SI = Arrays.asList(new int[]{391, 67}, new int[]{69, 405},
             new int[]{202, 148}, new int[]{116, 227});
-    public static List<int[]> BING_CHUAN_ZHI_DI = Arrays.asList(new int[]{418, 123}, new int[]{107, 434},
+    public static List<int[]> BING_CHUAN_ZHI_DI = Arrays.asList(new int[]{418, 123}, new int[]{95, 434},
             new int[]{360, 160}, new int[]{210, 225}, new int[]{147, 335});
     public static List<int[]> ZHOU_JI_GONG_LU = Arrays.asList(new int[]{340, 71}, new int[]{76, 404},
             new int[]{154, 204}, new int[]{386, 256});
     public static List<int[]> LUO_MAN_DI = Arrays.asList(new int[]{269, 49}, new int[]{267, 439},
             new int[]{280, 141}, new int[]{328, 250}, new int[]{289, 356});
-    public static List<int[]> SI_DU_JI_ANG_QI = Arrays.asList(new int[]{358, 108}, new int[]{98, 330},
-            new int[]{245, 124}, new int[]{182, 181}, new int[]{123, 237});
+    public static List<int[]> SI_DU_JI_ANG_QI = Arrays.asList(new int[]{52, 260}, new int[]{442, 265},
+            new int[]{228, 258}, new int[]{287, 263});
 
 
     private static boolean luXian(String fileContent) {
