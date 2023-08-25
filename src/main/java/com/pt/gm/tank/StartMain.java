@@ -229,8 +229,12 @@ public class StartMain {
                                     flag = false;
                                 }
 
-                                Thread.sleep(2*60*1000);
                             } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                Thread.sleep(2*60*1000);
+                            } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
