@@ -2,6 +2,7 @@ package com.pt.gm.tank.kongzhi;
 
 import com.pt.gm.tank.StartMain;
 import com.pt.gm.tank.jr.JiaRuZD;
+import com.pt.gm.tank.map.MinMapLX;
 import com.pt.gm.tank.util.ImgUtils;
 import com.pt.gm.tank.zhandou.ZhanDou;
 import com.pt.gm.tank.zhandou.ZhanDouFun;
@@ -26,13 +27,13 @@ public class FangXiangKongZhi{
     public static boolean isfx = false;
 
     public static void kongzhi(int i) throws InterruptedException {
-
+        Thread paotat = null;
         int[] myAddr;
         int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0, dd;
         int vkX, feiZhanDou = 0;long l = 0;BufferedImage minMap;
         while (true) {
             logger.debug("进入方向控制循环：\n");
-
+            if (StartMain.OPEN_KAI_PAO && paotat != null && !paotat.isInterrupted()) paotat.stop();
             do {
                 l = System.currentTimeMillis();
                 BufferedImage screenshot = ImgUtils.screenshot();
@@ -63,7 +64,12 @@ public class FangXiangKongZhi{
                 continue;     //如果单次变动太大，说明是错误的。
             }
 
-
+            //自动开炮
+            if (StartMain.OPEN_KAI_PAO) {
+                paotat = new Thread(new PaoTaKongZhi(minMap, myAddr));
+                paotat.setName("paotaThread");
+                paotat.start();
+            }
 
             if (dd < 180) {
                 xuyaoS = false; xuyaoW = false;

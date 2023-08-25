@@ -56,4 +56,14 @@ public class DifangTank {
     public void setNeiquan(double neiquan) {
         this.neiquan = neiquan;
     }
+
+    @Override
+    public String toString() {
+        return "DifangTank{" +
+                "x=" + x +
+                ", y=" + y +
+                ", waiquan=" + waiquan +
+                ", neiquan=" + neiquan +
+                '}';
+    }
 }

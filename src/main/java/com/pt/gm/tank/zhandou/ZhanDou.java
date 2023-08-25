@@ -106,6 +106,8 @@ public class ZhanDou {
         double lx0 = ZhanDouFun.dd2(StartMain.LU_XIAN.get(0), addrs);
         double lx1 = ZhanDouFun.dd2(StartMain.LU_XIAN.get(1), addrs);
 
+        StartMain.robot.mouseMove(StartMain.SCRN_SIZE[0]/2, StartMain.CENTER_Y);     //鼠标移动到屏幕中间
+
         if (lx0 < lx1) {
             for (int i = 2; i < StartMain.LU_XIAN.size(); i++) {
                 FangXiangKongZhi.kongzhi(i);
