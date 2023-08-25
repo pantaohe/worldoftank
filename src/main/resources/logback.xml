@@ -4,7 +4,7 @@
 	<!-- Log file path 123123-->
 	<property name="log.path" value="./logs" />
 	
-	<!-- Console log output 12132-->
+	<!-- Console log output 12132 -->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>%d{MM-dd HH:mm:ss.SSS} %-5level [%logger{50}:%line] - %msg%n</pattern>
