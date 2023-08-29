@@ -99,8 +99,12 @@ public class FangXiangKongZhi{
             ADRun.AD.set(vkX);
             ADRun.T.set(millis);
             if (millis == 3000) {       //时间太长
-                logger.debug("前进卡住了，开始后退");
-                xuyaoW = false; xuyaoS = true;
+                logger.debug("前进卡住了，开始后退或前进");
+                if (Math.random() < 0.5) {
+                    xuyaoW = false; xuyaoS = true;
+                }else {
+                    xuyaoS = false; xuyaoW = true;
+                }
                 Thread.sleep(2200);     //下一次的方向控制无效，
             }else if (dd > 1000) {
                 if (zxjd > 60){     //转向角度大于90，停止前进
@@ -114,6 +118,7 @@ public class FangXiangKongZhi{
             }else {
                 logger.debug("松开前进s/w,距离比较近手动操作");
                 xuyaoS = false; xuyaoW = false;     //距离比较近手动操作
+                Thread.sleep(200);
                 StartMain.robot.keyPress(KeyEvent.VK_W);
                 Thread.sleep(2500);
                 StartMain.robot.keyRelease(KeyEvent.VK_W);

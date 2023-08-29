@@ -51,8 +51,8 @@ public class ZhanDouFun {
 
     public static boolean jihui() throws InterruptedException {
 
-        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 73 + StartMain.SCRN_SIZE[2] + (int)(Math.random() * 50));
-        Thread.sleep(1800);
+        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 63 + StartMain.SCRN_SIZE[2] + (int)(Math.random() * 40));
+        Thread.sleep(1200);
         MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 40 + StartMain.SCRN_SIZE[2] + (int)(Math.random() * 32));
         jieshuDY();
         return true;
@@ -210,14 +210,6 @@ public class ZhanDouFun {
                                     myList.add((l << 16) + k);
                                     break;
                                 }
-//                                rgb = minMap.getRGB(l, k);
-//                                i1 = rgb >> 16 & 0xff;
-//                                i2 = rgb >> 8 & 0xff;
-//                                i3 = rgb & 0xff;
-//                                if (flag = RGB_MASK < i1 && RGB_MASK < i2 && RGB_MASK < i3) {
-//                                    myList.add((l << 16) + k);
-//                                    break;
-//                                }
                             }
                             if (flag) break;
                         }
@@ -227,14 +219,6 @@ public class ZhanDouFun {
                                     myList.add((l << 16) + k);
                                     break;
                                 }
-//                                rgb = minMap.getRGB(l, k);
-//                                i1 = rgb >> 16 & 0xff;
-//                                i2 = rgb >> 8 & 0xff;
-//                                i3 = rgb & 0xff;
-//                                if (flag = RGB_MASK < i1 && RGB_MASK < i2 && RGB_MASK < i3) {
-//                                    myList.add((l << 16) + k);
-//                                    break;
-//                                }
                             }
                             if (flag) break;
                         }
@@ -244,14 +228,6 @@ public class ZhanDouFun {
                                     myList.add((k << 16) + l);
                                     break;
                                 }
-//                                rgb = minMap.getRGB(k, l);
-//                                i1 = rgb >> 16 & 0xff;
-//                                i2 = rgb >> 8 & 0xff;
-//                                i3 = rgb & 0xff;
-//                                if (flag = RGB_MASK < i1 && RGB_MASK < i2 && RGB_MASK < i3) {
-//                                    myList.add((k << 16) + l);
-//                                    break;
-//                                }
                             }
                             if (flag) break;
                         }
@@ -261,14 +237,6 @@ public class ZhanDouFun {
                                     myList.add((k << 16) + l);
                                     break;
                                 }
-//                                rgb = minMap.getRGB(k, l);
-//                                i1 = rgb >> 16 & 0xff;
-//                                i2 = rgb >> 8 & 0xff;
-//                                i3 = rgb & 0xff;
-//                                if (flag = RGB_MASK < i1 && RGB_MASK < i2 && RGB_MASK < i3) {
-//                                    myList.add((k << 16) + l);
-//                                    break;
-//                                }
                             }
                             if (flag) break;
                         }
@@ -349,7 +317,7 @@ public class ZhanDouFun {
                 if (dd > maxdd) maxdd = dd;
             }
             logger.debug("自己图标轮廓到自己中心点最大距离{}", maxdd);
-            if (mindd < 60 && 30 < maxdd && maxdd < 100) myList.remove(index);
+            if (mindd < 60 && 30 < maxdd && maxdd < 120) myList.remove(index);
         }
     }
 

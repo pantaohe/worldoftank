@@ -98,7 +98,7 @@ public class StartMain {
                 robot.keyPress(KeyEvent.VK_ENTER);
                 robot.keyRelease(KeyEvent.VK_ENTER);
             }
-            if (TUPIAN_NEIRONG.contains("离开战斗")) ZhanDouFun.jihui();
+            if (TUPIAN_NEIRONG.contains("离开战斗") || TUPIAN_NEIRONG.contains("返回车库")) ZhanDouFun.jihui();
             if (TUPIAN_NEIRONG.contains("确认购买")) {
                 robot.keyPress(KeyEvent.VK_ESCAPE);
                 robot.keyRelease(KeyEvent.VK_ESCAPE);
@@ -226,8 +226,8 @@ public class StartMain {
                                     logger.debug("未检测到游戏进程，开始启动游戏：{}", tankStartPath);
                                     process.waitFor();
                                     process.destroy();
-                                    flag = false;
                                 }
+                                flag = false;
 
                             } catch (Exception e) {
                                 e.printStackTrace();
