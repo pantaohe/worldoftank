@@ -63,13 +63,13 @@ public class MinMapLX {
     public static List<int[]> MU_LEI_WAN_KA = Arrays.asList(new int[]{217, 40}, new int[]{217, 443},
             new int[]{331, 123}, new int[]{363, 352});
     public static List<int[]> HAI_AN_ZHENG_BA = Arrays.asList(new int[]{121, 32}, new int[]{110, 458},
-            new int[]{48, 169}, new int[]{53, 353});
+            new int[]{74, 166}, new int[]{47, 171}, new int[]{53, 353});
     public static List<int[]> JI_JING_HAI_AN = Arrays.asList(new int[]{349, 83}, new int[]{182, 394},
             new int[]{230, 102}, new int[]{178, 202}, new int[]{153, 253});
     public static List<int[]> WEN_HUA_ZHI_DU = Arrays.asList(new int[]{80, 286}, new int[]{401, 275},
             new int[]{61, 242}, new int[]{99, 413}, new int[]{410, 418});
     public static List<int[]> MU_LI_WAN = Arrays.asList(new int[]{365, 100}, new int[]{109, 374},
-            new int[]{264, 125}, new int[]{124, 275});
+            new int[]{264, 125}, new int[]{124, 275}, new int[]{107, 302}, new int[]{127, 338});
     public static List<int[]> QI_GE_FEI_FANG_XIAN = Arrays.asList(new int[]{383, 31}, new int[]{369, 460},
             new int[]{132, 88}, new int[]{54, 242}, new int[]{192, 367});
     public static List<int[]> AI_LEI_SI_BAO = Arrays.asList(new int[]{196, 45}, new int[]{294, 446},
@@ -81,11 +81,11 @@ public class MinMapLX {
     public static List<int[]> LA_TE_SI_TE_FU = Arrays.asList(new int[]{244, 43}, new int[]{242, 453},
             new int[]{210, 174}, new int[]{202, 252});
     public static List<int[]> BI_FENG_GANG = Arrays.asList(new int[]{64, 168}, new int[]{409, 169},
-            new int[]{53, 195}, new int[]{62, 217}, new int[]{117, 225}, new int[]{146, 269}, new int[]{353, 266});
+            new int[]{53, 195}, new int[]{62, 217}, new int[]{117, 225}, new int[]{146, 269}, new int[]{353, 266}, new int[]{436, 22}, new int[]{437, 198});
     public static List<int[]> A_LA_MAN_JI_CHANG = Arrays.asList(new int[]{85, 330}, new int[]{421, 320},
             new int[]{26, 251}, new int[]{210, 266}, new int[]{279, 274}, new int[]{418, 230}, new int[]{477, 260});
     public static List<int[]> GANG_TIE_BI_LEI = Arrays.asList(new int[]{78, 54}, new int[]{438, 429},
-            new int[]{31, 224}, new int[]{24, 449}, new int[]{242, 429}, new int[]{367, 465});
+            new int[]{31, 224}, new int[]{24, 449}, new int[]{126, 459}, new int[]{216, 422}, new int[]{367, 465});
     public static List<int[]> QIAN_SHAO = Arrays.asList(new int[]{358, 108}, new int[]{98, 330},
             new int[]{239, 128}, new int[]{160, 160}, new int[]{126, 232});//126 232
     public static List<int[]> MEI_YING_XIAO_ZHENG = Arrays.asList(new int[]{244, 72}, new int[]{244, 416},
