@@ -4,7 +4,6 @@ import com.pt.gm.tank.StartMain;
 import com.pt.gm.tank.map.MinMapLX;
 import com.pt.gm.tank.mouse.MouseUtils;
 import com.pt.gm.tank.po.DifangTank;
-import com.pt.gm.tank.zhandou.TankUtils;
 import com.pt.gm.tank.zhandou.ZhanDou;
 import com.pt.gm.tank.zhandou.ZhanDouFun;
 import org.slf4j.Logger;
@@ -13,11 +12,11 @@ import org.slf4j.LoggerFactory;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +31,8 @@ public class PaoTaKongZhi implements Runnable{
     private BufferedImage minMap;
     private int[] myAddr;
     private Map<Integer, Integer> zbMap = new HashMap<>();
+
+    private static int JGSJ = 30;
 
     public PaoTaKongZhi(BufferedImage minMap, int[] myAddr) {
         this.minMap = minMap;
@@ -61,23 +62,20 @@ public class PaoTaKongZhi implements Runnable{
 
             int speed = 3, centerX = StartMain.SCRN_SIZE[0] / 2;
             StartMain.robot.mouseMove(x, StartMain.CENTER_Y_PAO);
-            Thread.sleep(25);
-            StartMain.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-            Thread.sleep(25);
-            StartMain.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+
+            Thread.sleep(JGSJ);
+            dianji(3);
             for (int i = -2; i <= 2; i++) {
                 for (int j = -2; j <= 2; j++) {
                     StartMain.robot.mouseMove(centerX + i * speed, StartMain.CENTER_Y_PAO + j * speed);
-                    Thread.sleep(25);
-                    StartMain.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-                    Thread.sleep(25);
-                    StartMain.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+                    Thread.sleep(JGSJ);
+                    dianji(3);
                 }
             }
 
+            Thread.sleep(JGSJ);
+            dianji(1);
 
-            Thread.sleep(30);
-            MouseUtils.mouseAnXia();
 //            BufferedImage subimage = minMap.getSubimage(0, 0, 40, 40);
 //            ZhanDouFun.prinRGB(subimage);
 //            System.out.println(123);
@@ -86,6 +84,41 @@ public class PaoTaKongZhi implements Runnable{
             e.printStackTrace();
         }
 
+
+    }
+
+    private void dianji(int type) throws InterruptedException {
+        if (StartMain.OPEN_KAI_PAO) {
+            switch (type) {
+                case 1:
+                    StartMain.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                    Thread.sleep(JGSJ);
+                    StartMain.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                    break;
+                case 3:
+                    StartMain.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+                    Thread.sleep(JGSJ);
+                    StartMain.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+                    break;
+                default:
+                    break;
+            }
+        }else {
+            switch (type) {
+                case 1:
+                    StartMain.robot.keyPress(KeyEvent.VK_Q);
+                    Thread.sleep(JGSJ);
+                    StartMain.robot.keyRelease(KeyEvent.VK_Q);
+                    break;
+                case 3:
+                    StartMain.robot.keyPress(KeyEvent.VK_E);
+                    Thread.sleep(JGSJ);
+                    StartMain.robot.keyRelease(KeyEvent.VK_E);
+                    break;
+                default:
+                    break;
+            }
+        }
 
     }
 
