@@ -55,7 +55,7 @@ public class MinMapLX {
     public static List<int[]> MU_NI_HEI = Arrays.asList(new int[]{295, 46}, new int[]{176, 405},
             new int[]{255, 205}, new int[]{180, 376});
     public static List<int[]> BU_LA_GE = Arrays.asList(new int[]{210, 45}, new int[]{209, 446},
-            new int[]{282, 80}, new int[]{302, 160}, new int[]{303, 361}, new int[]{287, 430});
+            new int[]{282, 80}, new int[]{302, 160}, new int[]{294, 390}, new int[]{259, 449});
     public static List<int[]> WU_MONG_XIONG_SHAN = Arrays.asList(new int[]{89, 97}, new int[]{391, 393},
             new int[]{153, 179}, new int[]{145, 287}, new int[]{264, 355}, new int[]{335, 294});
     public static List<int[]> WEI_SI_TE_FEI_ER_DE = Arrays.asList(new int[]{97, 411}, new int[]{410, 97},
@@ -77,7 +77,7 @@ public class MinMapLX {
     public static List<int[]> KA_QIU_SHA = Arrays.asList(new int[]{200, 158}, new int[]{296, 347},
             new int[]{127, 222}, new int[]{139, 315}, new int[]{183, 341});
     public static List<int[]> XIAO_ZHENG_ZHEN_DOU_ZHAN = Arrays.asList(new int[]{244, 50}, new int[]{254, 434},
-            new int[]{241, 114}, new int[]{288, 182}, new int[]{289, 307}, new int[]{257, 386});
+            new int[]{241, 114}, new int[]{285, 200}, new int[]{289, 228}, new int[]{289, 275}, new int[]{287, 323}, new int[]{253, 401});
     public static List<int[]> LA_TE_SI_TE_FU = Arrays.asList(new int[]{244, 43}, new int[]{242, 453},
             new int[]{210, 174}, new int[]{202, 252});
     public static List<int[]> BI_FENG_GANG = Arrays.asList(new int[]{64, 168}, new int[]{409, 169},
