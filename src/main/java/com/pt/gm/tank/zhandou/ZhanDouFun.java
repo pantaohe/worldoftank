@@ -52,7 +52,7 @@ public class ZhanDouFun {
     public static boolean jihui() throws InterruptedException {
 
         MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 63 + StartMain.SCRN_SIZE[2] + (int)(Math.random() * 40));
-        Thread.sleep(1200);
+        Thread.sleep(2200);
         MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 40 + StartMain.SCRN_SIZE[2] + (int)(Math.random() * 32));
         jieshuDY();
         return true;

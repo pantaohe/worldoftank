@@ -32,7 +32,7 @@ public class PaoTaKongZhi implements Runnable{
     private int[] myAddr;
     private Map<Integer, Integer> zbMap = new HashMap<>();
 
-    private static int JGSJ = 30;
+    private static int JGSJ = 100;
 
     public PaoTaKongZhi(BufferedImage minMap, int[] myAddr) {
         this.minMap = minMap;
@@ -60,13 +60,13 @@ public class PaoTaKongZhi implements Runnable{
             StartMain.robot = new Robot();
 
 
-            int speed = 3, centerX = StartMain.SCRN_SIZE[0] / 2;
+            int speed = 4, centerX = StartMain.SCRN_SIZE[0] / 2;
             StartMain.robot.mouseMove(x, StartMain.CENTER_Y_PAO);
 
             Thread.sleep(JGSJ);
             dianji(3);
-            for (int i = -2; i <= 2; i++) {
-                for (int j = -2; j <= 2; j++) {
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
                     StartMain.robot.mouseMove(centerX + i * speed, StartMain.CENTER_Y_PAO + j * speed);
                     Thread.sleep(JGSJ);
                     dianji(3);
