@@ -1,6 +1,6 @@
 package com.pt.gm.tank.zhandou;
 
-import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.config.CF;
 import com.pt.gm.tank.mouse.MouseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,9 +56,9 @@ public class TankUtils {
             if (entry.getValue()[3] > 0.03 && !ZhanDouFun.IS_MIAOZHUN) {
 //                IS_MIAOZHUN = true;
                 //按住ctrl，鼠标移动到小地图敌方坦克中间，点击鼠标右键，松开ctrl
-                StartMain.robot.keyPress(KeyEvent.CTRL_DOWN_MASK);
-                MouseUtils.mouseDianJi(StartMain.MAP_START[0] + (int)entry.getValue()[1], StartMain.SCRN_SIZE[1] + (int)entry.getValue()[0], InputEvent.BUTTON3_DOWN_MASK);
-                StartMain.robot.keyRelease(KeyEvent.CTRL_DOWN_MASK);
+                CF.robot.keyPress(KeyEvent.CTRL_DOWN_MASK);
+                MouseUtils.mouseDianJi(CF.MAP_START[0] + (int)entry.getValue()[1], CF.SCRN_SIZE[1] + (int)entry.getValue()[0], InputEvent.BUTTON3_DOWN_MASK);
+                CF.robot.keyRelease(KeyEvent.CTRL_DOWN_MASK);
 
                 Thread.sleep(7000);     //7秒后开火
                 MouseUtils.mouseAnXia();

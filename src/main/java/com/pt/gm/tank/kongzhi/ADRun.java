@@ -1,6 +1,6 @@
 package com.pt.gm.tank.kongzhi;
 
-import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.config.CF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +29,9 @@ public class ADRun  implements Runnable{
                 int time = T.get();
                 if (ad != X && time != X) {
 
-                    StartMain.robot.keyPress(ad);
+                    CF.robot.keyPress(ad);
                     Thread.sleep(time);
-                    StartMain.robot.keyRelease(ad);
+                    CF.robot.keyRelease(ad);
                     logger.debug("方向{}，时间{}", ad, time);
                     X();
                     AD.set(X);
@@ -49,8 +49,8 @@ public class ADRun  implements Runnable{
      */
     public static void X() throws InterruptedException {
         logger.debug("锁定车身");
-        StartMain.robot.keyPress(KeyEvent.VK_X);
+        CF.robot.keyPress(KeyEvent.VK_X);
         Thread.sleep(50);
-        StartMain.robot.keyRelease(KeyEvent.VK_X);
+        CF.robot.keyRelease(KeyEvent.VK_X);
     }
 }

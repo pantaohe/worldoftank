@@ -1,6 +1,6 @@
 package com.pt.gm.tank.zhandou;
 
-import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.config.CF;
 import com.pt.gm.tank.kongzhi.FangXiangKongZhi;
 import com.pt.gm.tank.map.MinMapLX;
 import com.pt.gm.tank.mouse.MouseUtils;
@@ -39,9 +39,9 @@ public class ZhanDouFun {
                 || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁") || fileContent.contains("着火了")
                 || fileContent.contains("成员因")){
 
-            StartMain.robot.keyPress(KeyEvent.VK_ESCAPE);
+            CF.robot.keyPress(KeyEvent.VK_ESCAPE);
             Thread.sleep(50);
-            StartMain.robot.keyRelease(KeyEvent.VK_ESCAPE);
+            CF.robot.keyRelease(KeyEvent.VK_ESCAPE);
             Thread.sleep(500);
 
             return jihui();
@@ -51,15 +51,15 @@ public class ZhanDouFun {
 
     public static boolean jihui() throws InterruptedException {
 
-        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), StartMain.SCRN_SIZE[1]/2 - 73 + StartMain.SCRN_SIZE[2] + (int)(Math.random() * 40));
+        MouseUtils.mouseDianJi(CF.SCRN_SIZE[0]/2 - 145 + (int)(Math.random() * 290), CF.SCRN_SIZE[1]/2 - 73 + CF.SCRN_SIZE[2] + (int)(Math.random() * 40));
         Thread.sleep(2200);
-        MouseUtils.mouseDianJi(StartMain.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), StartMain.SCRN_SIZE[1]/2 + 40 + StartMain.SCRN_SIZE[2] + (int)(Math.random() * 32));
+        MouseUtils.mouseDianJi(CF.SCRN_SIZE[0]/2 - 167 + (int)(Math.random() * 160), CF.SCRN_SIZE[1]/2 + 40 + CF.SCRN_SIZE[2] + (int)(Math.random() * 32));
         jieshuDY();
         return true;
     }
 
     public static void jieshuDY() {
-        StartMain.LU_XIAN = null;
+        CF.LU_XIAN = null;
         FangXiangKongZhi.xuyaoW = false;
         FangXiangKongZhi.xuyaoS = false;
         logger.debug("战车被毁，全体撤离");
@@ -120,7 +120,7 @@ public class ZhanDouFun {
         int i2 = rgb >> 8 & 0xff;
         int i3 = rgb & 0xff;
 
-        return StartMain.RGB_MIN[0]<i1&&i1<StartMain.RGB_MAX[0] && StartMain.RGB_MIN[1]<i2&&i2<StartMain.RGB_MAX[1] && StartMain.RGB_MIN[2]<i3&&i3<StartMain.RGB_MAX[2];
+        return CF.RGB_MIN[0]<i1&&i1< CF.RGB_MAX[0] && CF.RGB_MIN[1]<i2&&i2< CF.RGB_MAX[1] && CF.RGB_MIN[2]<i3&&i3< CF.RGB_MAX[2];
 
     }
 
@@ -179,8 +179,8 @@ public class ZhanDouFun {
     public static int[] myAddr(BufferedImage minMap) {
         int height = minMap.getHeight();
         int width = minMap.getWidth();
-        int[] qi1 = StartMain.LU_XIAN.get(0);
-        int[] qi2 = StartMain.LU_XIAN.get(1);
+        int[] qi1 = CF.LU_XIAN.get(0);
+        int[] qi2 = CF.LU_XIAN.get(1);
 
         boolean qi1x,qi2x;
         List<Integer> myList = new ArrayList<>();

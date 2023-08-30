@@ -1,6 +1,6 @@
 package com.pt.gm.tank.map;
 
-import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.config.CF;
 import com.pt.gm.tank.jr.JiaRuZD;
 import com.pt.gm.tank.util.ImgUtils;
 import com.pt.gm.tank.zhandou.ZhanDou;
@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -110,90 +109,136 @@ public class MinMapLX {
 
     private static boolean luXian(String fileContent) {
         logger.debug("读取的地图名：" + fileContent);
+        String mapNmaeE = "";
         if (fileContent.contains("埃里-哈罗夫")){
-            StartMain.LU_XIAN = AI_LI_HA_LUO_FU;
+            CF.LU_XIAN = AI_LI_HA_LUO_FU;
+            mapNmaeE = "AI_LI_HA_LUO_FU";
         }else if (fileContent.contains("湖边的角逐")){
-            StartMain.LU_XIAN = HU_BIAN_DE_JUE_ZHU;
+            CF.LU_XIAN = HU_BIAN_DE_JUE_ZHU;
+            mapNmaeE = "HU_BIAN_DE_JUE_ZHU";
         }else if (fileContent.contains("拉斯威利")){
-            StartMain.LU_XIAN = LA_SHI_WEI_LI;
+            CF.LU_XIAN = LA_SHI_WEI_LI;
+            mapNmaeE = "LA_SHI_WEI_LI";
         }else if (fileContent.contains("鲁别克")){
-            StartMain.LU_XIAN = LU_BIE_KE;
+            CF.LU_XIAN = LU_BIE_KE;
+            mapNmaeE = "LU_BIE_KE";
         }else if (fileContent.contains("极地冰原")){
-            StartMain.LU_XIAN = JI_DI_BING_YUAN;
+            CF.LU_XIAN = JI_DI_BING_YUAN;
+            mapNmaeE = "JI_DI_BING_YUAN";
         }else if (fileContent.contains("安斯克")){
-            StartMain.LU_XIAN = AN_SI_KE;
+            CF.LU_XIAN = AN_SI_KE;
+            mapNmaeE = "AN_SI_KE";
         }else if (fileContent.contains("卡累利阿")){
-            StartMain.LU_XIAN = KA_LEI_LI_A;
+            CF.LU_XIAN = KA_LEI_LI_A;
+            mapNmaeE = "KA_LEI_LI_A";
         }else if (fileContent.contains("卡果利阿")){
-            StartMain.LU_XIAN = KA_LEI_LI_A;
+            CF.LU_XIAN = KA_LEI_LI_A;
+            mapNmaeE = "KA_LEI_LI_A";
         }else if (fileContent.contains("胜利之门")){
-            StartMain.LU_XIAN = SHEN_LI_ZHI_MEN;
+            CF.LU_XIAN = SHEN_LI_ZHI_MEN;
+            mapNmaeE = "SHEN_LI_ZHI_MEN";
         }else if (fileContent.contains("荒漠小镇")){
-            StartMain.LU_XIAN = HUANG_MO_XIAO_ZHEN;
+            CF.LU_XIAN = HUANG_MO_XIAO_ZHEN;
+            mapNmaeE = "HUANG_MO_XIAO_ZHEN";
         }else if (fileContent.contains("荒蛮之地")){
-            StartMain.LU_XIAN = HUANG_MAN_ZHI_DI;
+            CF.LU_XIAN = HUANG_MAN_ZHI_DI;
+            mapNmaeE = "HUANG_MAN_ZHI_DI";
         }else if (fileContent.contains("坎帕尼亚")){
-            StartMain.LU_XIAN = KAN_PA_NI_YA;
+            CF.LU_XIAN = KAN_PA_NI_YA;
+            mapNmaeE = "KAN_PA_NI_YA";
         }else if (fileContent.contains("普罗霍洛夫卡")){
-            StartMain.LU_XIAN = PU_LUO_HUO;
+            CF.LU_XIAN = PU_LUO_HUO;
+            mapNmaeE = "PU_LUO_HUO";
         }else if (fileContent.contains("马利诺夫卡")){
-            StartMain.LU_XIAN = MA_LI_NUO_FU_KA;
+            CF.LU_XIAN = MA_LI_NUO_FU_KA;
+            mapNmaeE = "MA_LI_NUO_FU_KA";
         }else if (fileContent.contains("慕尼黑")){
-            StartMain.LU_XIAN = MU_NI_HEI;
+            CF.LU_XIAN = MU_NI_HEI;
+            mapNmaeE = "MU_NI_HEI";
         }else if (fileContent.contains("布拉格")){
-            StartMain.LU_XIAN = BU_LA_GE;
+            CF.LU_XIAN = BU_LA_GE;
+            mapNmaeE = "BU_LA_GE";
         }else if (fileContent.contains("乌蒙雄山")){
-            StartMain.LU_XIAN = WU_MONG_XIONG_SHAN;
+            CF.LU_XIAN = WU_MONG_XIONG_SHAN;
+            mapNmaeE = "WU_MONG_XIONG_SHAN";
         }else if (fileContent.contains("韦斯特菲尔德")){
-            StartMain.LU_XIAN = WEI_SI_TE_FEI_ER_DE;
+            CF.LU_XIAN = WEI_SI_TE_FEI_ER_DE;
+            mapNmaeE = "WEI_SI_TE_FEI_ER_DE";
         }else if (fileContent.contains("穆勒万卡")){
-            StartMain.LU_XIAN = MU_LEI_WAN_KA;
+            CF.LU_XIAN = MU_LEI_WAN_KA;
+            mapNmaeE = "MU_LEI_WAN_KA";
         }else if (fileContent.contains("海岸争霸")){
-            StartMain.LU_XIAN = HAI_AN_ZHENG_BA;
+            CF.LU_XIAN = HAI_AN_ZHENG_BA;
+            mapNmaeE = "HAI_AN_ZHENG_BA";
         }else if (fileContent.contains("寂静海岸")){
-            StartMain.LU_XIAN = JI_JING_HAI_AN;
+            CF.LU_XIAN = JI_JING_HAI_AN;
+            mapNmaeE = "JI_JING_HAI_AN";
         }else if (fileContent.contains("文化之都")){
-            StartMain.LU_XIAN = WEN_HUA_ZHI_DU;
+            CF.LU_XIAN = WEN_HUA_ZHI_DU;
+            mapNmaeE = "WEN_HUA_ZHI_DU";
         }else if (fileContent.contains("牡蛎湾")){
-            StartMain.LU_XIAN = MU_LI_WAN;
+            CF.LU_XIAN = MU_LI_WAN;
+            mapNmaeE = "MU_LI_WAN";
         }else if (fileContent.contains("齐格菲防线")){
-            StartMain.LU_XIAN = QI_GE_FEI_FANG_XIAN;
+            CF.LU_XIAN = QI_GE_FEI_FANG_XIAN;
+            mapNmaeE = "QI_GE_FEI_FANG_XIAN";
         }else if (fileContent.contains("埃勒斯堡")){
-            StartMain.LU_XIAN = AI_LEI_SI_BAO;
+            CF.LU_XIAN = AI_LEI_SI_BAO;
+            mapNmaeE = "AI_LEI_SI_BAO";
         }else if (fileContent.contains("喀秋莎")){
-            StartMain.LU_XIAN = KA_QIU_SHA;
+            CF.LU_XIAN = KA_QIU_SHA;
+            mapNmaeE = "KA_QIU_SHA";
         }else if (fileContent.contains("小镇争夺战")){
-            StartMain.LU_XIAN = XIAO_ZHENG_ZHEN_DOU_ZHAN;
+            CF.LU_XIAN = XIAO_ZHENG_ZHEN_DOU_ZHAN;
+            mapNmaeE = "XIAO_ZHENG_ZHEN_DOU_ZHAN";
         }else if (fileContent.contains("斯特拉特福")){
-            StartMain.LU_XIAN = LA_TE_SI_TE_FU;
+            CF.LU_XIAN = LA_TE_SI_TE_FU;
+            mapNmaeE = "LA_TE_SI_TE_FU";
         }else if (fileContent.contains("避风港")){
-            StartMain.LU_XIAN = BI_FENG_GANG;
+            CF.LU_XIAN = BI_FENG_GANG;
+            mapNmaeE = "BI_FENG_GANG";
         }else if (fileContent.contains("阿拉曼机场")){
-            StartMain.LU_XIAN = A_LA_MAN_JI_CHANG;
+            CF.LU_XIAN = A_LA_MAN_JI_CHANG;
+            mapNmaeE = "A_LA_MAN_JI_CHANG";
         }else if (fileContent.contains("钢铁壁垒")){
-            StartMain.LU_XIAN = GANG_TIE_BI_LEI;
+            CF.LU_XIAN = GANG_TIE_BI_LEI;
+            mapNmaeE = "GANG_TIE_BI_LEI";
         }else if (fileContent.contains("前哨")){
-            StartMain.LU_XIAN = QIAN_SHAO;
+            CF.LU_XIAN = QIAN_SHAO;
+            mapNmaeE = "QIAN_SHAO";
         }else if (fileContent.contains("魅影小镇")){
-            StartMain.LU_XIAN = MEI_YING_XIAO_ZHENG;
+            CF.LU_XIAN = MEI_YING_XIAO_ZHENG;
+            mapNmaeE = "MEI_YING_XIAO_ZHENG";
         }else if (fileContent.contains("北欧峡湾")){
-            StartMain.LU_XIAN = BEI_OU_HAI_WAN;
+            CF.LU_XIAN = BEI_OU_HAI_WAN;
+            mapNmaeE = "BEI_OU_HAI_WAN";
         }else if (fileContent.contains("费舍尔湾")){
-            StartMain.LU_XIAN = FEI_SHE_ER_WAN;
+            CF.LU_XIAN = FEI_SHE_ER_WAN;
+            mapNmaeE = "FEI_SHE_ER_WAN";
         }else if (fileContent.contains("浪漫之城")){
-            StartMain.LU_XIAN = LANG_MAN_ZHI_CHENG;
+            CF.LU_XIAN = LANG_MAN_ZHI_CHENG;
+            mapNmaeE = "LANG_MAN_ZHI_CHENG";
         }else if (fileContent.contains("里夫奥克斯")){
-            StartMain.LU_XIAN = LI_FU_AO_KE_SI;
+            CF.LU_XIAN = LI_FU_AO_KE_SI;
+            mapNmaeE = "LI_FU_AO_KE_SI";
         }else if (fileContent.contains("冰川之地")){
-            StartMain.LU_XIAN = BING_CHUAN_ZHI_DI;
+            CF.LU_XIAN = BING_CHUAN_ZHI_DI;
+            mapNmaeE = "BING_CHUAN_ZHI_DI";
         }else if (fileContent.contains("州际公路")){
-            StartMain.LU_XIAN = ZHOU_JI_GONG_LU;
+            CF.LU_XIAN = ZHOU_JI_GONG_LU;
+            mapNmaeE = "ZHOU_JI_GONG_LU";
         }else if (fileContent.contains("诺曼底")){
-            StartMain.LU_XIAN = LUO_MAN_DI;
+            CF.LU_XIAN = LUO_MAN_DI;
+            mapNmaeE = "LUO_MAN_DI";
         }else if (fileContent.contains("斯杜季昂奇")){     //斯杜季昂奇、可以直接RR        //锡默尔斯多夫(ban掉)
-            StartMain.LU_XIAN = SI_DU_JI_ANG_QI;
+            CF.LU_XIAN = SI_DU_JI_ANG_QI;
+            mapNmaeE = "SI_DU_JI_ANG_QI";
         }else{
             return false;
+        }
+        if (StringUtils.isNotBlank(mapNmaeE) && CF.CF_MAP.containsKey(mapNmaeE)){
+            CF.LU_XIAN = CF.getListIntsConfig(mapNmaeE);
+            logger.debug("加载配置文件中的地图坐标成功：{}", CF.CF_MAP.get(mapNmaeE));
         }
         JiaRuZD.mapName = fileContent;
         return true;
@@ -203,32 +248,33 @@ public class MinMapLX {
 
 
 
-    public static void getXingJingLuXian(BufferedImage screenshot) throws InterruptedException {
+    public static void getXingJingLuXian() throws InterruptedException {
 
-        StartMain.robot.keyPress(KeyEvent.VK_N);
+        BufferedImage screenshot;
+        CF.robot.keyPress(KeyEvent.VK_N);
         Thread.sleep(1000);
         BufferedImage nImage = ImgUtils.screenshot();
-        StartMain.robot.keyRelease(KeyEvent.VK_N);
+        CF.robot.keyRelease(KeyEvent.VK_N);
         BufferedImage subimage = nImage.getSubimage(600, 40, 312, 100);
         String fileContent = ImgUtils.getString(subimage);
         luXian("N-" + fileContent);
 
 //        StartMain.LU_XIAN = MU_LI_WAN;
-        if (StartMain.LU_XIAN == null) {
+        if (CF.LU_XIAN == null) {
             logger.debug("地图加载失败");
         } else {
             Thread.sleep(300);
             BufferedImage minMap;
             for (int i = 0; i < 8; i++) {
                 screenshot = ImgUtils.screenshot();
-                minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, ZhanDou.MIN_MAP_W);
+                minMap = screenshot.getSubimage(CF.MAP_START[0], CF.MAP_START[1], ZhanDou.MIN_MAP_W, ZhanDou.MIN_MAP_W);
                 if (getBsCount(minMap)) break;
                 if (i < 6) {
-                    StartMain.robot.keyPress(KeyEvent.VK_EQUALS);
-                    StartMain.robot.keyRelease(KeyEvent.VK_EQUALS);
+                    CF.robot.keyPress(KeyEvent.VK_EQUALS);
+                    CF.robot.keyRelease(KeyEvent.VK_EQUALS);
                 }else {
-                    StartMain.robot.keyPress(KeyEvent.VK_MINUS);     //减法
-                    StartMain.robot.keyRelease(KeyEvent.VK_MINUS);
+                    CF.robot.keyPress(KeyEvent.VK_MINUS);     //减法
+                    CF.robot.keyRelease(KeyEvent.VK_MINUS);
                 }
                 Thread.sleep(200);
             }
@@ -240,8 +286,8 @@ public class MinMapLX {
         int bsCount = 0;
         for (int i = -12; i <= 12; i++) {
             for (int j = -12; j <= 12; j++) {
-                if (ZhanDouFun.getBS(StartMain.LU_XIAN.get(0)[0]+i, StartMain.LU_XIAN.get(0)[1]+j, minMap)) bsCount++;
-                if (ZhanDouFun.getBS(StartMain.LU_XIAN.get(1)[0]+i, StartMain.LU_XIAN.get(1)[1]+j, minMap)) bsCount++;
+                if (ZhanDouFun.getBS(CF.LU_XIAN.get(0)[0]+i, CF.LU_XIAN.get(0)[1]+j, minMap)) bsCount++;
+                if (ZhanDouFun.getBS(CF.LU_XIAN.get(1)[0]+i, CF.LU_XIAN.get(1)[1]+j, minMap)) bsCount++;
             }
         }
         logger.debug("白点个数：{}", bsCount);

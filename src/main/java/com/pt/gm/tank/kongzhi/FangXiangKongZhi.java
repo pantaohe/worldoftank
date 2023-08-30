@@ -1,8 +1,6 @@
 package com.pt.gm.tank.kongzhi;
 
-import com.pt.gm.tank.StartMain;
-import com.pt.gm.tank.jr.JiaRuZD;
-import com.pt.gm.tank.map.MinMapLX;
+import com.pt.gm.tank.config.CF;
 import com.pt.gm.tank.util.ImgUtils;
 import com.pt.gm.tank.zhandou.ZhanDou;
 import com.pt.gm.tank.zhandou.ZhanDouFun;
@@ -29,11 +27,11 @@ public class FangXiangKongZhi{
     public static void kongzhi(int i) throws InterruptedException {
         Thread paotat = null;
         int[] myAddr;
-        int[] mubiao = StartMain.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0, dd;
+        int[] mubiao = CF.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0, dd;
         int vkX, feiZhanDou = 0;long l = 0;BufferedImage minMap;
         while (true) {
             logger.debug("进入方向控制循环：\n");
-            if (StartMain.OPEN_KAI_PAO && paotat != null && !paotat.isInterrupted()) paotat.stop();
+            if (CF.OPEN_KAI_PAO && paotat != null && !paotat.isInterrupted()) paotat.stop();
             do {
                 l = System.currentTimeMillis();
                 BufferedImage screenshot = ImgUtils.screenshot();
@@ -45,7 +43,7 @@ public class FangXiangKongZhi{
                 }else feiZhanDou = 0;
                 if (ZhanDouFun.jihui(screenshot)) return;       //战车被毁退出
 
-                minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
+                minMap = screenshot.getSubimage(CF.MAP_START[0], CF.MAP_START[1], ZhanDou.MIN_MAP_W, CF.SCRN_SIZE[1] - CF.MAP_START[1] + CF.SCRN_SIZE[2]);
                 myAddr = ZhanDouFun.myAddr(minMap);
                 logger.debug("截图到计算出自己位置耗时：{}ms", System.currentTimeMillis() - l);
                 if (myAddr == null){
@@ -64,7 +62,7 @@ public class FangXiangKongZhi{
                 continue;     //如果单次变动太大，说明是错误的。
             }
 
-            if (StartMain.OPEN_KAI_PAO) {
+            if (CF.OPEN_KAI_PAO) {
                 //自动开炮
                 paotat = new Thread(new PaoTaKongZhi(minMap, myAddr));
                 paotat.setName("paotaThread");
@@ -119,9 +117,9 @@ public class FangXiangKongZhi{
                 logger.debug("松开前进s/w,距离比较近手动操作");
                 xuyaoS = false; xuyaoW = false;     //距离比较近手动操作
                 Thread.sleep(200);
-                StartMain.robot.keyPress(KeyEvent.VK_W);
+                CF.robot.keyPress(KeyEvent.VK_W);
                 Thread.sleep(2500);
-                StartMain.robot.keyRelease(KeyEvent.VK_W);
+                CF.robot.keyRelease(KeyEvent.VK_W);
             }
             ddt2 = ddt1; ddt1 = dd;
         }

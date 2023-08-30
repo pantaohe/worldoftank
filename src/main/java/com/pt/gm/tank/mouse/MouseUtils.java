@@ -1,6 +1,6 @@
 package com.pt.gm.tank.mouse;
 
-import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.config.CF;
 
 import java.awt.event.InputEvent;
 
@@ -19,7 +19,7 @@ public class MouseUtils {
 
     public static void mouseDianJi(int x, int y, int mask) throws InterruptedException{
         mouseRand();
-        StartMain.robot.mouseMove(x, y);
+        CF.robot.mouseMove(x, y);
         mouseAnXia(mask);
         mouseRand();
     }
@@ -29,13 +29,13 @@ public class MouseUtils {
     }
 
     public static void mouseAnXia(int mask) throws InterruptedException {
-        StartMain.robot.mousePress(mask);     //InputEvent.BUTTON1_DOWN_MASK
+        CF.robot.mousePress(mask);     //InputEvent.BUTTON1_DOWN_MASK
         Thread.sleep(160);
-        StartMain.robot.mouseRelease(mask);
+        CF.robot.mouseRelease(mask);
     }
 
     public static void mouseRand() throws InterruptedException {
-        StartMain.robot.mouseMove((int)(Math.random() * 1920), 30 + (int)(Math.random() * 1000));
+        CF.robot.mouseMove((int)(Math.random() * 1920), 30 + (int)(Math.random() * 1000));
         Thread.sleep(200);
     }
 }

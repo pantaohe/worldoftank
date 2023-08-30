@@ -3,7 +3,7 @@ package com.pt.gm.tank.util;
 import com.jc.modules.recognition.FileReadUtils;
 import com.jc.modules.recognition.mime.entry.FileContentEntry;
 import com.jeesite.modules.licence.util.ProjectPathUtils;
-import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.config.CF;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -62,7 +62,7 @@ public class ImgUtils {
         // 创建一个Rectangle对象，用于指定截屏的区域
         Rectangle rectangle = new Rectangle(dimension);
         // 捕获屏幕上的内容
-        BufferedImage screenCapture = StartMain.robot.createScreenCapture(rectangle);
+        BufferedImage screenCapture = CF.robot.createScreenCapture(rectangle);
 
         try {
             if (notJarStart) {
@@ -70,7 +70,7 @@ public class ImgUtils {
                 screenCapture = ImageIO.read(new File("\\\\192.168.0.83\\cx\\procedure\\photo\\1692924000621.png"));
 //                screenCapture = ImageIO.read(new File("\\\\192.168.0.165\\cx\\photo\\1692263010348.png"));
 //                screenCapture = ImageIO.read(new File("D:\\work\\java\\idea\\workspace\\worldoftank\\target\\photo\\1692829116917.png"));
-            }else if (StartMain.OPEN_GUA_JI){
+            }else if ((boolean)CF.CF_MAP.get("OPEN_GUA_JI")){
                 long time = System.currentTimeMillis();
                 if (time - timeT > 600000) { //三十分钟
 //                if (time - timeT > 5000) { //5秒

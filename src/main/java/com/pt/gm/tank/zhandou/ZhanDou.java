@@ -1,9 +1,7 @@
 package com.pt.gm.tank.zhandou;
 
-import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.config.CF;
 import com.pt.gm.tank.kongzhi.FangXiangKongZhi;
-import com.pt.gm.tank.kongzhi.PaoTaKongZhi;
-import com.pt.gm.tank.map.MinMapLX;
 import com.pt.gm.tank.util.ImgUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -22,11 +20,11 @@ import java.awt.image.BufferedImage;
 public class ZhanDou {
 
     private static Logger logger = LoggerFactory.getLogger(ZhanDou.class);
-    public static int MIN_MAP_W = StartMain.SCRN_SIZE[0] - StartMain.MAP_START[0];
+    public static int MIN_MAP_W = CF.SCRN_SIZE[0] - CF.MAP_START[0];
 
     public static int zhandouFX(BufferedImage screenshot) {
         //右上角时间
-        BufferedImage subimage = screenshot.getSubimage(1860, StartMain.SCRN_SIZE[2], 50, 30);
+        BufferedImage subimage = screenshot.getSubimage(1860, CF.SCRN_SIZE[2], 50, 30);
         String fileContent = ImgUtils.getString(subimage);
 
         String tishi = ""; int flag = 0;
@@ -37,7 +35,7 @@ public class ZhanDou {
             try {
                 int m = Integer.parseInt(filecs[0]);
                 int s = Integer.parseInt(filecs[1]);
-                if ((m == 0 && s < 59) || (StartMain.TUPIAN_NEIRONG.contains("随机战"))) {
+                if ((m == 0 && s < 59) || (CF.TUPIAN_NEIRONG.contains("随机战"))) {
                     tishi = "预读无需处理";
                     flag =  1;     //倒计时，不需要操作
                 }else {
@@ -59,14 +57,14 @@ public class ZhanDou {
      * @param screenshot
      */
     public static void zhandou(BufferedImage screenshot) {
-        BufferedImage minMap = screenshot.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], MIN_MAP_W, MIN_MAP_W);
+        BufferedImage minMap = screenshot.getSubimage(CF.MAP_START[0], CF.MAP_START[1], MIN_MAP_W, MIN_MAP_W);
 
 
         try {
             // 击毁
             if (ZhanDouFun.jihui(screenshot)) return;
 
-            if (StartMain.OPEN_GUA_JI) kaiche(minMap);
+            if (CF.OPEN_GUA_JI) kaiche(minMap);
 
             // 火炮小地图框
 //            int[] mouses = ZhanDouFun.mouseCenter(minMap);
@@ -82,13 +80,13 @@ public class ZhanDou {
     }
 
     private static void kaiche(BufferedImage minMap) throws InterruptedException {
-        if (StartMain.LU_XIAN == null) {    //如果没有读取到地图，则直接两次r
+        if (CF.LU_XIAN == null) {    //如果没有读取到地图，则直接两次r
             logger.debug("没有读取到地图，则直接两次r");
-            StartMain.robot.keyPress(KeyEvent.VK_R);
-            StartMain.robot.keyRelease(KeyEvent.VK_R);
+            CF.robot.keyPress(KeyEvent.VK_R);
+            CF.robot.keyRelease(KeyEvent.VK_R);
             Thread.sleep(150);
-            StartMain.robot.keyPress(KeyEvent.VK_R);
-            StartMain.robot.keyRelease(KeyEvent.VK_R);
+            CF.robot.keyPress(KeyEvent.VK_R);
+            CF.robot.keyRelease(KeyEvent.VK_R);
             return;
         }
         int[] addrs = ZhanDouFun.myAddr(minMap);
@@ -103,18 +101,18 @@ public class ZhanDou {
             FangXiangKongZhi.xuyaoW = true;
             return;
         }
-        double lx0 = ZhanDouFun.dd2(StartMain.LU_XIAN.get(0), addrs);
-        double lx1 = ZhanDouFun.dd2(StartMain.LU_XIAN.get(1), addrs);
+        double lx0 = ZhanDouFun.dd2(CF.LU_XIAN.get(0), addrs);
+        double lx1 = ZhanDouFun.dd2(CF.LU_XIAN.get(1), addrs);
 
-        StartMain.robot.mouseMove(StartMain.SCRN_SIZE[0]/2, StartMain.CENTER_Y);     //鼠标移动到屏幕中间
+        CF.robot.mouseMove(CF.SCRN_SIZE[0]/2, CF.CENTER_Y);     //鼠标移动到屏幕中间
 
         if (lx0 < lx1) {
-            for (int i = 2; i < StartMain.LU_XIAN.size(); i++) {
+            for (int i = 2; i < CF.LU_XIAN.size(); i++) {
                 FangXiangKongZhi.kongzhi(i);
             }
             FangXiangKongZhi.kongzhi(1);
         }else {
-            for (int i = StartMain.LU_XIAN.size() - 1; i >= 2; i--) {
+            for (int i = CF.LU_XIAN.size() - 1; i >= 2; i--) {
                 FangXiangKongZhi.kongzhi(i);
             }
             FangXiangKongZhi.kongzhi(0);

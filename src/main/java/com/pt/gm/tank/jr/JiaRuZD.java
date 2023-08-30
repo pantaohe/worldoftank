@@ -1,6 +1,6 @@
 package com.pt.gm.tank.jr;
 
-import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.config.CF;
 import com.pt.gm.tank.mouse.MouseUtils;
 import com.pt.gm.tank.util.ImgUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -8,7 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author pantao
@@ -26,24 +27,24 @@ public class JiaRuZD {
     private static int jiaruIndex;
 
     public static boolean jiarujiemian(BufferedImage screenshot) {
-        BufferedImage subimage = screenshot.getSubimage(StartMain.IN_COMBAT[0], StartMain.IN_COMBAT[1], StartMain.IN_COMBAT[2], StartMain.IN_COMBAT[3]);
+        BufferedImage subimage = screenshot.getSubimage(CF.IN_COMBAT[0], CF.IN_COMBAT[1], CF.IN_COMBAT[2], CF.IN_COMBAT[3]);
         String fileContent = ImgUtils.getString(subimage);
 
         return StringUtils.isNotBlank(fileContent) && fileContent.contains("加入战斗");
     }
 
     public static boolean jiaRu(BufferedImage screenshot) throws InterruptedException {
-        if (StartMain.TUPIAN_NEIRONG.contains("正在更新车库") || StartMain.TUPIAN_NEIRONG.contains("在线等待玩家")) return false;
+        if (CF.TUPIAN_NEIRONG.contains("正在更新车库") || CF.TUPIAN_NEIRONG.contains("在线等待玩家")) return false;
         BufferedImage subimage = screenshot.getSubimage(733, 300, 450, 460);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains("处罚")) MouseUtils.mouseDianJi(1090 + (int)(Math.random() * 90), 733 + (int)(Math.random() * 18));
         logger.debug("当前是加入战斗界面");
         int x, y, i;
-        for (int j = 0; j < StartMain.CHE_XU.size(); j++) {
-            i = StartMain.CHE_XU.get(j) - 1;
-            x = StartMain.TANK_ADDR[0] + StartMain.TANK_ADDR[2] * (i / 2);
-            y = StartMain.TANK_ADDR[1] + StartMain.TANK_ADDR[3] * (i % 2);
-            subimage = screenshot.getSubimage(x, y, StartMain.TANK_ADDR[2], StartMain.TANK_ADDR[3]);
+        for (int j = 0; j < CF.CHE_XU.size(); j++) {
+            i = CF.CHE_XU.get(j) - 1;
+            x = CF.TANK_ADDR[0] + CF.TANK_ADDR[2] * (i / 2);
+            y = CF.TANK_ADDR[1] + CF.TANK_ADDR[3] * (i % 2);
+            subimage = screenshot.getSubimage(x, y, CF.TANK_ADDR[2], CF.TANK_ADDR[3]);
             fileContent = ImgUtils.getString(subimage);
 
             logger.debug("第{}辆车：{}，当前坐标：{}-{}，（120, 772, 175, 112）", i, fileContent, x, y);
@@ -53,9 +54,9 @@ public class JiaRuZD {
             }
             if (fileContent.contains("战斗中") || fileContent.contains("战头中") || fileContent.contains("车组乘员不足")) continue;
 
-            MouseUtils.mouseDianJi(x + (int) (Math.random() * StartMain.TANK_ADDR[2]), y + (int) (Math.random() * StartMain.TANK_ADDR[3]));
+            MouseUtils.mouseDianJi(x + (int) (Math.random() * CF.TANK_ADDR[2]), y + (int) (Math.random() * CF.TANK_ADDR[3]));
             Thread.sleep(1000);
-            MouseUtils.mouseDianJi(StartMain.IN_COMBAT[0] + (int)(Math.random() * StartMain.IN_COMBAT[2]), StartMain.IN_COMBAT[1] + (int)(Math.random() * StartMain.IN_COMBAT[3]));
+            MouseUtils.mouseDianJi(CF.IN_COMBAT[0] + (int)(Math.random() * CF.IN_COMBAT[2]), CF.IN_COMBAT[1] + (int)(Math.random() * CF.IN_COMBAT[3]));
 
             long l = System.currentTimeMillis() - timeT;
             if (l > 100000) {

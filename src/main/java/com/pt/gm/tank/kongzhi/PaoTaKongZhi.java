@@ -1,6 +1,6 @@
 package com.pt.gm.tank.kongzhi;
 
-import com.pt.gm.tank.StartMain;
+import com.pt.gm.tank.config.CF;
 import com.pt.gm.tank.map.MinMapLX;
 import com.pt.gm.tank.po.DifangTank;
 import com.pt.gm.tank.zhandou.ZhanDou;
@@ -53,20 +53,20 @@ public class PaoTaKongZhi implements Runnable{
 
             int xzjd = (paojd - mbjd + 360) % 360;       //自己向右旋转的度数
 
-            int x = (xzjd < 180 ? (xzjd + 180) : (xzjd - 180)) * StartMain.SCRN_SIZE[0] / 360;
+            int x = (xzjd < 180 ? (xzjd + 180) : (xzjd - 180)) * CF.SCRN_SIZE[0] / 360;
             logger.debug("计算敌方坐标耗时：{}，自己坐标：{}-{}，地方坐标：{}-{}",System.currentTimeMillis() - l, myAddr[0], myAddr[1], difang.getX(), difang.getY());
             logger.debug("炮角度{}，目标角度{}，向右选择度数{}，x像素{}-960", paojd, mbjd, xzjd, x);
-            StartMain.robot = new Robot();
+            CF.robot = new Robot();
 
 
-            int speed = 4, centerX = StartMain.SCRN_SIZE[0] / 2;
-            StartMain.robot.mouseMove(x, StartMain.CENTER_Y_PAO);
+            int speed = 4, centerX = CF.SCRN_SIZE[0] / 2;
+            CF.robot.mouseMove(x, CF.CENTER_Y_PAO);
 
             Thread.sleep(JGSJ);
             dianji(3);
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
-                    StartMain.robot.mouseMove(centerX + i * speed, StartMain.CENTER_Y_PAO + j * speed);
+                    CF.robot.mouseMove(centerX + i * speed, CF.CENTER_Y_PAO + j * speed);
                     Thread.sleep(JGSJ);
                     dianji(3);
                 }
@@ -87,17 +87,17 @@ public class PaoTaKongZhi implements Runnable{
     }
 
     private void dianji(int type) throws InterruptedException {
-        if (StartMain.MO_REN_KAI_PAO) {
+        if ( CF.MO_REN_KAI_PAO) {
             switch (type) {
                 case 1:
-                    StartMain.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                    CF.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
                     Thread.sleep(JGSJ);
-                    StartMain.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                    CF.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                     break;
                 case 3:
-                    StartMain.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+                    CF.robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
                     Thread.sleep(JGSJ);
-                    StartMain.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+                    CF.robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
                     break;
                 default:
                     break;
@@ -105,14 +105,14 @@ public class PaoTaKongZhi implements Runnable{
         }else {
             switch (type) {
                 case 1:
-                    StartMain.robot.keyPress(KeyEvent.VK_Q);
+                    CF.robot.keyPress(KeyEvent.VK_Q);
                     Thread.sleep(JGSJ);
-                    StartMain.robot.keyRelease(KeyEvent.VK_Q);
+                    CF.robot.keyRelease(KeyEvent.VK_Q);
                     break;
                 case 3:
-                    StartMain.robot.keyPress(KeyEvent.VK_E);
+                    CF.robot.keyPress(KeyEvent.VK_E);
                     Thread.sleep(JGSJ);
-                    StartMain.robot.keyRelease(KeyEvent.VK_E);
+                    CF.robot.keyRelease(KeyEvent.VK_E);
                     break;
                 default:
                     break;
@@ -189,7 +189,7 @@ public class PaoTaKongZhi implements Runnable{
     }
 
     private int[] getXian() {
-        int length = StartMain.SCRN_SIZE[0] - StartMain.MAP_START[0] - 1;
+        int length = CF.SCRN_SIZE[0] - CF.MAP_START[0] - 1;
         for (int i = 0; i <= length; i++) {
             for (int j = 0; j < 5; j++) {
                 if (getXian(i, j, 1)) return new int[]{i, j};
@@ -234,13 +234,13 @@ public class PaoTaKongZhi implements Runnable{
     }
 
     public static void main(String[] args) throws IOException {
-        StartMain.LU_XIAN = MinMapLX.MU_NI_HEI;
-        StartMain.FEN_BIAN_LV = "1920*1017";
-        StartMain.parLoad(args);
+        CF.LU_XIAN = MinMapLX.MU_NI_HEI;
+        CF.FEN_BIAN_LV = "1920*1017";
+        CF.parLoad(args);
 //        BufferedImage screenCapture = ImageIO.read(new File("\\\\192.168.0.165\\cx\\procedure\\photo\\1692651526393.png"));
         BufferedImage screenCapture = ImageIO.read(new File("\\\\192.168.0.83\\cx\\procedure\\photo\\1692875977316.png"));
 //        BufferedImage screenCapture = ImageIO.read(new File("D:\\work\\java\\idea\\workspace\\worldoftank\\target\\photo\\1692735726678.png"));
-        BufferedImage minMap = screenCapture.getSubimage(StartMain.MAP_START[0], StartMain.MAP_START[1], ZhanDou.MIN_MAP_W, StartMain.SCRN_SIZE[1] - StartMain.MAP_START[1] + StartMain.SCRN_SIZE[2]);
+        BufferedImage minMap = screenCapture.getSubimage(CF.MAP_START[0], CF.MAP_START[1], ZhanDou.MIN_MAP_W, CF.SCRN_SIZE[1] - CF.MAP_START[1] + CF.SCRN_SIZE[2]);
         int[] myAddr = ZhanDouFun.myAddr(minMap);
 
         new Thread(new PaoTaKongZhi(minMap, myAddr)).start();
