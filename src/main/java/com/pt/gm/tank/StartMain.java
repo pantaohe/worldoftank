@@ -57,6 +57,9 @@ public class StartMain {
 
     private static int startTank() throws Exception {
         BufferedImage screenshot = ImgUtils.screenshot();
+
+        if (CF.ONLY_SCREENSHOT) return 0;
+
         CF.TUPIAN_NEIRONG = ImgUtils.getString(screenshot);
 
         //贴花界面

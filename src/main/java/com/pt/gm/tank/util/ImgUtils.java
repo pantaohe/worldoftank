@@ -72,7 +72,7 @@ public class ImgUtils {
 //                screenCapture = ImageIO.read(new File("D:\\work\\java\\idea\\workspace\\worldoftank\\target\\photo\\1692829116917.png"));
             }else if ((boolean)CF.CF_MAP.get("OPEN_GUA_JI")){
                 long time = System.currentTimeMillis();
-                if (time - timeT > 600000) { //三十分钟
+                if (time - timeT > CF.SCREENSHOT_TIME) { //三十分钟
 //                if (time - timeT > 5000) { //5秒
                     ImageIO.write(screenCapture, "png", new File("photo\\" + time + ".png"));
                     timeT = time;

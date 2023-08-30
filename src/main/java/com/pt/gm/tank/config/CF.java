@@ -35,6 +35,8 @@ public class CF {
     public static List<Integer> CHE_XU = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));      //车序
     public static boolean MO_REN_KAI_PAO = true;      //是否默认开炮
     public static boolean OPEN_KAI_PAO = true;      //是否自动开炮
+    public static boolean ONLY_SCREENSHOT = true;      //是否只开启截图功能
+    public static long SCREENSHOT_TIME = 600 * 1000;      //截图保存间隔时间
 
     public static int[] SCRN_SIZE = {1920, 1017, 23, 40};       // 23 40 y轴上下边框分辨高 23 和40
     public static int[] MAP_START = {1429, 549};     //小地图起点 不带边框是491*491
@@ -74,6 +76,14 @@ public class CF {
 
             flag = getBooleanConfig("MO_REN_KAI_PAO");
             if (flag != null) MO_REN_KAI_PAO = flag;
+
+            flag = getBooleanConfig("ONLY_SCREENSHOT");
+            if (flag != null) ONLY_SCREENSHOT = flag;
+
+            int screenshot_time = getIntegerConfig("SCREENSHOT_TIME");
+            if (screenshot_time != 0) SCREENSHOT_TIME = screenshot_time * 1000;
+
+
 
             logger.debug("是否自动挂机：{}", OPEN_GUA_JI);
             logger.debug("屏幕分辨率：{}", FEN_BIAN_LV);
