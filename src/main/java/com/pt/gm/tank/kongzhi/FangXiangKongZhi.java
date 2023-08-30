@@ -31,7 +31,7 @@ public class FangXiangKongZhi{
         int vkX, feiZhanDou = 0;long l = 0;BufferedImage minMap;
         while (true) {
             logger.debug("进入方向控制循环：\n");
-            if (CF.OPEN_KAI_PAO && paotat != null && !paotat.isInterrupted()) paotat.stop();
+            if (CF.KAI_PAO && paotat != null && !paotat.isInterrupted()) paotat.stop();
             do {
                 l = System.currentTimeMillis();
                 BufferedImage screenshot = ImgUtils.screenshot();
@@ -62,7 +62,7 @@ public class FangXiangKongZhi{
                 continue;     //如果单次变动太大，说明是错误的。
             }
 
-            if (CF.OPEN_KAI_PAO) {
+            if (CF.KAI_PAO) {
                 //自动开炮
                 paotat = new Thread(new PaoTaKongZhi(minMap, myAddr));
                 paotat.setName("paotaThread");

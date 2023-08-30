@@ -33,8 +33,8 @@ public class CF {
     public static boolean OPEN_GUA_JI = true;       //默认自动运行
     public static String FEN_BIAN_LV = "";      //默认非全屏
     public static List<Integer> CHE_XU = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));      //车序
-    public static boolean MO_REN_KAI_PAO = true;      //是否默认开炮
-    public static boolean OPEN_KAI_PAO = true;      //是否自动开炮
+    public static boolean KAI_PAO_MO_REN_SHE_ZHI = true;      //是否默认开炮
+    public static boolean KAI_PAO = true;      //是否自动开炮
     public static boolean ONLY_SCREENSHOT = false;      //是否只开启截图功能
     public static long SCREENSHOT_TIME = 600 * 1000;      //截图保存间隔时间
 
@@ -73,11 +73,11 @@ public class CF {
             List<Integer> che_xu = getListConfig("CHE_XU");
             if (che_xu != null && che_xu.size() > 0) CHE_XU = che_xu;
 
-            flag = getBooleanConfig("OPEN_KAI_PAO");
-            if (flag != null) OPEN_KAI_PAO = flag;
+            flag = getBooleanConfig("KAI_PAO");
+            if (flag != null) KAI_PAO = flag;
 
-            flag = getBooleanConfig("MO_REN_KAI_PAO");
-            if (flag != null) MO_REN_KAI_PAO = flag;
+            flag = getBooleanConfig("KAI_PAO_MO_REN_SHE_ZHI");
+            if (flag != null) KAI_PAO_MO_REN_SHE_ZHI = flag;
 
             flag = getBooleanConfig("ONLY_SCREENSHOT");
             if (flag != null) ONLY_SCREENSHOT = flag;
@@ -90,8 +90,8 @@ public class CF {
             logger.debug("是否自动挂机：{}", OPEN_GUA_JI);
             logger.debug("屏幕分辨率：{}", FEN_BIAN_LV);
             logger.debug("出车顺序：{}", CHE_XU);
-            logger.debug("是否自动开炮：{}", OPEN_KAI_PAO);
-            logger.debug("设置开炮按键：{}", OPEN_KAI_PAO);
+            logger.debug("是否自动开炮：{}", KAI_PAO);
+            logger.debug("设置开炮按键：{}", KAI_PAO_MO_REN_SHE_ZHI);
 
             startTankGame();
         } catch (Exception e) {

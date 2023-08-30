@@ -87,7 +87,7 @@ public class PaoTaKongZhi implements Runnable{
     }
 
     private void dianji(int type) throws InterruptedException {
-        if ( CF.MO_REN_KAI_PAO) {
+        if ( CF.KAI_PAO_MO_REN_SHE_ZHI) {
             switch (type) {
                 case 1:
                     CF.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
