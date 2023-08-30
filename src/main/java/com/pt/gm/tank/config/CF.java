@@ -35,7 +35,7 @@ public class CF {
     public static List<Integer> CHE_XU = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));      //车序
     public static boolean MO_REN_KAI_PAO = true;      //是否默认开炮
     public static boolean OPEN_KAI_PAO = true;      //是否自动开炮
-    public static boolean ONLY_SCREENSHOT = true;      //是否只开启截图功能
+    public static boolean ONLY_SCREENSHOT = false;      //是否只开启截图功能
     public static long SCREENSHOT_TIME = 600 * 1000;      //截图保存间隔时间
 
     public static int[] SCRN_SIZE = {1920, 1017, 23, 40};       // 23 40 y轴上下边框分辨高 23 和40
@@ -65,7 +65,7 @@ public class CF {
             flag = getBooleanConfig("OPEN_GUA_JI");
             if (flag != null) OPEN_GUA_JI = flag;
 
-            String fen_bian_lv = getStringConfig("OPEN_GUA_JI");
+            String fen_bian_lv = getStringConfig("FEN_BIAN_LV");
             if (StringUtils.isNotBlank(fen_bian_lv)) FEN_BIAN_LV = fen_bian_lv;
 
             List<Integer> che_xu = getListConfig("CHE_XU");
