@@ -56,23 +56,26 @@ public class StartMain {
     public static String FEN_BIAN_LV = "";      //默认非全屏
     public static List<Integer> CHE_XU = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));      //车序
     public static int CENTER_Y = CENTER_Y_PAO - 50;      //鼠标移动y轴的中间
+    public static boolean MO_REN_KAI_PAO = true;      //是否自动开炮
     public static boolean OPEN_KAI_PAO = true;      //是否自动开炮
 
     public static void main(String[] args) throws Exception {
         parLoad(args);
 
-        new Thread(new WSRun()).start();     //开车线程（前后）
-        new Thread(new ADRun()).start();     //开车线程（左右）
+        if (OPEN_GUA_JI) {
+            new Thread(new WSRun()).start();     //开车线程（前后）
+            new Thread(new ADRun()).start();     //开车线程（左右）
 
-        robot = new Robot();
-        OcrEngine instance = RapidInstance.getInstance();
-        instance.setDoAngle(false);
+            robot = new Robot();
+            OcrEngine instance = RapidInstance.getInstance();
+            instance.setDoAngle(false);
 
-        while (true) {
-            startTank();
+            while (true) {
+                startTank();
 
-            System.out.println();
-            Thread.sleep(500);
+                System.out.println();
+                Thread.sleep(500);
+            }
         }
     }
 
@@ -166,20 +169,21 @@ public class StartMain {
 
         try {
             if (args != null && args.length > 4){
-                OPEN_KAI_PAO = Boolean.parseBoolean(args[4]);
+                MO_REN_KAI_PAO = Boolean.parseBoolean(args[4]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logger.debug("设置开炮按键：{}", MO_REN_KAI_PAO);
+
+        try {
+            if (args != null && args.length > 5){
+                OPEN_KAI_PAO = Boolean.parseBoolean(args[5]);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         logger.debug("是否自动开炮：{}", OPEN_KAI_PAO);
-
-        try {
-            if (args != null && args.length > 5){
-                CENTER_Y = Integer.parseInt(args[5]);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
 

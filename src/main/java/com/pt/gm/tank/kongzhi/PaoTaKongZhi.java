@@ -2,7 +2,6 @@ package com.pt.gm.tank.kongzhi;
 
 import com.pt.gm.tank.StartMain;
 import com.pt.gm.tank.map.MinMapLX;
-import com.pt.gm.tank.mouse.MouseUtils;
 import com.pt.gm.tank.po.DifangTank;
 import com.pt.gm.tank.zhandou.ZhanDou;
 import com.pt.gm.tank.zhandou.ZhanDouFun;
@@ -88,7 +87,7 @@ public class PaoTaKongZhi implements Runnable{
     }
 
     private void dianji(int type) throws InterruptedException {
-        if (StartMain.OPEN_KAI_PAO) {
+        if (StartMain.MO_REN_KAI_PAO) {
             switch (type) {
                 case 1:
                     StartMain.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
