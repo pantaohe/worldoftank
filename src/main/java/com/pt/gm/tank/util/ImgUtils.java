@@ -67,10 +67,10 @@ public class ImgUtils {
         try {
             if (notJarStart) {
 //                screenCapture = ImageIO.read(new File("\\\\192.168.0.169\\tank\\photo\\1692152886051.png"));
-                screenCapture = ImageIO.read(new File("\\\\192.168.0.83\\cx\\procedure\\photo\\1692924000621.png"));
+                screenCapture = ImageIO.read(new File("\\\\192.168.0.165\\cx\\procedure\\photo\\1693383912356.png"));
 //                screenCapture = ImageIO.read(new File("\\\\192.168.0.165\\cx\\photo\\1692263010348.png"));
 //                screenCapture = ImageIO.read(new File("D:\\work\\java\\idea\\workspace\\worldoftank\\target\\photo\\1692829116917.png"));
-            }else if ((boolean)CF.CF_MAP.get("OPEN_GUA_JI")){
+            }else if ((boolean)CF.CONFIG_MAP.get("OPEN_GUA_JI")){
                 long time = System.currentTimeMillis();
                 if (time - timeT > CF.SCREENSHOT_TIME) { //三十分钟
 //                if (time - timeT > 5000) { //5秒

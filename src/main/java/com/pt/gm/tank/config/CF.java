@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class CF {
     private static Logger logger = LoggerFactory.getLogger(CF.class);
-    public static Map CF_MAP;
+    public static Map CONFIG_MAP;
     public static Robot robot = null;   // 创建一个Robot对象
 
 
@@ -45,6 +45,8 @@ public class CF {
     public static int TIEHUA_HIGH = 741;
     public static int CENTER_Y_PAO = 455;
     public static int CENTER_Y = CENTER_Y_PAO - 50;      //鼠标移动y轴的中间
+    public static int JIA_CHENG_X = 654;
+    public static int JIA_CHENG_Y = 581;
 
     public static int[] RGB_MAX = {154, 207, 128};
     public static int[] RGB_MIN = {54, 107, 28};
@@ -57,7 +59,7 @@ public class CF {
             Yaml yaml = new Yaml();
             File file = new File("application.yml");
             if (!file.exists()) return;
-            CF_MAP = (Map)yaml.load(FileUtils.openInputStream(file));
+            CONFIG_MAP = (Map)yaml.load(FileUtils.openInputStream(file));
 
             Boolean flag = getBooleanConfig("ONLY_RESTART");
             if (flag != null) ONLY_RESTART = flag;
@@ -106,6 +108,7 @@ public class CF {
 
                 TIEHUA_HIGH = 895;
                 CENTER_Y_PAO = 458;
+                JIA_CHENG_Y = 590;
             }
         }
     }
@@ -114,7 +117,7 @@ public class CF {
         String worldOfTanks = "WorldOfTanks.exe";
         try {
             String TANK_START_PATH = getStringConfig("TANK_START_PATH");
-            if (StringUtils.isNotBlank(TANK_START_PATH)){
+            if (StringUtils.isBlank(TANK_START_PATH)){
                 logger.debug("未设置坦克世界启动目录，无闪退重启");
                 return;
             }else {
@@ -166,7 +169,7 @@ public class CF {
     }
     public static String getStringConfig(String key, String defaultValue){
         try {
-            return (String)CF_MAP.get(key);
+            return (String) CONFIG_MAP.get(key);
         } catch (Exception e) {
             logger.debug("{}获取错误。错误消息{}", key, e.getMessage());
         }
@@ -177,7 +180,7 @@ public class CF {
     }
     public static Boolean getBooleanConfig(String key, Boolean defaultValue){
         try {
-            return (Boolean) CF_MAP.get(key);
+            return (Boolean) CONFIG_MAP.get(key);
         } catch (Exception e) {
             logger.debug("{}获取错误。错误消息{}", key, e.getMessage());
         }
@@ -188,7 +191,7 @@ public class CF {
     }
     public static Integer getIntegerConfig(String key, Integer defaultValue){
         try {
-            return (Integer) CF_MAP.get(key);
+            return (Integer) CONFIG_MAP.get(key);
         } catch (Exception e) {
             logger.debug("{}获取错误。错误消息{}", key, e.getMessage());
         }
@@ -199,7 +202,7 @@ public class CF {
     }
     public static List<Integer> getListConfig(String key, List<Integer> defaultValue){
         try {
-            return (List<Integer>) CF_MAP.get(key);
+            return (List<Integer>) CONFIG_MAP.get(key);
         } catch (Exception e) {
             logger.debug("{}获取错误。错误消息{}", key, e.getMessage());
         }
@@ -210,7 +213,7 @@ public class CF {
     }
     public static List<int[]> getListIntsConfig(String key, List<int[]> defaultValue){
         try {
-            List<List<Integer>> zuobiaoQ = (List<List<Integer>>) CF_MAP.get(key);
+            List<List<Integer>> zuobiaoQ = (List<List<Integer>>) CONFIG_MAP.get(key);
 
             ArrayList<int[]> ints = new ArrayList<>();
             for (int i = 0; i < zuobiaoQ.size(); i++) {

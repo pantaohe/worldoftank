@@ -2,6 +2,7 @@ package com.pt.gm.tank.map;
 
 import com.pt.gm.tank.config.CF;
 import com.pt.gm.tank.jr.JiaRuZD;
+import com.pt.gm.tank.mouse.MouseUtils;
 import com.pt.gm.tank.util.ImgUtils;
 import com.pt.gm.tank.zhandou.ZhanDou;
 import com.pt.gm.tank.zhandou.ZhanDouFun;
@@ -236,9 +237,9 @@ public class MinMapLX {
         }else{
             return false;
         }
-        if (StringUtils.isNotBlank(mapNmaeE) && CF.CF_MAP.containsKey(mapNmaeE)){
+        if (StringUtils.isNotBlank(mapNmaeE) && CF.CONFIG_MAP.containsKey(mapNmaeE)){
             CF.LU_XIAN = CF.getListIntsConfig(mapNmaeE);
-            logger.debug("加载配置文件中的地图坐标成功：{}", CF.CF_MAP.get(mapNmaeE));
+            logger.debug("加载配置文件中的地图坐标成功：{}", CF.CONFIG_MAP.get(mapNmaeE));
         }
         JiaRuZD.mapName = fileContent;
         return true;
@@ -280,7 +281,44 @@ public class MinMapLX {
             }
             logger.debug("地图加载成功:{}", fileContent);
         }
+
+        //开启加成
+        kaiJiaCheng();
     }
+
+    private static void kaiJiaCheng() throws InterruptedException {
+        boolean jin_yan_50 = CF.getBooleanConfig("JIN_YAN_50", false);
+        boolean jin_yan_100 = CF.getBooleanConfig("JIN_YAN_100", false);
+        boolean yin_bi_50 = CF.getBooleanConfig("YIN_BI_50", false);
+        boolean quan_ju_200 = CF.getBooleanConfig("QUAN_JU_200", false);
+        boolean quan_ju_300 = CF.getBooleanConfig("QUAN_JU_300", false);
+        if (!(jin_yan_50 || jin_yan_100 || yin_bi_50 || quan_ju_200 || quan_ju_300)) return;
+        CF.robot.keyPress(KeyEvent.VK_B);
+
+        if (jin_yan_50) MouseUtils.mouseDianJiJuJiao(CF.JIA_CHENG_X + (int)(Math.random() * 148), CF.JIA_CHENG_Y + (int)(Math.random() * 18));
+        else if (jin_yan_100) MouseUtils.mouseDianJiJuJiao(CF.JIA_CHENG_X + (int)(Math.random() * 148), CF.JIA_CHENG_Y + 210 + (int)(Math.random() * 18));
+
+        if (yin_bi_50) MouseUtils.mouseDianJiJuJiao(CF.JIA_CHENG_X + 227 + (int)(Math.random() * 148), CF.JIA_CHENG_Y + 210 + (int)(Math.random() * 18));
+
+        if (quan_ju_200) MouseUtils.mouseDianJiJuJiao(CF.JIA_CHENG_X + 227*2 + (int)(Math.random() * 148), CF.JIA_CHENG_Y + (int)(Math.random() * 18));
+        else if (quan_ju_300) MouseUtils.mouseDianJiJuJiao(CF.JIA_CHENG_X + 227*2 + (int)(Math.random() * 148), CF.JIA_CHENG_Y + 210 + (int)(Math.random() * 18));
+
+        CF.robot.keyRelease(KeyEvent.VK_B);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private static boolean getBsCount(BufferedImage minMap) {
         int bsCount = 0;

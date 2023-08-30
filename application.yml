@@ -15,7 +15,7 @@ FEN_BIAN_LV: 1920*1080
 CHE_XU: [3, 4, 1, 2, 5, 6, 7, 8, 9]
 
 # 游戏路径，游戏奔溃后能自动重启。不配置默认无重启（360战游平台 中的游戏设置 在文件夹中显示，打开后的文件夹目录）
-TANK_START_PATH: D:\Games\World_of_Tanks_CN
+TANK_START_PATH: E:\Games\World_of_Tanks_CN
 
 # 是否开炮
 KAI_PAO: true
@@ -23,10 +23,19 @@ KAI_PAO: true
 # 开炮设置。设置true是开炮和自动瞄准使用系统默认按键。改为false为Q按键开炮、E按键自动瞄准，此项需要自行更改游戏内设置（避免死亡时鼠标点击切换视角，不退出游戏）。
 KAI_PAO_MO_REN_SHE_ZHI: true
 
+#是否开启加成
+JIN_YAN_50: false   #50%经验加成
+JIN_YAN_100: false
+YIN_BI_50: false
+QUAN_JU_200: false
+QUAN_JU_300: false
+
 # 是否只开启截图功能
 ONLY_SCREENSHOT: false
 #截图保存间隔时间(单位秒）
 SCREENSHOT_TIME: 600
+
+
 
 #======================================#
 #============== 游戏路线设置 ============#

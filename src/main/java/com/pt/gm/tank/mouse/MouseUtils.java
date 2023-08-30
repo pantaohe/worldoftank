@@ -38,4 +38,11 @@ public class MouseUtils {
         CF.robot.mouseMove((int)(Math.random() * 1920), 30 + (int)(Math.random() * 1000));
         Thread.sleep(200);
     }
+
+    public static void mouseDianJiJuJiao(int x, int y) throws InterruptedException {
+        CF.robot.mouseMove(x, y);
+        Thread.sleep(400);
+        mouseAnXia();
+        mouseRand();
+    }
 }
