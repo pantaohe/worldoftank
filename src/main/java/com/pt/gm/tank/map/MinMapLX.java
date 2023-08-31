@@ -29,9 +29,10 @@ public class MinMapLX {
     public static List<int[]> AI_LI_HA_LUO_FU = Arrays.asList(new int[]{392, 89}, new int[]{78, 401},
             new int[]{383, 115}, new int[]{390, 178}, new int[]{308, 313}, new int[]{172, 371});
     public static List<int[]> HU_BIAN_DE_JUE_ZHU = Arrays.asList(new int[]{99, 42}, new int[]{352, 431},
-            new int[]{156, 114}, new int[]{104, 200}, new int[]{100, 333}, new int[]{215, 347}, new int[]{239, 432});
+            new int[]{151, 131}, new int[]{104, 200}, new int[]{100, 333}, new int[]{209, 357}, new int[]{259, 445});
     public static List<int[]> LA_SHI_WEI_LI = Arrays.asList(new int[]{140, 49}, new int[]{140, 440},
             new int[]{251, 54}, new int[]{338, 143}, new int[]{355, 300}, new int[]{367, 335}, new int[]{310, 400}, new int[]{213, 439});
+//            new int[]{251, 54},  new int[]{333, 132}, new int[]{346, 152}, new int[]{347, 275}, new int[]{364, 321}, new int[]{359, 342}, new int[]{340, 356}, new int[]{332, 384}, new int[]{213, 439});
     public static List<int[]> LU_BIE_KE = Arrays.asList(new int[]{206, 82}, new int[]{196, 426},
             new int[]{286, 88}, new int[]{350, 194}, new int[]{343, 329}, new int[]{280, 426});
     public static List<int[]> JI_DI_BING_YUAN = Arrays.asList(new int[]{78, 394}, new int[]{439, 100},
@@ -97,7 +98,7 @@ public class MinMapLX {
     public static List<int[]> LANG_MAN_ZHI_CHENG = Arrays.asList(new int[]{32, 258}, new int[]{453, 256},
             new int[]{94, 212}, new int[]{91, 139}, new int[]{383, 138}, new int[]{403, 212});
     public static List<int[]> LI_FU_AO_KE_SI = Arrays.asList(new int[]{391, 67}, new int[]{69, 405},
-            new int[]{202, 148}, new int[]{116, 227});
+            new int[]{262, 133}, new int[]{211, 153}, new int[]{125, 191});
     public static List<int[]> BING_CHUAN_ZHI_DI = Arrays.asList(new int[]{418, 123}, new int[]{95, 374},
             new int[]{360, 160}, new int[]{210, 225}, new int[]{147, 335});
     public static List<int[]> ZHOU_JI_GONG_LU = Arrays.asList(new int[]{340, 71}, new int[]{76, 404},
