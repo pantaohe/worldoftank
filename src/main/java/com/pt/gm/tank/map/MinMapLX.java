@@ -270,7 +270,7 @@ public class MinMapLX {
                 screenshot = ImgUtils.screenshot();
                 minMap = screenshot.getSubimage(CF.MAP_START[0], CF.MAP_START[1], ZhanDou.MIN_MAP_W, ZhanDou.MIN_MAP_W);
                 if (getBsCount(minMap)) break;
-                if (i < 6) {
+                if (i != 6) {
                     CF.robot.keyPress(KeyEvent.VK_EQUALS);
                     CF.robot.keyRelease(KeyEvent.VK_EQUALS);
                 }else {
@@ -295,6 +295,7 @@ public class MinMapLX {
         if (!(jin_yan_50 || jin_yan_100 || yin_bi_50 || quan_ju_200 || quan_ju_300)) return;
         CF.robot.keyPress(KeyEvent.VK_B);
 
+        Thread.sleep(1200);
         if (jin_yan_50) MouseUtils.mouseDianJiJuJiao(CF.JIA_CHENG_X + (int)(Math.random() * 148), CF.JIA_CHENG_Y + (int)(Math.random() * 18));
         else if (jin_yan_100) MouseUtils.mouseDianJiJuJiao(CF.JIA_CHENG_X + (int)(Math.random() * 148), CF.JIA_CHENG_Y + 210 + (int)(Math.random() * 18));
 
