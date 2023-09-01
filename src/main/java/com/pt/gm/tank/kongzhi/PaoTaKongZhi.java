@@ -205,7 +205,7 @@ public class PaoTaKongZhi implements Runnable{
         int key = (x << 16) + y; int value = 0;
         if (zbMap.containsKey(key)) value = zbMap.get(key);
         else {
-            if (x < 0 || 490 < x || y < 0 || 490 < y) value = 0;
+            if (x < 0 || 490 < x || y < 0 || 490 < y) return 0;
             int rgb = minMap.getRGB(x, y);
             int i1 = rgb >> 16 & 0xff;
             int i2 = rgb >> 8 & 0xff;
