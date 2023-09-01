@@ -20,9 +20,6 @@ TANK_START_PATH: E:\Games\World_of_Tanks_CN
 # 是否开炮
 KAI_PAO: true
 
-# 开炮设置。设置true是开炮和自动瞄准使用系统默认按键。改为false为Q按键开炮、E按键自动瞄准，此项需要自行更改游戏内设置（避免死亡时鼠标点击切换视角，不退出游戏）。
-KAI_PAO_MO_REN_SHE_ZHI: true
-
 #是否开启加成
 JIN_YAN_50: false   #50%经验加成
 JIN_YAN_100: false
