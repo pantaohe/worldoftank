@@ -32,12 +32,14 @@ public class ZhanDouFun {
 
     public static boolean jihui(BufferedImage screenshot) throws InterruptedException {
 
-        BufferedImage subimage = screenshot.getSubimage(760, 540, 400, 150);
+//        BufferedImage subimage = screenshot.getSubimage(760, 540, 400, 150);
+        BufferedImage subimage = screenshot.getSubimage(760, CF.SCRN_SIZE[1] - CF.SCRN_SIZE[3] - 80, 400, 80);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isBlank(fileContent)) return false;
-        if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水")
-                || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁") || fileContent.contains("着火了")
-                || fileContent.contains("成员因")){
+//        if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水")
+//                || fileContent.contains("因玩家射击而爆炸") || fileContent.contains("坦克坠毁") || fileContent.contains("着火了")
+//                || fileContent.contains("成员因")){
+        if (fileContent.contains("观察视角") || fileContent.contains("返回车库")){
 
             CF.robot.keyPress(KeyEvent.VK_ESCAPE);
             Thread.sleep(50);
