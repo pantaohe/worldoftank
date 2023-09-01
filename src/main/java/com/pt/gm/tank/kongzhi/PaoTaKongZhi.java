@@ -44,6 +44,8 @@ public class PaoTaKongZhi implements Runnable{
         try {
             logger.debug("进入鼠标线程");
             int[] xian = getXian();
+            if (xian == null) return;
+
             int paojd = ZhanDouFun.jiaodu(myAddr, xian);
 
             long l = System.currentTimeMillis();

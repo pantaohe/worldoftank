@@ -26,9 +26,9 @@ public class FangXiangKongZhi{
 
     public static void kongzhi(int i) throws InterruptedException {
         Thread paotat = null;
-        int[] myAddr;
+        int[] myAddr, myAddrt = null;
         int[] mubiao = CF.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0, dd;
-        int vkX, feiZhanDou = 0;long l = 0;BufferedImage minMap;
+        int vkX, feiZhanDou = 0, cuowuIndex = 0;long l = 0;BufferedImage minMap;
         while (true) {
             logger.debug("进入方向控制循环：\n");
             if (CF.KAI_PAO && paotat != null && !paotat.isInterrupted()) paotat.stop();
@@ -57,10 +57,14 @@ public class FangXiangKongZhi{
 
             dd = ZhanDouFun.dd2(myAddr, mubiao);
             logger.debug("目标点{}-{}，当前点{}-{}距离平方{}", mubiao[0], mubiao[1], myAddr[0], myAddr[1], dd);
-            if (ddt1 != 0 && (dd - ddt1 > 10000 || ddt1 - dd > 35000)) {
+            if (ddt1 != 0 && myAddrt != null && ZhanDouFun.dd2(myAddr, myAddrt) > (15000 + 10000*cuowuIndex)) {     //如果错误
                 logger.debug("当前坐标点跨度太大，抛弃此次位置");
+                cuowuIndex = 1;
                 continue;     //如果单次变动太大，说明是错误的。
             }
+
+            myAddrt = myAddr;
+            cuowuIndex = 0;
 
             if (CF.KAI_PAO) {
                 //自动开炮
