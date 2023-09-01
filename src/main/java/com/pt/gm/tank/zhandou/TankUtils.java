@@ -116,11 +116,9 @@ public class TankUtils {
 
                 for (Map<String, Object> anjian : CF.AN_JIAN_SZ) {
                     try {
-                        
-                    
                         if (!anjian.containsKey("anWan")) anjian.put("anWan", false);
                         int shiJian = (int)anjian.get("SHI_JIAN");
-                        if (!(boolean) anjian.get("anWan") && shiJian < time && Math.random() < 0.4) {      //这个时间后随机一个时间按下
+                        if (!(boolean) anjian.get("anWan") && shiJian > time && Math.random() < 0.5) {      //这个时间后随机一个时间按下
                             String anJianName = (String) anjian.get("AN_JIAN");
                             switch (anJianName) {
                                 case "F1": anXia(KeyEvent.VK_F1); break;

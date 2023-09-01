@@ -2,3 +2,4 @@
 *.jpg
 /target/
 /logs/
+/photo/
