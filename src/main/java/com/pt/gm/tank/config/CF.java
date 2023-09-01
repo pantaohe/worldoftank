@@ -37,6 +37,7 @@ public class CF {
     public static boolean KAI_PAO = true;      //是否自动开炮
     public static boolean ONLY_SCREENSHOT = false;      //是否只开启截图功能
     public static long SCREENSHOT_TIME = 600 * 1000;      //截图保存间隔时间
+    public static ArrayList<Map<String, Object>> AN_JIAN_SZ = null;       //按键设置
 
     public static int[] SCRN_SIZE = {1920, 1017, 23, 40};       // 23 40 y轴上下边框分辨高 23 和40
     public static int[] MAP_START = {1429, 549};     //小地图起点 不带边框是491*491
@@ -85,8 +86,11 @@ public class CF {
             int screenshot_time = getIntegerConfig("SCREENSHOT_TIME");
             if (screenshot_time != 0) SCREENSHOT_TIME = screenshot_time * 1000;
 
-
-
+            try{
+                AN_JIAN_SZ = (ArrayList<Map<String, Object>>) CF.CONFIG_MAP.get("AN_JIAN_SZ");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             logger.debug("是否自动挂机：{}", OPEN_GUA_JI);
             logger.debug("屏幕分辨率：{}", FEN_BIAN_LV);
             logger.debug("出车顺序：{}", CHE_XU);

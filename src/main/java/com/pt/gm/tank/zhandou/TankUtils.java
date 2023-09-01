@@ -8,9 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author pantao
@@ -108,5 +106,49 @@ public class TankUtils {
         if (v1 > 0.4)
             logger.debug("x:{},y:{},边框比例:{}、{}", j, i, v1, v2);
         return new double[]{v1, v2};
+    }
+
+    public static void anJian(int time) {
+        if (CF.AN_JIAN_SZ == null || CF.AN_JIAN_SZ.size() == 0) return;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                for (Map<String, Object> anjian : CF.AN_JIAN_SZ) {
+                    try {
+                        
+                    
+                        if (!anjian.containsKey("anWan")) anjian.put("anWan", false);
+                        int shiJian = (int)anjian.get("SHI_JIAN");
+                        if (!(boolean) anjian.get("anWan") && shiJian < time && Math.random() < 0.4) {      //这个时间后随机一个时间按下
+                            String anJianName = (String) anjian.get("AN_JIAN");
+                            switch (anJianName) {
+                                case "F1": anXia(KeyEvent.VK_F1); break;
+                                case "F2": anXia(KeyEvent.VK_F2); break;
+                                case "F3": anXia(KeyEvent.VK_F3); break;
+                                case "F4": anXia(KeyEvent.VK_F4); break;
+                                case "F5": anXia(KeyEvent.VK_F5); break;
+                                case "F6": anXia(KeyEvent.VK_F6); break;
+                                case "F7": anXia(KeyEvent.VK_F7); break;
+                                case "F8": anXia(KeyEvent.VK_F8); break;
+                                case "F9": anXia(KeyEvent.VK_F9); break;
+                                default: break;
+                            }
+                            anjian.put("anWan", true);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+
+    }
+
+    private static void anXia(int key) throws InterruptedException {
+        CF.robot.keyPress(key);
+        Thread.sleep(200);
+        CF.robot.keyRelease(key);
     }
 }

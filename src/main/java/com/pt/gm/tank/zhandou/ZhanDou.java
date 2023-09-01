@@ -41,6 +41,7 @@ public class ZhanDou {
                 }else {
                     tishi = "交战界面";
                     flag = 2;
+                    TankUtils.anJian(m * 60 + s);
                 }
             } catch (Exception e) {
                 tishi = "时间格式错误";

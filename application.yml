@@ -30,6 +30,17 @@ YIN_BI_50: false
 QUAN_JU_200: false
 QUAN_JU_300: false
 
+#按键设置，如有其他按键，按此格式添加即可
+AN_JIAN_SZ:
+     -
+          AN_JIAN: F7
+          SHI_JIAN: 14:20    #经过这个时间点后，随机选一个附件的时间点按下
+     -
+          AN_JIAN: F2
+          SHI_JIAN: 14:50
+
+
+
 # 是否只开启截图功能
 ONLY_SCREENSHOT: false
 #截图保存间隔时间(单位秒）

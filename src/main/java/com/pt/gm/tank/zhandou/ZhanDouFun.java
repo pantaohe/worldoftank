@@ -63,6 +63,12 @@ public class ZhanDouFun {
         FangXiangKongZhi.xuyaoW = false;
         FangXiangKongZhi.xuyaoS = false;
         logger.debug("战车被毁，全体撤离");
+
+        if (CF.AN_JIAN_SZ != null && CF.AN_JIAN_SZ.size() > 0) {
+            for (Map<String, Object> anjian : CF.AN_JIAN_SZ) {
+                anjian.put("anWan", false);
+            }
+        }
         Thread.sleep(3000);
     }
 
