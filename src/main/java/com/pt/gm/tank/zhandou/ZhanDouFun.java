@@ -58,11 +58,12 @@ public class ZhanDouFun {
         return true;
     }
 
-    public static void jieshuDY() {
+    public static void jieshuDY() throws InterruptedException {
         CF.LU_XIAN = null;
         FangXiangKongZhi.xuyaoW = false;
         FangXiangKongZhi.xuyaoS = false;
         logger.debug("战车被毁，全体撤离");
+        Thread.sleep(3000);
     }
 
     public static int[] mouseCenter(BufferedImage subimage) {
