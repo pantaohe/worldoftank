@@ -33,7 +33,7 @@ public class ZhanDouFun {
     public static boolean jihui(BufferedImage screenshot) throws InterruptedException {
 
 //        BufferedImage subimage = screenshot.getSubimage(760, 540, 400, 150);
-        BufferedImage subimage = screenshot.getSubimage(760, CF.SCRN_SIZE[1] - CF.SCRN_SIZE[3] - 80, 400, 80);
+        BufferedImage subimage = screenshot.getSubimage(760, CF.SCRN_SIZE[1] + CF.SCRN_SIZE[2] - 80, 400, 80);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isBlank(fileContent)) return false;
 //        if (fileContent.contains("坦克被该玩家击毁") || fileContent.contains("损毁") || fileContent.contains("坦克溺水")
