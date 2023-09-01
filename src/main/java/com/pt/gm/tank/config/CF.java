@@ -37,6 +37,7 @@ public class CF {
     public static boolean KAI_PAO = true;      //是否自动开炮
     public static boolean ONLY_SCREENSHOT = false;      //是否只开启截图功能
     public static long SCREENSHOT_TIME = 600 * 1000;      //截图保存间隔时间
+    public static int YI_DONG_JIA_JIAO = 45;      //当前车辆行进方向和目标点夹角小于此度数
     public static ArrayList<Map<String, Object>> AN_JIAN_SZ = null;       //按键设置
 
     public static int[] SCRN_SIZE = {1920, 1017, 23, 40};       // 23 40 y轴上下边框分辨高 23 和40
@@ -85,6 +86,14 @@ public class CF {
 
             int screenshot_time = getIntegerConfig("SCREENSHOT_TIME");
             if (screenshot_time != 0) SCREENSHOT_TIME = screenshot_time * 1000;
+
+            try{
+                int jiaoDu = (int)CONFIG_MAP.get("YI_DONG_JIA_JIAO");
+                if (20 < jiaoDu && jiaoDu < 70) YI_DONG_JIA_JIAO = jiaoDu;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
             try{
                 AN_JIAN_SZ = (ArrayList<Map<String, Object>>) CF.CONFIG_MAP.get("AN_JIAN_SZ");

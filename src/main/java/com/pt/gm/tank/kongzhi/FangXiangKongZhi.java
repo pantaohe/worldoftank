@@ -109,7 +109,7 @@ public class FangXiangKongZhi{
                 }
                 Thread.sleep(2200);     //下一次的方向控制无效，
             }else if (dd > 1000) {
-                if (zxjd > 60){     //转向角度大于90，停止前进
+                if (zxjd > CF.YI_DONG_JIA_JIAO){     //转向角度大于90，停止前进
                     logger.debug("方向不对，停下前进w");
                     xuyaoS = false; xuyaoW = false; isfx = true;
                 }else {

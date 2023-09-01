@@ -20,6 +20,9 @@ TANK_START_PATH: E:\Games\World_of_Tanks_CN
 # 是否开炮
 KAI_PAO: true
 
+# 当前车辆行进方向和目标点夹角小于此度数，才会往前开。转向不灵活的车建议调小此值，默认45。（范围建议20-70之间。越小撞墙的风险越小，但调整方向会花更多时间。）
+YI_DONG_JIA_JIAO: 45
+
 #是否开启加成
 JIN_YAN_50: false   #50%经验加成
 JIN_YAN_100: false
