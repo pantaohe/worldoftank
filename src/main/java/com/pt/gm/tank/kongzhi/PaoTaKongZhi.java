@@ -78,7 +78,7 @@ public class PaoTaKongZhi implements Runnable{
                     i3 = rgb & 0xff;
                     if (220 < i1 && i2 < 40 && i3 < 10) {
                         int x1 = (xj - centerX) * 10 / 17 + centerX;
-                        int y1 = (yi - CF.CENTER_Y_PAO) * 10 / 17 + CF.CENTER_Y_PAO + 14;
+                        int y1 = (yi - CF.CENTER_Y_PAO) * 10 / 17 + CF.CENTER_Y_PAO + 15;
                         CF.robot.mouseMove(x1, y1);
                         logger.debug("{}-{}--time:{}",x1, y1, System.currentTimeMillis() - l);
                         Thread.sleep(JGSJ);

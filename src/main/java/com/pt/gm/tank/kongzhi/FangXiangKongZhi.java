@@ -31,7 +31,7 @@ public class FangXiangKongZhi{
         int vkX, feiZhanDou = 0, cuowuIndex = 0;long l = 0;BufferedImage minMap;
         while (true) {
             logger.debug("进入方向控制循环：\n");
-            if (CF.KAI_PAO && paotat != null && !paotat.isInterrupted()) paotat.stop();
+//            if (CF.KAI_PAO && paotat != null && !paotat.isInterrupted()) paotat.stop();
             do {
                 l = System.currentTimeMillis();
                 BufferedImage screenshot = ImgUtils.screenshot();
@@ -66,10 +66,9 @@ public class FangXiangKongZhi{
             myAddrt = myAddr;
             cuowuIndex = 0;
 
-            if (CF.KAI_PAO) {
+            if (CF.KAI_PAO && (paotat == null || !paotat.isAlive())) {
                 //自动开炮
                 paotat = new Thread(new PaoTaKongZhi(minMap, myAddr));
-                paotat.setName("paotaThread");
                 paotat.start();
             }
 
