@@ -66,7 +66,7 @@ public class StartMain {
         if (!StringUtils.isBlank(CF.TUPIAN_NEIRONG)) {
 
             //右上角关闭
-            if (CF.TUPIAN_NEIRONG.contains("战斗通行证") || CF.TUPIAN_NEIRONG.contains("贴花")) MouseUtils.mouseDianJi(1821 + (int) (Math.random() * 45), 52 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
+            if (CF.TUPIAN_NEIRONG.contains("战斗通行证") || CF.TUPIAN_NEIRONG.contains("贴花") || CF.TUPIAN_NEIRONG.contains("史诗奖励")) MouseUtils.mouseDianJi(1821 + (int) (Math.random() * 45), 52 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
             if (CF.TUPIAN_NEIRONG.contains("已获得奖励")) MouseUtils.mouseDianJi(1841 + (int) (Math.random() * 45), 30 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
 
 //            if (TUPIAN_NEIRONG.contains("贴花")) {

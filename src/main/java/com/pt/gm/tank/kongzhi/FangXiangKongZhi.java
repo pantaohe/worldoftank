@@ -36,7 +36,7 @@ public class FangXiangKongZhi{
                 l = System.currentTimeMillis();
                 BufferedImage screenshot = ImgUtils.screenshot();
                 if (ZhanDou.zhandouFX(screenshot) != 2) {   //没有在咱都界面
-                    if ( feiZhanDou++ > 15) {
+                    if ( feiZhanDou++ > 25) {
                         ZhanDouFun.jieshuDY();
                         return;
                     }

@@ -111,18 +111,20 @@ public class ZhanDou {
             for (int i = 2; i < CF.LU_XIAN.size(); i++) {
                 FangXiangKongZhi.kongzhi(i);
             }
-            FangXiangKongZhi.kongzhi(1);
+            while (true) {
+                FangXiangKongZhi.kongzhi(1);
+                Thread.sleep(10000);
+            }
         }else {
             for (int i = CF.LU_XIAN.size() - 1; i >= 2; i--) {
                 FangXiangKongZhi.kongzhi(i);
             }
-            FangXiangKongZhi.kongzhi(0);
+            while (true) {
+                FangXiangKongZhi.kongzhi(0);
+                Thread.sleep(10000);
+            }
         }
     }
 
 
-
-    public static void main(String[] args) {
-        System.out.println(-2 % 10);
-    }
 }
