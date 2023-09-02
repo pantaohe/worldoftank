@@ -54,9 +54,9 @@ public class JiaRuZD {
             }
             if (fileContent.contains("战斗中") || fileContent.contains("战头中") || fileContent.contains("车组乘员不足")) continue;
 
-            MouseUtils.mouseDianJi(x + (int) (Math.random() * CF.TANK_ADDR[2]), y + (int) (Math.random() * CF.TANK_ADDR[3]));
+            MouseUtils.mouseDianJi(x + 5 + (int) (Math.random() * (CF.TANK_ADDR[2] - 10)), y + 5 + (int) (Math.random() * (CF.TANK_ADDR[3] - 10)));
             Thread.sleep(1000);
-            MouseUtils.mouseDianJi(CF.IN_COMBAT[0] + (int)(Math.random() * CF.IN_COMBAT[2]), CF.IN_COMBAT[1] + (int)(Math.random() * CF.IN_COMBAT[3]));
+            MouseUtils.mouseDianJi(CF.IN_COMBAT[0] + 10 + (int)(Math.random() * (CF.IN_COMBAT[2] - 20)), CF.IN_COMBAT[1] + 5 + (int)(Math.random() * (CF.IN_COMBAT[3] - 10)));
 
             long l = System.currentTimeMillis() - timeT;
             if (l > 100000) {
