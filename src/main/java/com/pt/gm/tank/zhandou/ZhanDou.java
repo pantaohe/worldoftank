@@ -35,7 +35,7 @@ public class ZhanDou {
             try {
                 int m = Integer.parseInt(filecs[0]);
                 int s = Integer.parseInt(filecs[1]);
-                if ((m == 0 && s < 59) || (CF.TUPIAN_NEIRONG.contains("随机战"))) {
+                if ((m == 0 && 0 < s && s < 59) || (CF.TUPIAN_NEIRONG != null && CF.TUPIAN_NEIRONG.contains("随机战"))) {
                     tishi = "预读无需处理";
                     flag =  1;     //倒计时，不需要操作
                 }else {
@@ -48,7 +48,7 @@ public class ZhanDou {
                 logger.error(tishi, e);
             }
         }
-        logger.debug("右上角时间处:{}，结果:{}", fileContent, tishi);
+        logger.debug("右上角时间处:{}，结果:{}，状态：", fileContent, tishi, flag);
         return flag;
     }
 

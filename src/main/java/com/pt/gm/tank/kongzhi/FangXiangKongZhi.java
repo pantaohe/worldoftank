@@ -28,7 +28,7 @@ public class FangXiangKongZhi{
         Thread paotat = null;
         int[] myAddr, myAddrt = null;
         int[] mubiao = CF.LU_XIAN.get(i);    double ddt1 = 0, ddt2 = 0, dd;
-        int vkX, feiZhanDou = 0, cuowuIndex = 0;long l = 0;BufferedImage minMap;
+        int vkX, feiZhanDou = 0, cuowuIndex = 0, millisSC = 0;long l = 0;BufferedImage minMap;
         while (true) {
             logger.debug("进入方向控制循环：\n");
 //            if (CF.KAI_PAO && paotat != null && !paotat.isInterrupted()) paotat.stop();
@@ -101,14 +101,14 @@ public class FangXiangKongZhi{
             ADRun.T.set(millis);
             if (millis == 3000) {       //时间太长
                 logger.debug("前进卡住了，开始后退或前进");
-                if (Math.random() < 0.5) {
+                if (Math.random() < 0.9) {
                     xuyaoW = false; xuyaoS = true;
                 }else {
                     xuyaoS = false; xuyaoW = true;
                 }
                 Thread.sleep(2200);     //下一次的方向控制无效，
             }else if (dd > 1000) {
-                if (zxjd > CF.YI_DONG_JIA_JIAO){     //转向角度大于90，停止前进
+                if (millisSC != 3000 && zxjd > CF.YI_DONG_JIA_JIAO){     //转向角度大于90，停止前进（除非上次是后退旋转）
                     logger.debug("方向不对，停下前进w");
                     xuyaoS = false; xuyaoW = false; isfx = true;
                 }else {
@@ -124,6 +124,7 @@ public class FangXiangKongZhi{
                 Thread.sleep(2500);
                 CF.robot.keyRelease(KeyEvent.VK_W);
             }
+            millisSC = millis;
             ddt2 = ddt1; ddt1 = dd;
         }
 

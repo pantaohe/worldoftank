@@ -66,7 +66,8 @@ public class JiaRuZD {
             MouseUtils.mouseDianJi(x + 5 + (int) (Math.random() * (CF.TANK_ADDR[2] - 10)), y + 5 + (int) (Math.random() * (CF.TANK_ADDR[3] - 10)));
             Thread.sleep(1000);
             if (CF.getBooleanConfig("ZHU_DUI", false)) {
-                String zhunbei = ImgUtils.getString(screenshot.getSubimage(803, 722, 74, 18));
+                String zhunbei = ImgUtils.getString(screenshot.getSubimage(803, 722, 74, 18)).replaceAll("!|！", "");
+                logger.debug("小队准备处文字：{}", zhunbei);
                 if ("准备".equals(zhunbei) || "淮备".equals(zhunbei)) {
                     MouseUtils.mouseDianJi(810 + (int) (Math.random() * 60), 726 + (int) (Math.random() * 10));
                     Thread.sleep(1000);

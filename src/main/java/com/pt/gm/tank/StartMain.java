@@ -56,12 +56,19 @@ public class StartMain {
 
 
     private static int startTank() throws Exception {
+        long startTime = System.currentTimeMillis();
         BufferedImage screenshot = ImgUtils.screenshot();
-
+        logger.debug("截图完成:{}ms", System.currentTimeMillis() - startTime);
         if (CF.ONLY_SCREENSHOT) return 0;
 
-        CF.TUPIAN_NEIRONG = ImgUtils.getString(screenshot);
+        // 是否战斗界面分析
+        int zdStatus = ZhanDou.zhandouFX(screenshot);
+        logger.debug("右上角时间分析完成：{}ms,状态{}", System.currentTimeMillis() - startTime, zdStatus);
 
+        if (zdStatus > 0) CF.TUPIAN_NEIRONG = null;
+        else CF.TUPIAN_NEIRONG = ImgUtils.getString(screenshot);
+
+        logger.debug("截图内容识别完成:{}ms", System.currentTimeMillis() - startTime);
         //贴花界面
         if (!StringUtils.isBlank(CF.TUPIAN_NEIRONG)) {
 
@@ -69,6 +76,7 @@ public class StartMain {
             if (CF.TUPIAN_NEIRONG.contains("战斗通行证") || CF.TUPIAN_NEIRONG.contains("贴花") || CF.TUPIAN_NEIRONG.contains("史诗奖励")) MouseUtils.mouseDianJi(1821 + (int) (Math.random() * 45), 52 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
             if (CF.TUPIAN_NEIRONG.contains("已获得奖励")) MouseUtils.mouseDianJi(1841 + (int) (Math.random() * 45), 30 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
 
+            logger.debug("关闭贴花完成:{}ms", System.currentTimeMillis() - startTime);
 //            if (TUPIAN_NEIRONG.contains("贴花")) {
 //                MouseUtils.mouseDianJi(880 + (int) (Math.random() * 74), TIEHUA_HIGH + (int) (Math.random() * 29));
 //            }
@@ -85,24 +93,28 @@ public class StartMain {
                 Thread.sleep(50);
                 CF.robot.keyRelease(KeyEvent.VK_ESCAPE);
             }
-
+            logger.debug("车位等情况取消完成:{}ms", System.currentTimeMillis() - startTime);
         }
 
-        // 是否战斗界面分析
-        int zdStatus = ZhanDou.zhandouFX(screenshot);
+
+
         if (CF.LU_XIAN == null && zdStatus > 0){
             MinMapLX.getXingJingLuXian();
         }
+        logger.debug("地图加载完成：{}ms", System.currentTimeMillis() - startTime);
+
         if (zdStatus == 2) {
             ZhanDou.zhandou(screenshot);
             return 1;
         }
 
         // 分析是否加入界面
-        if (JiaRuZD.jiarujiemian(screenshot)) {
+        if (zdStatus == 0 && JiaRuZD.jiarujiemian(screenshot)) {
             JiaRuZD.jiaRu(screenshot);
             return 2;
         }
+
+        logger.debug("一轮循环结束：{}ms", System.currentTimeMillis() - startTime);
         return 0;
     }
 
