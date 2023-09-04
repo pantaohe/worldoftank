@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,17 @@ public class JiaRuZD {
         BufferedImage subimage = screenshot.getSubimage(CF.IN_COMBAT[0], CF.IN_COMBAT[1], CF.IN_COMBAT[2], CF.IN_COMBAT[3]);
         String fileContent = ImgUtils.getString(subimage);
 
-        return StringUtils.isNotBlank(fileContent) && fileContent.contains("加入战斗");
+        return StringUtils.isNotBlank(fileContent) && (fileContent.contains("加入战斗") || fileContent.contains("准备战斗") || fileContent.contains("淮备战斗"));
     }
 
     public static boolean jiaRu(BufferedImage screenshot) throws InterruptedException {
         if (CF.TUPIAN_NEIRONG.contains("正在更新车库") || CF.TUPIAN_NEIRONG.contains("在线等待玩家")) return false;
+        if (CF.getBooleanConfig("ZHU_DUI", false) && CF.TUPIAN_NEIRONG.contains("战斗结果") && CF.TUPIAN_NEIRONG.contains("个人战绩") && CF.TUPIAN_NEIRONG.contains("团队战绩") && CF.TUPIAN_NEIRONG.contains("细战绩")) {
+            CF.robot.keyPress(KeyEvent.VK_ESCAPE);
+            Thread.sleep(50);
+            CF.robot.keyRelease(KeyEvent.VK_ESCAPE);
+        }
+
         BufferedImage subimage = screenshot.getSubimage(733, 300, 450, 460);
         String fileContent = ImgUtils.getString(subimage);
         if (StringUtils.isNotBlank(fileContent) && fileContent.contains("处罚")) MouseUtils.mouseDianJi(1090 + (int)(Math.random() * 90), 733 + (int)(Math.random() * 18));
@@ -56,6 +63,14 @@ public class JiaRuZD {
 
             MouseUtils.mouseDianJi(x + 5 + (int) (Math.random() * (CF.TANK_ADDR[2] - 10)), y + 5 + (int) (Math.random() * (CF.TANK_ADDR[3] - 10)));
             Thread.sleep(1000);
+            if (CF.getBooleanConfig("ZHU_DUI", false)) {
+                String zhunbei = ImgUtils.getString(screenshot.getSubimage(803, 722, 74, 18));
+                if ("准备".equals(zhunbei) || "淮备".equals(zhunbei)) {
+                    MouseUtils.mouseDianJi(810 + (int) (Math.random() * 60), 726 + (int) (Math.random() * 10));
+                    Thread.sleep(1000);
+                }
+            }
+
             MouseUtils.mouseDianJi(CF.IN_COMBAT[0] + 10 + (int)(Math.random() * (CF.IN_COMBAT[2] - 20)), CF.IN_COMBAT[1] + 5 + (int)(Math.random() * (CF.IN_COMBAT[3] - 10)));
 
             long l = System.currentTimeMillis() - timeT;
