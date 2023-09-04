@@ -87,9 +87,6 @@ public class StartMain {
             }
 
         }
-//        MinMapLX.getXingJingLuXian(screenshot);       //收集数据
-        //分析加载地图n
-        if (ImgUtils.notJarStart) CF.LU_XIAN = MinMapLX.WU_MONG_XIONG_SHAN;
 
         // 是否战斗界面分析
         int zdStatus = ZhanDou.zhandouFX(screenshot);

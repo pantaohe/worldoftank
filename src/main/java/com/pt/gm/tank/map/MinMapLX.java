@@ -99,7 +99,7 @@ public class MinMapLX {
             new int[]{94, 212}, new int[]{91, 139}, new int[]{383, 138}, new int[]{403, 212});
     public static List<int[]> LI_FU_AO_KE_SI = Arrays.asList(new int[]{391, 67}, new int[]{69, 405},
             new int[]{262, 133}, new int[]{211, 153}, new int[]{125, 191});
-    public static List<int[]> BING_CHUAN_ZHI_DI = Arrays.asList(new int[]{418, 123}, new int[]{95, 374},
+    public static List<int[]> BING_CHUAN_ZHI_DI = Arrays.asList(new int[]{418, 123}, new int[]{95, 414},
             new int[]{360, 160}, new int[]{210, 225}, new int[]{147, 335});
     public static List<int[]> ZHOU_JI_GONG_LU = Arrays.asList(new int[]{340, 71}, new int[]{76, 404},
             new int[]{154, 204}, new int[]{386, 256});
@@ -110,6 +110,8 @@ public class MinMapLX {
 
 
     private static boolean luXian(String fileContent) {
+        if (ImgUtils.notJarStart) CF.LU_XIAN = MinMapLX.BING_CHUAN_ZHI_DI;
+
         logger.debug("读取的地图名：" + fileContent);
         String mapNmaeE = "";
         if (fileContent.contains("埃里-哈罗夫")){
