@@ -61,6 +61,8 @@ public class JiaRuZD {
             }
             if (fileContent.contains("战斗中") || fileContent.contains("战头中") || fileContent.contains("车组乘员不足")) continue;
 
+            if (!jiarujiemian(ImgUtils.screenshot())) break;
+
             MouseUtils.mouseDianJi(x + 5 + (int) (Math.random() * (CF.TANK_ADDR[2] - 10)), y + 5 + (int) (Math.random() * (CF.TANK_ADDR[3] - 10)));
             Thread.sleep(1000);
             if (CF.getBooleanConfig("ZHU_DUI", false)) {
