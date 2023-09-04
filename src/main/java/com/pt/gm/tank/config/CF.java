@@ -182,18 +182,20 @@ public class CF {
     }
     public static String getStringConfig(String key, String defaultValue){
         try {
-            return (String) CONFIG_MAP.get(key);
+            Object str = CONFIG_MAP.get(key);
+            if (str != null) return (String) str;
         } catch (Exception e) {
             logger.debug("{}获取错误。错误消息{}", key, e.getMessage());
         }
-        return null;
+        return defaultValue;
     }
     public static Boolean getBooleanConfig(String key){
         return getBooleanConfig(key, null);
     }
     public static Boolean getBooleanConfig(String key, Boolean defaultValue){
         try {
-            return (Boolean) CONFIG_MAP.get(key);
+            Object flag = CONFIG_MAP.get(key);
+            if (flag != null) return (Boolean) flag;
         } catch (Exception e) {
             logger.debug("{}获取错误。错误消息{}", key, e.getMessage());
         }
@@ -204,7 +206,8 @@ public class CF {
     }
     public static Integer getIntegerConfig(String key, Integer defaultValue){
         try {
-            return (Integer) CONFIG_MAP.get(key);
+            Object num = CONFIG_MAP.get(key);
+            if (num != null) return (Integer) num;
         } catch (Exception e) {
             logger.debug("{}获取错误。错误消息{}", key, e.getMessage());
         }
