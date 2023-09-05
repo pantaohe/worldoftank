@@ -37,6 +37,7 @@ public class JiaRuZD {
     public static boolean jiaRu(BufferedImage screenshot) throws InterruptedException {
         if (CF.TUPIAN_NEIRONG.contains("正在更新车库") || CF.TUPIAN_NEIRONG.contains("在线等待玩家")) return false;
         if (CF.getBooleanConfig("ZHU_DUI", false) && CF.TUPIAN_NEIRONG.contains("战斗结果") && CF.TUPIAN_NEIRONG.contains("个人战绩") && CF.TUPIAN_NEIRONG.contains("团队战绩") && CF.TUPIAN_NEIRONG.contains("细战绩")) {
+            MouseUtils.mouseDianJi(CF.SCRN_SIZE[0]/2, CF.SCRN_SIZE[1]/2);
             CF.robot.keyPress(KeyEvent.VK_ESCAPE);
             Thread.sleep(50);
             CF.robot.keyRelease(KeyEvent.VK_ESCAPE);
@@ -44,7 +45,8 @@ public class JiaRuZD {
 
         BufferedImage subimage = screenshot.getSubimage(733, 300, 450, 460);
         String fileContent = ImgUtils.getString(subimage);
-        if (StringUtils.isNotBlank(fileContent) && fileContent.contains("处罚")) MouseUtils.mouseDianJi(1090 + (int)(Math.random() * 90), 733 + (int)(Math.random() * 18));
+        if (StringUtils.isNotBlank(fileContent) && (fileContent.contains("违反了游戏规则") || fileContent.contains("无所作为")))
+            MouseUtils.mouseDianJi(1090 + (int)(Math.random() * 90), 733 + (int)(Math.random() * 18));
         logger.debug("当前是加入战斗界面");
         int x, y, i;
         for (int j = 0; j < CF.CHE_XU.size(); j++) {
