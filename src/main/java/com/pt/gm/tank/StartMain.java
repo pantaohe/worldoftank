@@ -73,8 +73,12 @@ public class StartMain {
         if (!StringUtils.isBlank(CF.TUPIAN_NEIRONG)) {
 
             //右上角关闭
-            if (CF.TUPIAN_NEIRONG.contains("战斗通行证") || CF.TUPIAN_NEIRONG.contains("贴花") || CF.TUPIAN_NEIRONG.contains("史诗奖励")) MouseUtils.mouseDianJi(1821 + (int) (Math.random() * 45), 52 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
-            if (CF.TUPIAN_NEIRONG.contains("已获得奖励")) MouseUtils.mouseDianJi(1841 + (int) (Math.random() * 45), 30 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
+            if (CF.TUPIAN_NEIRONG.contains("战斗通行证") || CF.TUPIAN_NEIRONG.contains("贴花") || CF.TUPIAN_NEIRONG.contains("史诗奖励"))
+                MouseUtils.mouseDianJi(1821 + (int) (Math.random() * 45), 52 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
+            if (CF.TUPIAN_NEIRONG.contains("已完成任务"))
+                MouseUtils.mouseDianJi(1832 + (int) (Math.random() * 45), 40 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
+            if (CF.TUPIAN_NEIRONG.contains("已获得奖励"))
+                MouseUtils.mouseDianJi(1841 + (int) (Math.random() * 45), 30 + CF.SCRN_SIZE[2] + (int) (Math.random() * 9));
 
             logger.debug("关闭贴花完成:{}ms", System.currentTimeMillis() - startTime);
 //            if (TUPIAN_NEIRONG.contains("贴花")) {
@@ -88,7 +92,7 @@ public class StartMain {
                 CF.robot.keyRelease(KeyEvent.VK_ENTER);
             }
             if (CF.TUPIAN_NEIRONG.contains("离开战斗") || CF.TUPIAN_NEIRONG.contains("返回车库")) ZhanDouFun.jihui();
-            if (CF.TUPIAN_NEIRONG.contains("确认购买") || CF.TUPIAN_NEIRONG.contains("小队未准备好")) {
+            if (CF.TUPIAN_NEIRONG.contains("确认购买") || CF.TUPIAN_NEIRONG.contains("小队未准备好") || CF.TUPIAN_NEIRONG.contains("确认要退出该小队")) {
                 CF.robot.keyPress(KeyEvent.VK_ESCAPE);
                 Thread.sleep(50);
                 CF.robot.keyRelease(KeyEvent.VK_ESCAPE);
