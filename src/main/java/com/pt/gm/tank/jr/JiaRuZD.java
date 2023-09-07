@@ -43,7 +43,12 @@ public class JiaRuZD {
     }
 
     public static boolean jiaRu(BufferedImage screenshot) throws InterruptedException {
-        juntuanJiacheng(screenshot);
+        if (juntuanJiacheng(screenshot)){
+            //车库按钮
+            MouseUtils.mouseDianJi(654 + 5 + (int) (Math.random() * 35), 80 + 5 + (int) (Math.random() * 20));
+            logger.debug("4返回车库");
+        }
+
 
         if (CF.TUPIAN_NEIRONG.contains("战斗结果") && CF.TUPIAN_NEIRONG.contains("个人战绩") && CF.TUPIAN_NEIRONG.contains("团队战绩")) {
             MouseUtils.mouseDianJi(CF.SCRN_SIZE[0]/2, CF.SCRN_SIZE[1]/2);
@@ -98,13 +103,13 @@ public class JiaRuZD {
         return true;
     }
 
-    private static void juntuanJiacheng(BufferedImage screenshot) throws InterruptedException {
+    private static boolean juntuanJiacheng(BufferedImage screenshot) throws InterruptedException {
         Integer jun_tuan_1 = CF.getIntegerConfig("JUN_TUAN_1");
         Integer jun_tuan_2 = CF.getIntegerConfig("JUN_TUAN_2");
 
         boolean flag1 = jun_tuan_1 != null && !isOpenJC(screenshot, 1);
         boolean flag2 = jun_tuan_2 != null && !isOpenJC(screenshot, 2);
-        if (!flag1 && !flag2) return;       //两个加成都已经开启
+        if (!flag1 && !flag2) return jun_tuan_1 != null || jun_tuan_2 != null;       //两个加成都已经开启
 
         logger.debug("1开始打开军团加成");
         MouseUtils.mouseDianJi(1586+5 + (int) (Math.random() * 28) , CF.SCRN_SIZE[2]+5 + 9 + (int) (Math.random() * 27));       //点击加成页面
@@ -125,7 +130,14 @@ public class JiaRuZD {
         }
         logger.debug("3军团加成页面");
 
-        if (!ImgUtils.getString(ImgUtils.screenshot()).contains("军团战斗")) return;
+        BufferedImage screenshotT = ImgUtils.screenshot();
+        if (!ImgUtils.getString(screenshotT).contains("军团战斗")) return true;
+
+        //在小队里面
+        String contentT = ImgUtils.getString(screenshotT.getSubimage(550, 280, 200, 100));
+        if (contentT.contains("小队") && contentT.contains("标准模式"))
+            MouseUtils.mouseDianJi(161 + 5 + (int) (Math.random() * 118), 1008 + 5 + (int) (Math.random() * 15));       //点谁
+
 
         int index;String name;
         if (flag1) {
@@ -175,9 +187,7 @@ public class JiaRuZD {
             }
         }
 
-        //车库按钮
-        MouseUtils.mouseDianJi(654 + 5 + (int) (Math.random() * 35), 80 + 5 + (int) (Math.random() * 20));
-        logger.debug("4返回车库");
+        return true;
     }
 
     private static boolean isOpenJC(BufferedImage screenshot, int type) {
