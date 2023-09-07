@@ -24,6 +24,7 @@ public class JiaRuZD {
     private static long timeT = System.currentTimeMillis();
     private static String tankName;
     public static String mapName = "";
+    public static int zhuanxSD = 30;
 
     private static int jiaruIndex;
 
@@ -97,7 +98,10 @@ public class JiaRuZD {
             }
             tankName = "第" + (i+1) + "号车：" + fileContent;
 
-            Thread.sleep(500);
+            if (CF.ZX_SD.get(i) != null && CF.ZX_SD.size() > i){
+                zhuanxSD = CF.ZX_SD.get(i);
+            }
+            Thread.sleep(200);
             if (!jiarujiemian(ImgUtils.screenshot())) break;
         }
         return true;

@@ -92,7 +92,7 @@ public class StartMain {
                 CF.robot.keyRelease(KeyEvent.VK_ENTER);
             }
             if (CF.TUPIAN_NEIRONG.contains("离开战斗") || CF.TUPIAN_NEIRONG.contains("返回车库")) ZhanDouFun.jihui();
-            if (CF.TUPIAN_NEIRONG.contains("确认购买") || CF.TUPIAN_NEIRONG.contains("小队未准备好") || CF.TUPIAN_NEIRONG.contains("确认要退出该小队")) {
+            if (CF.TUPIAN_NEIRONG.contains("确认购买") || CF.TUPIAN_NEIRONG.contains("小队未准备好") || CF.TUPIAN_NEIRONG.contains("确认要退出该小队") || CF.TUPIAN_NEIRONG.contains("断开服务器连接")) {
                 CF.robot.keyPress(KeyEvent.VK_ESCAPE);
                 Thread.sleep(50);
                 CF.robot.keyRelease(KeyEvent.VK_ESCAPE);

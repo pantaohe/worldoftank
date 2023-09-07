@@ -1,6 +1,7 @@
 package com.pt.gm.tank.kongzhi;
 
 import com.pt.gm.tank.config.CF;
+import com.pt.gm.tank.jr.JiaRuZD;
 import com.pt.gm.tank.util.ImgUtils;
 import com.pt.gm.tank.zhandou.ZhanDou;
 import com.pt.gm.tank.zhandou.ZhanDouFun;
@@ -80,7 +81,7 @@ public class FangXiangKongZhi{
             int mbjd = ZhanDouFun.jiaodu(myAddr, mubiao);       //目标角度
             int jdc = (myAddr[2] - mbjd + 360) % 360;       //自己向右旋转的度数
             int zxjd = jdc > 180 ? (360 - jdc) : jdc;
-            int millis = zxjd * 20; millis = millis > 2200 ? 2200 : millis;   // jdc 360-jdc
+            int millis = zxjd * 600 / JiaRuZD.zhuanxSD; millis = millis > 2400 ? 2400 : millis;   // jdc 360-jdc
 
 
             if ((Math.abs(ddt2 -ddt1) + Math.abs(ddt1-dd)) < 10 && !isfx) {        //被房子等卡住了，随机向左或向右2秒

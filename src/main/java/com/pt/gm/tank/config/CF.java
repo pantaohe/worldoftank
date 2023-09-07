@@ -33,6 +33,7 @@ public class CF {
     public static boolean OPEN_GUA_JI = true;       //默认自动运行
     public static String FEN_BIAN_LV = "";      //默认非全屏
     public static List<Integer> CHE_XU = new ArrayList(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));      //车序
+    public static List<Integer> ZX_SD = null;      //车序
     public static boolean KAI_PAO_MO_REN_SHE_ZHI = true;      //是否默认开炮
     public static boolean KAI_PAO = true;      //是否自动开炮
     public static boolean ONLY_SCREENSHOT = false;      //是否只开启截图功能
@@ -74,6 +75,8 @@ public class CF {
 
             List<Integer> che_xu = getListConfig("CHE_XU");
             if (che_xu != null && che_xu.size() > 0) CHE_XU = che_xu;
+            List<Integer> zx_sd = getListConfig("ZX_SD");
+            if (zx_sd != null && zx_sd.size() > 0) ZX_SD = zx_sd;
 
             flag = getBooleanConfig("KAI_PAO");
             if (flag != null) KAI_PAO = flag;
@@ -103,6 +106,7 @@ public class CF {
             logger.debug("是否自动挂机：{}", OPEN_GUA_JI);
             logger.debug("屏幕分辨率：{}", FEN_BIAN_LV);
             logger.debug("出车顺序：{}", CHE_XU);
+            logger.debug("对应转向速度：{}", ZX_SD);
             logger.debug("是否自动开炮：{}", KAI_PAO);
             logger.debug("设置开炮按键：{}", KAI_PAO_MO_REN_SHE_ZHI);
 
