@@ -98,7 +98,7 @@ public class JiaRuZD {
             }
             tankName = "第" + (i+1) + "号车：" + fileContent;
 
-            if (CF.ZX_SD.get(i) != null && CF.ZX_SD.size() > i){
+            if (CF.ZX_SD != null && CF.ZX_SD.size() > i){
                 zhuanxSD = CF.ZX_SD.get(i);
             }
             Thread.sleep(200);
